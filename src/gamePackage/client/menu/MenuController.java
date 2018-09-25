@@ -46,19 +46,16 @@ import java.awt.event.MouseEvent;
         private void init() {
 
                 //Menu's initialisieren
-            this.mainMenu = new MainMenu(display);
             this.serverMenu = new ServerMenu(display);
-            this.multiplayerMenu = new MultiPlayerMenu(display);
 
             createMainMenu();
 
-            this.join = new Button(315, 310, 330, 90, "res/images/menu/buttons/sing-button", true);
-            this.host = new Button(315, 470, 330, 90, "res/images/menu/buttons/sing-button", true);
-            this.back = new Button(70, 810, 155, 50, "res/images/menu/buttons/sing-button", true);
+
         }
 
         private void createMainMenu() {
 
+            this.mainMenu = new MainMenu(display);
             display.getActivePanel().drawObjectOnPanel(mainMenu);
 
                 //MainMenu Buttons
@@ -71,42 +68,66 @@ import java.awt.event.MouseEvent;
         }
 
 
+        public void removeMainMenu(){
+            //remove buttons
+            display.getActivePanel().removeObjectFromPanel(duell);
+            display.getActivePanel().removeObjectFromPanel(tournament);
+            display.getActivePanel().removeObjectFromPanel(singleplayer);
+            //remove mainmenu
+            display.getActivePanel().removeObjectFromPanel(mainMenu);
+
+            singleplayer = null;
+            duell = null;
+            tournament = null;
+            mainMenu = null;
+        }
+
+
+        public void createMultiplayerMenu(){
+            this.multiplayerMenu = new MultiPlayerMenu(display);
+            this.join = new Button(315, 310, 330, 90, "res/images/menu/buttons/sing-button", true);
+            this.host = new Button(315, 470, 330, 90, "res/images/menu/buttons/sing-button", true);
+            this.back = new Button(70, 810, 155, 50, "res/images/menu/buttons/sing-button", true);
+            display.getActivePanel().drawObjectOnPanel(multiplayerMenu);
+            display.getActivePanel().drawObjectOnPanel(join);
+            display.getActivePanel().drawObjectOnPanel(host);
+            display.getActivePanel().drawObjectOnPanel(back);
+        }
+
+        public void removeMultiplayerMenu(){
+            display.getActivePanel().removeObjectFromPanel(join);
+            display.getActivePanel().removeObjectFromPanel(host);
+            display.getActivePanel().removeObjectFromPanel(back);
+
+            join = null;
+            host = null;
+            back = null;
+            display.getActivePanel().removeObjectFromPanel(multiplayerMenu);
+            multiplayerMenu = null;
+        }
+
+
         @Override
         public void update(double delta) {
 
                 //MainMenu
             if(menuType == 0) {
 
-                if(singleplayer.isClicked() || duell.isClicked() || tournament.isClicked()) {
 
-                        //Remove buttons
-                    display.getActivePanel().removeObjectFromPanel(duell);
-                    display.getActivePanel().removeObjectFromPanel(tournament);
-                    display.getActivePanel().removeObjectFromPanel(singleplayer);
-
-                        //Remove menu
-                    display.getActivePanel().removeObjectFromPanel(mainMenu);
-                }
-
-                    //Rufe das ServerMenu auf und entferne alle Elemente des MainMenu
                 if(singleplayer.isClicked()) {
 
                         //Starte den Singleplayer-Modus
                     menuType = -1;
                     display.getActivePanel().removeObjectFromPanel(this);
+                    removeMainMenu();
 
                 }
 
                     //Starte MultiMenu
                 else if(duell.isClicked()) {
-
                     menuType = 1;
-                    display.getActivePanel().drawObjectOnPanel(multiplayerMenu);
-
-                        //Button hinzufügen
-                    display.getActivePanel().drawObjectOnPanel(join);
-                    display.getActivePanel().drawObjectOnPanel(host);
-                    display.getActivePanel().drawObjectOnPanel(back);
+                    removeMainMenu();
+                    createMultiplayerMenu();
                 }
 
                     //Starte Tunier-Menü
@@ -119,17 +140,13 @@ import java.awt.event.MouseEvent;
                 //MultiMenu
             else if(menuType == 1) {
 
-                if(back.isClicked() || join.isClicked() || host.isClicked()) {
 
-                    display.getActivePanel().removeObjectFromPanel(join);
-                    display.getActivePanel().removeObjectFromPanel(host);
-                    display.getActivePanel().removeObjectFromPanel(back);
-                }
 
                     //Zurück zum MainMenu
                 if(back.isClicked()) {
 
                     menuType = 0;
+                    removeMultiplayerMenu();
                     createMainMenu();
                 }
             }
