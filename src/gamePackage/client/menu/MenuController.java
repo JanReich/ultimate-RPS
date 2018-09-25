@@ -98,7 +98,6 @@ import java.awt.event.MouseEvent;
             display.getActivePanel().removeObjectFromPanel(join);
             display.getActivePanel().removeObjectFromPanel(host);
             display.getActivePanel().removeObjectFromPanel(back);
-
             join = null;
             host = null;
             back = null;
