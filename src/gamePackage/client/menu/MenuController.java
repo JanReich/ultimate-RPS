@@ -49,8 +49,6 @@ import java.awt.event.MouseEvent;
             this.serverMenu = new ServerMenu(display);
 
             createMainMenu();
-
-
         }
 
         private void createMainMenu() {
@@ -141,8 +139,20 @@ import java.awt.event.MouseEvent;
 
 
 
+                if(join.isClicked()) {
+
+                    menuType = -1;
+                    //TODO: HOST MENU
+                }
+
+                else if(host.isClicked()) {
+
+                    menuType = -1;
+                    //TODO: HOST MENU
+                }
+
                     //Zurück zum MainMenu
-                if(back.isClicked()) {
+                else if(back.isClicked()) {
 
                     menuType = 0;
                     removeMultiplayerMenu();
