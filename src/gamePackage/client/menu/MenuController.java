@@ -65,6 +65,7 @@ import java.awt.event.MouseEvent;
             display.getActivePanel().drawObjectOnPanel(duell);
             this.tournament = new Button(540, 600, 350, 85,"res/images/menu/buttons/sing-button", true);
             display.getActivePanel().drawObjectOnPanel(tournament);
+
         }
 
 
