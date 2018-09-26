@@ -1,90 +1,80 @@
 package toolBox;
 
-import graphics.interfaces.TimeBasedObject;
+import graphics.interfaces.GraphicalObject;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
-public class Animation implements TimeBasedObject {
+/**
+ * Created by David on 20.09.2017.
+ */
+public class Animation implements GraphicalObject {
 
-            //Attribute
-        private double time;
-        private double duration;
+    private double spriteTimer;
+    private double animationSpeed;
+    private double breakTime;
+    private int spriteNumber;
+    private int amountOfImages;
+    private boolean repeating;
 
-        private int currentAnimation;
 
-        private boolean stopped;
+    private BufferedImage image;
+    private BufferedImage[] sprites;
+    private BufferedImage spriteSheet;
 
-            //Referenzen
-        private SpriteSheet sprite;
-        private ArrayList<BufferedImage> frames;
 
-    public Animation(SpriteSheet sprite, double duration) {
 
-        this(sprite, duration, true);
+    public Animation(String path, double animationSpeed, int amountOfImages, double breakTime){
+        this.animationSpeed = animationSpeed;
+        this.amountOfImages = amountOfImages;
+        this.breakTime = breakTime;
+        //this.spriteSheet = createNewImage(path);
+        this.sprites = new BufferedImage[amountOfImages];
+        repeating = true;
+        spriteTimer = animationSpeed;
+        splitSheet();
+    }
+    public Animation(String path, double animationSpeed, int amountOfImages, double breakTime, boolean repeating){
+        this.animationSpeed = animationSpeed;
+        this.amountOfImages = amountOfImages;
+        this.breakTime = breakTime;
+        //this.spriteSheet = createNewImage(path);
+        this.sprites = new BufferedImage[amountOfImages];
+        this.repeating = repeating;
+        spriteTimer = animationSpeed;
+        splitSheet();
     }
 
-    public Animation(SpriteSheet sprite, double duration, boolean stopped) {
-
-        this.sprite = sprite;
-        this.stopped = stopped;
-        this.duration = duration;
-
-        initImpl();
+    public void splitSheet(){
+        for (int i = 0; i < sprites.length; i++) {
+            sprites[i] = spriteSheet.getSubimage(spriteSheet.getWidth()/amountOfImages * i, 0, spriteSheet.getWidth()/amountOfImages, spriteSheet.getHeight());
+        }
     }
 
-    private void initImpl() {
-
-        if(frames == null) {
-
-            frames = new ArrayList<>();
-
-            for(int col = 0; col < sprite.getTilesAcross(); col++) {
-
-                for(int row = 0; row < sprite.getTilesDown(); row++) {
-
-                    frames.add(sprite.getSubImage(col, row));
-                }
+    public BufferedImage getAnimation(){
+        if (spriteTimer < 0) {
+            if (spriteNumber <= sprites.length - 1) {
+                image = sprites[spriteNumber];
+                spriteNumber += 1;
+                spriteTimer = animationSpeed;
+            } else if(repeating){
+                spriteNumber = 0;
+                spriteTimer = breakTime;
             }
         }
+        return image;
+    }
+
+
+
+    @Override
+    public void update(double dt) {
+        spriteTimer = spriteTimer -dt;
+
+
     }
 
     @Override
-    public void update(double delta) {
+    public void draw(DrawHelper draw) {
 
-        if(!stopped) {
-
-            time += delta;
-            if (time >= duration) {
-
-                time = 0;
-                if (!(currentAnimation + 1 == frames.size())) currentAnimation++;
-                else currentAnimation = 0;
-            }
-        }
-    }
-
-    public void start() {
-
-        if(stopped) stopped = !stopped;
-    }
-
-    public void restart() {
-
-        if(stopped) {
-
-            currentAnimation = 0;
-            stopped = !stopped;
-        }
-    }
-
-    public void stop() {
-
-        if(!stopped) stopped = !stopped;
-    }
-
-    public BufferedImage getCurrentAnimation() {
-
-        return frames.get(currentAnimation);
     }
 }
