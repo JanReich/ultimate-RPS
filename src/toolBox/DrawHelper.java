@@ -134,13 +134,13 @@ public class DrawHelper {
         if(g2d != null && image != null) g2d.drawImage(image, x, y, width, height,null);
     }
 
-        //Animation()
-    public void drawAnimation(Animation animation, int x, int y, int width, int height) {
+        //AnimationOld()
+    public void drawAnimation(AnimationOld animation, int x, int y, int width, int height) {
 
         if(g2d != null && animation != null) g2d.drawImage(animation.getCurrentAnimation(), x, y, width, height, null);
     }
 
-    public void drawAnimation(Animation animation, int x, int y) {
+    public void drawAnimation(AnimationOld animation, int x, int y) {
 
         if(animation != null) this.drawAnimation(animation, x , y, animation.getCurrentAnimation().getWidth(), animation.getCurrentAnimation().getHeight());
     }
