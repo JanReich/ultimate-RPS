@@ -134,12 +134,13 @@ import java.awt.event.MouseEvent;
         this.nameMenu = new NameMenu(display);
         display.getActivePanel().drawObjectOnPanel(nameMenu);
 
-        //this.ok = new Button()
+        this.ok = new Button(637, 462, 80, 50,"res/images/menu/buttons/ok-button", true);
+        display.getActivePanel().drawObjectOnPanel(ok);
     }
 
     public void removeNameMenu() {
 
-
+        nameMenu.remove();
     }
 
     private void createMainMenu() {

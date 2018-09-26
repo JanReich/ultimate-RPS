@@ -46,4 +46,9 @@ import java.awt.image.BufferedImage;
             else
                 nameInput.setTyping(false);
         }
+
+        public void remove() {
+
+            display.getActivePanel().removeObjectFromPanel(nameInput);
+        }
     }
