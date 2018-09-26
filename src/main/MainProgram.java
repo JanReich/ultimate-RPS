@@ -20,9 +20,6 @@ public class MainProgram {
             controller = new MenuController(display);
 
             display.getActivePanel().addManagement(controller);
-
-            KickedMenu k = new KickedMenu(display);
-            display.getActivePanel().drawObjectOnPanel(k);
         }
 
         public static void main(String[] args) {
