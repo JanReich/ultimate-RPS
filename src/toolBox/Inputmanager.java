@@ -10,33 +10,66 @@ import java.awt.event.MouseEvent;
                 //Attribute
             private boolean typing;
 
+            private boolean crtl;
+            private boolean shift;
+
+            private boolean limit;
+            private int maxAmountOfChars;
+
                 //Referenzen
             private String inputQuerry;
+            private TextTransfer textTransfer;
 
         public Inputmanager() {
 
             inputQuerry = "";
+            textTransfer = new TextTransfer();
         }
 
         public Inputmanager(boolean typing) {
 
             inputQuerry = "";
             this.typing = typing;
+            textTransfer = new TextTransfer();
         }
 
         public Inputmanager(String inputQuerry) {
 
             this.inputQuerry = inputQuerry;
+            textTransfer = new TextTransfer();
         }
 
         public Inputmanager(String inputQuerry, boolean typing) {
 
             this.typing = typing;
             this.inputQuerry = inputQuerry;
+            textTransfer = new TextTransfer();
+        }
+
+        public Inputmanager(int limit) {
+
+            this.limit = true;
+            this.maxAmountOfChars = limit;
+            this.inputQuerry = "";
+            this.textTransfer = new TextTransfer();
         }
 
         @Override
         public void keyReleased(KeyEvent event) {
+
+            if(event.getKeyCode() == KeyEvent.VK_CONTROL)
+                crtl = false;
+            if(event.getKeyCode() == KeyEvent.VK_SHIFT)
+                shift = false;
+        }
+
+        @Override
+        public void keyPressed(KeyEvent event) {
+
+            if(event.getKeyCode() == KeyEvent.VK_CONTROL)
+                crtl = true;
+            if(event.getKeyCode() == KeyEvent.VK_SHIFT)
+                shift = true;
 
             switch (event.getKeyCode()) {
 
@@ -126,7 +159,10 @@ import java.awt.event.MouseEvent;
                     break;
                 case KeyEvent.VK_V:
 
-                    appendToString('v');
+                    if(crtl)
+                        appendToString(textTransfer.getClipboardContents());
+                    else
+                        appendToString('v');
                     break;
                 case KeyEvent.VK_W:
 
@@ -190,7 +226,8 @@ import java.awt.event.MouseEvent;
                     break;
                 case KeyEvent.VK_BACK_SPACE:
 
-                    inputQuerry = inputQuerry.substring(0, inputQuerry.length() - 1);
+                    if(inputQuerry.length() >= 1)
+                        inputQuerry = inputQuerry.substring(0, inputQuerry.length() - 1);
                     break;
                 case KeyEvent.VK_PERIOD:    //Punkt
 
@@ -205,7 +242,45 @@ import java.awt.event.MouseEvent;
 
         private void appendToString(char c) {
 
-            if(typing) inputQuerry += c;
+            if(limit) {
+
+                if (inputQuerry.length() < maxAmountOfChars) {
+
+                    add(c);
+                }
+            } else {
+
+                add(c);
+            }
+        }
+
+        private void add(char c) {
+
+            if (shift) {
+
+                String s = "";
+                s += c;
+                if (typing) inputQuerry += s.toUpperCase();
+            } else if (typing) inputQuerry += c;
+        }
+
+        private void appendToString(String s) {
+
+            char[] c = s.toCharArray();
+
+            for (int i = 0; i < c.length; i++) {
+
+                if(limit) {
+
+                    if (inputQuerry.length() < maxAmountOfChars) {
+
+                        if (typing) inputQuerry += c[i];
+                    }
+                } else {
+
+                    if (typing) inputQuerry += s;
+                }
+            }
         }
 
         @Override

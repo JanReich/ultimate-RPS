@@ -7,7 +7,7 @@ import toolBox.Button;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-public class MenuController implements ManagementObject {
+    public class MenuController implements ManagementObject {
 
             //Attribute
         /**
@@ -15,6 +15,8 @@ public class MenuController implements ManagementObject {
          *  0 = MainMenu
          *  1 = MultiMenu
          *  2 = ServerMenu
+         *  3 = NameMenu
+         *  4= TournamentMenu
          */
         private int menuType;
 
@@ -23,6 +25,7 @@ public class MenuController implements ManagementObject {
 
             //different menu's
         private MainMenu mainMenu;
+        private NameMenu nameMenu;
         private ServerMenu serverMenu;
         private MultiPlayerMenu multiplayerMenu;
 
@@ -35,6 +38,9 @@ public class MenuController implements ManagementObject {
         private Button join;
         private Button host;
         private Button back;
+
+            //NameMenu button's
+        private Button ok;
 
     public MenuController(Display display) {
 
@@ -61,15 +67,17 @@ public class MenuController implements ManagementObject {
 
                 //Starte MultiMenu
             else if(duell.isClicked()) {
-                menuType = 1;
+                menuType = 3;
                 removeMainMenu();
-                createMultiplayerMenu();
+                createNameMenu(0);
             }
 
                 //Starte Tunier-Menü
             else if(tournament.isClicked()) {
 
-                //TODO: WENN TEXTUR
+                menuType = 3;
+                removeMainMenu();
+                createNameMenu(1);
             }
         }
 
@@ -103,6 +111,29 @@ public class MenuController implements ManagementObject {
 
 
         }
+
+            //NameMenu
+        else if(menuType == 3) {
+
+            if(ok.isClicked()) {
+
+                if(nameMenu.getNameInput().getInputQuerry().length() >= 3) {
+
+                    if(nameMenu.getType() == 0) {
+
+                        menuType = 1;
+                        removeNameMenu();
+                        createMultiplayerMenu();
+                    } else if(nameMenu.getType() == 1) {
+
+                        menuType = 4;
+                        removeNameMenu();
+                        createTournamentMenu();
+                    }
+                } else
+                    nameMenu.setMistake(1);
+            }
+        }
     }
 
     @Override
@@ -111,23 +142,56 @@ public class MenuController implements ManagementObject {
     }
 
     @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+        @Override
     public void mouseReleased(MouseEvent e) {
 
         System.out.println("X: " + e.getX() + " - Y: " + e.getY());
     }
 
+    public void createTournamentMenu() {
+
+
+    }
+
+    public void removeTournamentMenu() {
+
+
+    }
+
+    public void createNameMenu(int type) {
+
+        this.nameMenu = new NameMenu(display, type);
+        display.getActivePanel().drawObjectOnPanel(nameMenu);
+
+        this.ok = new Button(637, 462, 80, 50,"res/images/menu/buttons/ok-button", true);
+        display.getActivePanel().drawObjectOnPanel(ok);
+    }
+
+    public void removeNameMenu() {
+
+        nameMenu.remove();
+        display.getActivePanel().removeObjectFromPanel(ok);
+        display.getActivePanel().removeObjectFromPanel(nameMenu);
+
+        ok = null;
+        nameMenu = null;
+    }
 
     private void createMainMenu() {
 
         this.mainMenu = new MainMenu(display);
         display.getActivePanel().drawObjectOnPanel(mainMenu);
 
-        //MainMenu Buttons
+            //MainMenu Buttons
         this.singleplayer = new Button(305, 380, 350, 85, "res/images/menu/buttons/sing-button", true);
         display.getActivePanel().drawObjectOnPanel(singleplayer);
-        this.duell = new Button(75, 600, 350, 85,"res/images/menu/buttons/sing-button", true);
+        this.duell = new Button(75, 600, 350, 85,"res/images/menu/buttons/duell-button", true);
         display.getActivePanel().drawObjectOnPanel(duell);
-        this.tournament = new Button(540, 600, 350, 85,"res/images/menu/buttons/sing-button", true);
+        this.tournament = new Button(540, 600, 350, 85,"res/images/menu/buttons/tournament-button", true);
         display.getActivePanel().drawObjectOnPanel(tournament);
     }
 
@@ -151,10 +215,12 @@ public class MenuController implements ManagementObject {
     public void createMultiplayerMenu() {
 
         this.multiplayerMenu = new MultiPlayerMenu(display);
+        display.getActivePanel().drawObjectOnPanel(multiplayerMenu);
+
+            //Buttons
         this.join = new Button(315, 310, 330, 90, "res/images/menu/buttons/sing-button", true);
         this.host = new Button(315, 470, 330, 90, "res/images/menu/buttons/sing-button", true);
         this.back = new Button(70, 810, 155, 50, "res/images/menu/buttons/sing-button", true);
-        display.getActivePanel().drawObjectOnPanel(multiplayerMenu);
         display.getActivePanel().drawObjectOnPanel(join);
         display.getActivePanel().drawObjectOnPanel(host);
         display.getActivePanel().drawObjectOnPanel(back);
@@ -165,6 +231,7 @@ public class MenuController implements ManagementObject {
         display.getActivePanel().removeObjectFromPanel(join);
         display.getActivePanel().removeObjectFromPanel(host);
         display.getActivePanel().removeObjectFromPanel(back);
+
         join = null;
         host = null;
         back = null;

@@ -9,5 +9,7 @@ public interface ManagementObject {
 
         void keyReleased(KeyEvent e);
 
+        void keyPressed(KeyEvent e);
+
         void mouseReleased(MouseEvent e);
     }
