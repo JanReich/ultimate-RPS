@@ -37,6 +37,10 @@ import java.awt.image.BufferedImage;
         @Override
         public void draw(DrawHelper draw) {
 
+        }
+
+        public void paint(DrawHelper draw) {
+
             if(hover) {
 
                 if(!inside) draw.drawImage(normal, x, y, width, height);

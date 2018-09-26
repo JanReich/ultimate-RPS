@@ -134,6 +134,12 @@ public class DrawHelper {
         if(g2d != null && image != null) g2d.drawImage(image, x, y, width, height,null);
     }
 
+        //Button zeichnen
+    public void drawButton(Button button) {
+
+        if(g2d != null && button != null) button.paint(this);
+    }
+
         //AnimationOld()
     public void drawAnimation(AnimationOld animation, int x, int y, int width, int height) {
 

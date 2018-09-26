@@ -16,7 +16,7 @@ import java.awt.event.MouseEvent;
 
         public KickedMenu(Display display, MenuController controller) {
 
-            super(display);
+            super(display, controller);
 
             this.controller = controller;
         }
@@ -26,6 +26,11 @@ import java.awt.event.MouseEvent;
 
             back = new Button(100, 100, 100, 80, "res/images/menu/buttons/kicked-back", true);
             display.getActivePanel().drawObjectOnPanel(back);
+        }
+
+        @Override
+        public void remove() {
+
         }
 
         @Override

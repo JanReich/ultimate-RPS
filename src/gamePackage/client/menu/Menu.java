@@ -16,10 +16,12 @@ public abstract class Menu implements BasicInteractableObject {
                 //Referenzen
             protected Display display;
             protected BufferedImage background;
+            protected MenuController controller;
 
-        public Menu(Display display) {
+        public Menu(Display display, MenuController controller) {
 
             this.display = display;
+            this.controller = controller;
 
             init();
         }
@@ -29,6 +31,8 @@ public abstract class Menu implements BasicInteractableObject {
          * Objekte initalisiert und es können beispielsweise auch Bilder geladen werden.
          */
         public abstract void init();
+
+        public abstract void remove();
 
         /**
          * Diese Methode liefert einen Boolean zurück, ob der Cursor in der übergebenen Box ist.

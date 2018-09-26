@@ -1,6 +1,7 @@
 package gamePackage.client.menu;
 
 import graphics.Display;
+import toolBox.Button;
 import toolBox.DrawHelper;
 import toolBox.ImageHelper;
 import toolBox.Inputmanager;
@@ -18,15 +19,21 @@ import java.awt.image.BufferedImage;
              * 1 = tournament
              */
             private int type;
+            /**
+             * In dieser Methode wird eine ID für einen Fehler übergeben, damit dieser graphisch dargestellt werden kann.
+             * 0 = kein Fehler
+             * 1 = Name zu kurz
+             */
             private int errorID;
 
                 //Referenzen
+            private Button ok;
             private BufferedImage image;
             private Inputmanager nameInput;
 
-        public NameMenu(Display display, int type) {
+        public NameMenu(Display display, MenuController controller, int type) {
 
-            super(display);
+            super(display, controller);
             this.type = type;
         }
 
@@ -36,6 +43,16 @@ import java.awt.image.BufferedImage;
             nameInput = new Inputmanager(11);
             display.getActivePanel().addManagement(nameInput);
             image = ImageHelper.getImage("res/images/menu/name-menu.png");
+
+            this.ok = new Button(637, 462, 80, 50,"res/images/menu/buttons/ok-button", true);
+            display.getActivePanel().drawObjectOnPanel(ok);
+        }
+
+        public void remove() {
+
+            display.getActivePanel().removeObjectFromPanel(nameInput);
+            display.getActivePanel().removeObjectFromPanel(ok);
+            ok = null;
         }
 
         @Override
@@ -45,6 +62,9 @@ import java.awt.image.BufferedImage;
             draw.drawImage(image, 0, 0, display.getWidth(), display.getHeight());
             draw.setFont(new Font("consola", Font.BOLD, 25));
             draw.drawString(nameInput.getInputQuerry(), 375, 501);
+
+                //Button's
+            draw.drawButton(ok);
 
                 //Name too short
             if(errorID == 1) {
@@ -64,24 +84,30 @@ import java.awt.image.BufferedImage;
                 nameInput.setTyping(false);
         }
 
-        public void remove() {
+        @Override
+        public void update(double dt) {
 
-            display.getActivePanel().removeObjectFromPanel(nameInput);
+            if(ok.isClicked()) {
+
+                if(getNameInput().getInputQuerry().length() >= 3) {
+
+                    if(type == 0) {
+
+                        controller.removeNameMenu();
+                        controller.createMultiplayerMenu();
+                    } else if(type == 1) {
+
+                        controller.removeNameMenu();
+                        controller.createTournamentMenu();
+                    }
+                } else
+                    errorID = 1;
+            }
         }
 
         public Inputmanager getNameInput() {
 
             return nameInput;
-        }
-
-        /**
-         * In dieser Methode wird eine ID für einen Fehler übergeben, damit dieser graphisch dargestellt werden kann.
-         * 0 = kein Fehler
-         * 1 = Name zu kurz
-         */
-        public void setMistake(int id) {
-
-            errorID = id;
         }
 
         public int getType() {
