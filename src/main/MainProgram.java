@@ -1,10 +1,8 @@
 package main;
 
-import gamePackage.client.GameClient;
+import gamePackage.client.menu.KickedMenu;
 import gamePackage.client.menu.MenuController;
-import gamePackage.server.GameServer;
 import graphics.Display;
-import toolBox.TextTransfer;
 
 import java.awt.*;
 
@@ -23,8 +21,8 @@ public class MainProgram {
 
             display.getActivePanel().addManagement(controller);
 
-            new GameServer(666);
-            new GameClient("localhost", 666);
+            KickedMenu k = new KickedMenu(display);
+            display.getActivePanel().drawObjectOnPanel(k);
         }
 
         public static void main(String[] args) {

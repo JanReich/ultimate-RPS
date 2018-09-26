@@ -59,9 +59,7 @@ public abstract class Menu implements BasicInteractableObject {
         }
 
         @Override
-        public void update(double delta) {
-
-        }
+        public abstract void update(double delta);
 
         @Override
         public abstract void draw(DrawHelper draw);
