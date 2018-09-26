@@ -1,6 +1,8 @@
 package main;
 
+import gamePackage.client.GameClient;
 import gamePackage.client.menu.MenuController;
+import gamePackage.server.GameServer;
 import graphics.Display;
 import toolBox.TextTransfer;
 
@@ -20,6 +22,9 @@ public class MainProgram {
             controller = new MenuController(display);
 
             display.getActivePanel().addManagement(controller);
+
+            new GameServer(666);
+            new GameClient("localhost", 666);
         }
 
         public static void main(String[] args) {
