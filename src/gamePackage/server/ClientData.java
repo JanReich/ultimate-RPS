@@ -5,20 +5,14 @@ package gamePackage.server;
                 //Attribute
             private int port;
             private int clientID;
-            private int spectatorID;
 
             private boolean host;
+            private boolean spectator;
 
                 //Referent
             private String username;
             private String clientIP;
 
-
-        public ClientData(String username, int spectatorID) {
-
-            this.username = username;
-            this.spectatorID = spectatorID;
-        }
 
         public ClientData(String username, int clientID, boolean host) {
 
@@ -27,13 +21,13 @@ package gamePackage.server;
             this.username = username;
         }
 
-        public ClientData(String clientIP, int port, String username, int spectatorID) {
+        public ClientData(String clientIP, int port, String username, boolean spectator) {
 
             this.port = port;
             this.clientIP = clientIP;
 
             this.username = username;
-            this.spectatorID = spectatorID;
+            this.spectator = spectator;
         }
 
         public ClientData(String clientIP, int port, boolean host, String username, int clientID) {
@@ -56,11 +50,6 @@ package gamePackage.server;
             return clientID;
         }
 
-        public int getSpectatorID() {
-
-            return spectatorID;
-        }
-
         public boolean isHost() {
 
             return host;
@@ -74,5 +63,10 @@ package gamePackage.server;
         public String getClientIP() {
 
             return clientIP;
+        }
+
+        public boolean isSpectator() {
+
+            return spectator;
         }
     }

@@ -32,11 +32,7 @@ import java.util.HashMap;
                 //Player
                 if(pMessage.length() == 7)
                     connectedClients.put(Integer.parseInt(messages[4]), new ClientData(messages[2], Integer.parseInt(messages[4]), Boolean.parseBoolean(messages[6])));
-
-                    //Spectator
-                else
-                    connectedClients.put(Integer.parseInt(messages[4]), new ClientData(messages[2], Integer.parseInt(messages[4])));
-            }
+                }
 
             else if(pMessage.startsWith("joined: ")) {
 
@@ -45,10 +41,6 @@ import java.util.HashMap;
                     //Player
                 if(pMessage.length() == 7)
                     connectedClients.put(Integer.parseInt(messages[4]), new ClientData(messages[2], Integer.parseInt(messages[4]), Boolean.parseBoolean(messages[6])));
-
-                    //Spectator
-                else
-                    connectedClients.put(Integer.parseInt(messages[4]), new ClientData(messages[2], Integer.parseInt(messages[4])));
             }
 
             else if(pMessage.startsWith("clientDisconnect: ")) {
@@ -69,6 +61,24 @@ import java.util.HashMap;
                 } else {
 
                     System.err.println(pMessage.replace("disconnect: ", ""));
+                }
+            }
+
+
+            if(pMessage.startsWith("RegisterSuccessful: ")) {
+
+                String[] messages = pMessage.split(": ");
+
+                    //Player
+                if(messages.length == 2) {
+
+                    //data = new ClientData()
+                }
+
+                    //Spectator
+                else {
+
+
                 }
             }
         }
