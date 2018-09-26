@@ -16,6 +16,7 @@ import java.awt.event.MouseEvent;
          *  1 = MultiMenu
          *  2 = ServerMenu
          *  3 = NameMenu
+         *  4= TournamentMenu
          */
         private int menuType;
 
@@ -68,14 +69,15 @@ import java.awt.event.MouseEvent;
             else if(duell.isClicked()) {
                 menuType = 3;
                 removeMainMenu();
-                //createMultiplayerMenu();
-                createNameMenu();
+                createNameMenu(0);
             }
 
                 //Starte Tunier-Menü
             else if(tournament.isClicked()) {
 
-                //TODO: WENN TEXTUR
+                menuType = 3;
+                removeMainMenu();
+                createNameMenu(1);
             }
         }
 
@@ -84,10 +86,9 @@ import java.awt.event.MouseEvent;
 
             if(join.isClicked()) {
 
-                menuType = 3;
+                menuType = 2;
                 removeMultiplayerMenu();
-                //createServerMenu();
-                createNameMenu();
+                createServerMenu();
             }
 
             else if(host.isClicked()) {
@@ -110,6 +111,29 @@ import java.awt.event.MouseEvent;
 
 
         }
+
+            //NameMenu
+        else if(menuType == 3) {
+
+            if(ok.isClicked()) {
+
+                if(nameMenu.getNameInput().getInputQuerry().length() >= 3) {
+
+                    if(nameMenu.getType() == 0) {
+
+                        menuType = 1;
+                        removeNameMenu();
+                        createMultiplayerMenu();
+                    } else if(nameMenu.getType() == 1) {
+
+                        menuType = 4;
+                        removeNameMenu();
+                        createTournamentMenu();
+                    }
+                } else
+                    nameMenu.setMistake(1);
+            }
+        }
     }
 
     @Override
@@ -128,10 +152,19 @@ import java.awt.event.MouseEvent;
         System.out.println("X: " + e.getX() + " - Y: " + e.getY());
     }
 
+    public void createTournamentMenu() {
 
-    public void createNameMenu() {
 
-        this.nameMenu = new NameMenu(display);
+    }
+
+    public void removeTournamentMenu() {
+
+
+    }
+
+    public void createNameMenu(int type) {
+
+        this.nameMenu = new NameMenu(display, type);
         display.getActivePanel().drawObjectOnPanel(nameMenu);
 
         this.ok = new Button(637, 462, 80, 50,"res/images/menu/buttons/ok-button", true);
@@ -141,6 +174,11 @@ import java.awt.event.MouseEvent;
     public void removeNameMenu() {
 
         nameMenu.remove();
+        display.getActivePanel().removeObjectFromPanel(ok);
+        display.getActivePanel().removeObjectFromPanel(nameMenu);
+
+        ok = null;
+        nameMenu = null;
     }
 
     private void createMainMenu() {
@@ -151,9 +189,9 @@ import java.awt.event.MouseEvent;
             //MainMenu Buttons
         this.singleplayer = new Button(305, 380, 350, 85, "res/images/menu/buttons/sing-button", true);
         display.getActivePanel().drawObjectOnPanel(singleplayer);
-        this.duell = new Button(75, 600, 350, 85,"res/images/menu/buttons/sing-button", true);
+        this.duell = new Button(75, 600, 350, 85,"res/images/menu/buttons/duell-button", true);
         display.getActivePanel().drawObjectOnPanel(duell);
-        this.tournament = new Button(540, 600, 350, 85,"res/images/menu/buttons/sing-button", true);
+        this.tournament = new Button(540, 600, 350, 85,"res/images/menu/buttons/tournament-button", true);
         display.getActivePanel().drawObjectOnPanel(tournament);
     }
 
