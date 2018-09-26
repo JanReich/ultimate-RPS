@@ -175,6 +175,13 @@ public class DrawingPanel extends Panel implements KeyListener, MouseListener, M
                 ((BasicInteractableObject) obj).keyPressed(e);
             }
         }
+
+        Iterator<ManagementObject> mIterator = managementObjects.iterator();
+        while (mIterator.hasNext()) {
+
+            ManagementObject obj = mIterator.next();
+            obj.keyPressed(e);
+        }
     }
 
     @Override

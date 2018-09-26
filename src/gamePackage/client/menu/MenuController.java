@@ -7,7 +7,7 @@ import toolBox.Button;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-public class MenuController implements ManagementObject {
+    public class MenuController implements ManagementObject {
 
             //Attribute
         /**
@@ -15,6 +15,7 @@ public class MenuController implements ManagementObject {
          *  0 = MainMenu
          *  1 = MultiMenu
          *  2 = ServerMenu
+         *  3 = NameMenu
          */
         private int menuType;
 
@@ -23,6 +24,7 @@ public class MenuController implements ManagementObject {
 
             //different menu's
         private MainMenu mainMenu;
+        private NameMenu nameMenu;
         private ServerMenu serverMenu;
         private MultiPlayerMenu multiplayerMenu;
 
@@ -35,6 +37,9 @@ public class MenuController implements ManagementObject {
         private Button join;
         private Button host;
         private Button back;
+
+            //NameMenu button's
+        private Button ok;
 
     public MenuController(Display display) {
 
@@ -61,9 +66,10 @@ public class MenuController implements ManagementObject {
 
                 //Starte MultiMenu
             else if(duell.isClicked()) {
-                menuType = 1;
+                menuType = 3;
                 removeMainMenu();
-                createMultiplayerMenu();
+                //createMultiplayerMenu();
+                createNameMenu();
             }
 
                 //Starte Tunier-Menü
@@ -78,9 +84,10 @@ public class MenuController implements ManagementObject {
 
             if(join.isClicked()) {
 
-                menuType = 2;
+                menuType = 3;
                 removeMultiplayerMenu();
-                createServerMenu();
+                //createServerMenu();
+                createNameMenu();
             }
 
             else if(host.isClicked()) {
@@ -111,18 +118,36 @@ public class MenuController implements ManagementObject {
     }
 
     @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+        @Override
     public void mouseReleased(MouseEvent e) {
 
         System.out.println("X: " + e.getX() + " - Y: " + e.getY());
     }
 
 
+    public void createNameMenu() {
+
+        this.nameMenu = new NameMenu(display);
+        display.getActivePanel().drawObjectOnPanel(nameMenu);
+
+        //this.ok = new Button()
+    }
+
+    public void removeNameMenu() {
+
+
+    }
+
     private void createMainMenu() {
 
         this.mainMenu = new MainMenu(display);
         display.getActivePanel().drawObjectOnPanel(mainMenu);
 
-        //MainMenu Buttons
+            //MainMenu Buttons
         this.singleplayer = new Button(305, 380, 350, 85, "res/images/menu/buttons/sing-button", true);
         display.getActivePanel().drawObjectOnPanel(singleplayer);
         this.duell = new Button(75, 600, 350, 85,"res/images/menu/buttons/sing-button", true);
@@ -151,10 +176,12 @@ public class MenuController implements ManagementObject {
     public void createMultiplayerMenu() {
 
         this.multiplayerMenu = new MultiPlayerMenu(display);
+        display.getActivePanel().drawObjectOnPanel(multiplayerMenu);
+
+            //Buttons
         this.join = new Button(315, 310, 330, 90, "res/images/menu/buttons/sing-button", true);
         this.host = new Button(315, 470, 330, 90, "res/images/menu/buttons/sing-button", true);
         this.back = new Button(70, 810, 155, 50, "res/images/menu/buttons/sing-button", true);
-        display.getActivePanel().drawObjectOnPanel(multiplayerMenu);
         display.getActivePanel().drawObjectOnPanel(join);
         display.getActivePanel().drawObjectOnPanel(host);
         display.getActivePanel().drawObjectOnPanel(back);
@@ -165,6 +192,7 @@ public class MenuController implements ManagementObject {
         display.getActivePanel().removeObjectFromPanel(join);
         display.getActivePanel().removeObjectFromPanel(host);
         display.getActivePanel().removeObjectFromPanel(back);
+
         join = null;
         host = null;
         back = null;
