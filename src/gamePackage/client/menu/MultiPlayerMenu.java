@@ -3,12 +3,15 @@ package gamePackage.client.menu;
 import graphics.Display;
 import toolBox.DrawHelper;
 import toolBox.ImageHelper;
+import toolBox.TextTransfer;
 
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
     public class MultiPlayerMenu extends Menu {
 
                 //Attribute
+            private boolean crtlPressed;
 
                 //Referenzen
 

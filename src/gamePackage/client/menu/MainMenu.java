@@ -3,6 +3,7 @@ package gamePackage.client.menu;
 import graphics.Display;
 import toolBox.DrawHelper;
 import toolBox.ImageHelper;
+import toolBox.TextTransfer;
 
 import java.awt.event.MouseEvent;
 

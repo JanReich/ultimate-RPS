@@ -1,4 +1,6 @@
 package gamePackage.client;
 
-public class GameClient {
-}
+    public class GameClient {
+
+
+    }

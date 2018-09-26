@@ -2,6 +2,7 @@ package main;
 
 import gamePackage.client.menu.MenuController;
 import graphics.Display;
+import toolBox.TextTransfer;
 
 import java.awt.*;
 
