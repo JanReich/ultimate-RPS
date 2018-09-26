@@ -6,32 +6,32 @@ import toolBox.ImageHelper;
 
 import java.awt.event.MouseEvent;
 
-public class MainMenu extends Menu {
+    public class MainMenu extends Menu {
 
-                //Attribute
+                    //Attribute
 
-                //Referenzen
+                    //Referenzen
 
-        public MainMenu(Display display) {
+            public MainMenu(Display display) {
 
-            super(display);
+                super(display);
+            }
+
+        @Override
+        public void init() {
+
+            background = ImageHelper.getImage("res/images/menu/main-menu-temp.png");
         }
 
-    @Override
-    public void init() {
+        @Override
+        public void draw(DrawHelper draw) {
 
-        background = ImageHelper.getImage("res/images/menu/main-menu-temp.png");
+                //draw Background
+            draw.drawImage(background, 0, 0, display.getWidth(), display.getHeight());
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent event) {
+
+        }
     }
-
-    @Override
-    public void draw(DrawHelper draw) {
-
-            //draw Background
-        draw.drawImage(background, 0, 0, display.getWidth(), display.getHeight());
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent event) {
-
-    }
-}
