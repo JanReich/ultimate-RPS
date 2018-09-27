@@ -19,6 +19,11 @@ public class ServerMenu extends Menu {
         private int errorID;
         private boolean addressPopup;
 
+        private boolean con1;
+        private boolean con2;
+        private boolean con3;
+        private boolean con4;
+
             //Referenzen
         private BufferedImage popup;
 
@@ -112,30 +117,29 @@ public class ServerMenu extends Menu {
                 //draw server slots
             if(config.isSlot1()) {
 
-                draw.drawImage(slot1.getImage(), slot1.getX(), slot1.getY(), slot1.getWidth(), slot1.getHeight());
-                draw.drawButton(slot1.getDelete());
-                draw.drawButton(slot1.getJoin());
+                drawSlot(draw, slot1, con1);
+
+                draw.setColour(Color.BLACK);
+                draw.setFont(new Font("Impact", Font.PLAIN, 15));
+                draw.drawString(config.getName1() + "", slot1.getX() + 74, slot1.getY() + 37);
+                draw.setFont(new Font("Impact", Font.PLAIN, 25));
+                draw.drawString(config.getServerIP1() + "", slot1.getX() + 120, slot1.getY() + 72);
+                draw.drawString(config.getServerPort1() + "", slot1.getX() + 120, slot1.getY() + 97);
             }
 
             if(config.isSlot2()) {
 
-                draw.drawImage(slot2.getImage(), slot2.getX(), slot2.getY(), slot2.getWidth(), slot2.getHeight());
-                draw.drawButton(slot2.getDelete());
-                draw.drawButton(slot2.getJoin());
+                drawSlot(draw, slot2, con2);
             }
 
             if(config.isSlot3()) {
 
-                draw.drawImage(slot3.getImage(), slot3.getX(), slot3.getY(), slot3.getWidth(), slot3.getHeight());
-                draw.drawButton(slot3.getDelete());
-                draw.drawButton(slot3.getJoin());
+                drawSlot(draw, slot3, con3);
             }
 
             if(config.isSlot4()) {
 
-                draw.drawImage(slot4.getImage(), slot4.getX(), slot4.getY(), slot4.getWidth(), slot4.getHeight());
-                draw.drawButton(slot4.getDelete());
-                draw.drawButton(slot4.getJoin());
+                drawSlot(draw, slot4, con4);
             }
 
                 //button's
@@ -153,6 +157,7 @@ public class ServerMenu extends Menu {
                 draw.drawButton(popupAddButton);
 
                     //draw Strings
+                draw.setColour(Color.BLACK);
                 draw.drawString(nameInput.getInputQuerry(), 385, 352);
                 draw.drawString(ipInput.getInputQuerry(), 375,472);
                 draw.drawString(portInput.getInputQuerry(), 375, 592);
@@ -174,6 +179,17 @@ public class ServerMenu extends Menu {
                     draw.drawString("Der Port muss numerisch sein!", 265, 660);
                 }
             }
+        }
+
+        public void drawSlot(DrawHelper draw, ServerSlot slot, boolean connection) {
+
+            draw.drawImage(slot.getImage(), slot.getX(), slot.getY(), slot.getWidth(), slot.getHeight());
+            draw.drawButton(slot.getDelete());
+            draw.drawButton(slot.getJoin());
+
+            if(connection) draw.setColour(Color.GREEN);
+            else draw.setColour(Color.RED);
+            draw.drawRec(slot.getX() + 660, slot.getY() + 37, 25, 25);
         }
 
         @Override
@@ -338,15 +354,19 @@ public class ServerMenu extends Menu {
 
                 case 1:
                     temp = new ServerSlot(125, 235, 705, 110);
+                    con1 = checkServerAlive(config.getServerIP1(), config.getServerPort1());
                     break;
                 case 2:
                     temp = new ServerSlot(125, 355, 705, 110);
+                    con2 = checkServerAlive(config.getServerIP2(), config.getServerPort2());
                     break;
                 case 3:
                     temp = new ServerSlot(125, 475, 705, 110);
+                    con3 = checkServerAlive(config.getServerIP3(), config.getServerPort3());
                     break;
                 case 4:
                     temp = new ServerSlot(125, 595, 705, 110);
+                    con4 = checkServerAlive(config.getServerIP4(), config.getServerPort4());
                     break;
             }
 
@@ -390,6 +410,8 @@ public class ServerMenu extends Menu {
                     config.setServerPort4(-1);
                     break;
             }
+
+            loadSlots();
             config.save();
         }
 
@@ -430,7 +452,7 @@ public class ServerMenu extends Menu {
             try {
 
                 Socket sock = new Socket ();
-                sock.connect(new InetSocketAddress(ip, port), 2000);
+                sock.connect(new InetSocketAddress(ip, port), 200);
                 sock.close();
                 return true;
             } catch (Exception e) {
