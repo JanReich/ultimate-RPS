@@ -1,7 +1,5 @@
 package gamePackage.client.singleplayer;
 
-import com.sun.media.jfxmedia.events.PlayerStateEvent;
-import gamePackage.client.menu.MainMenu;
 import gamePackage.client.menu.MenuController;
 import graphics.Display;
 import graphics.interfaces.BasicInteractableObject;
@@ -23,25 +21,20 @@ public class Singleplayer implements BasicInteractableObject {
     private BufferedImage linkeHand;
     private BufferedImage rechteHand;
     private MenuController controller;
-    private int auswahlStein;
-    private int auswahlPapier;
-    private int auswahlSchere;
+
     private int auswahl = 0;
     private boolean won = false;
     private boolean canPlay = true;
     private boolean end = false;
-    private int KIscore = 0;
+    private int kiScore = 0;
     private int playerscore = 0;
     private String motivationText = "->";
 
 
 
 
-    public Singleplayer(Display display){
+    public Singleplayer(){
 
-        this.auswahlPapier = 1;
-        this.auswahlSchere = 2;
-        this.auswahlStein  = 3;
         stein = ImageHelper.getImage("res/images/Singleplayer/stone.png");
         papier = ImageHelper.getImage("res/images/Singleplayer/paper.png");
         schere = ImageHelper.getImage("res/images/Singleplayer/schere.png");
@@ -67,7 +60,7 @@ public class Singleplayer implements BasicInteractableObject {
             //Stein entspricht der Nummer 3
             if (event.getX() >= 416 && event.getX() <= 546 && event.getY() >= 516 && event.getY() <= 646) {
                 System.out.println("Stein");
-                auswahl = auswahlStein;
+                auswahl = 1;
 
                 KImove();
             }
@@ -75,7 +68,7 @@ public class Singleplayer implements BasicInteractableObject {
             //Papier entspricht der Nummer 1
             if (event.getX() >= 546 && event.getX() <= 676 && event.getY() >= 516 && event.getY() <= 646) {
                 System.out.println("Papier");
-                auswahl = auswahlPapier;
+                auswahl = 2;
 
                 KImove();
 
@@ -85,7 +78,7 @@ public class Singleplayer implements BasicInteractableObject {
             //Schere entspricht der Nummer 2
             if (event.getX() >= 286 && event.getX() <= 416 && event.getY() >= 516 && event.getY() <= 646) {
                 System.out.println("Schere");
-                auswahl = auswahlSchere;
+                auswahl = 3;
 
                 KImove();
 
@@ -107,7 +100,7 @@ public class Singleplayer implements BasicInteractableObject {
             motivationText = "-> Unentschieden...";
         }else{
 
-            KIscore = KIscore + 1;
+            kiScore = kiScore + 1;
 
             motivationText = "-> Verloren :(";
         }
@@ -119,7 +112,7 @@ public class Singleplayer implements BasicInteractableObject {
             end = true;
 
             //WinScreen
-        }else if(KIscore >= 3){
+        }else if(kiScore >= 3){
             canPlay=false;
             motivationText = "Du bist kacke!";
             won = false;
@@ -144,7 +137,7 @@ public class Singleplayer implements BasicInteractableObject {
             draw.drawImage(papier, 546, 516, 128, 128);
         }
 
-        draw.drawString("Player: "+ playerscore +" ----- KI: "+KIscore,370,50);
+        draw.drawString("Player: "+ playerscore +" ----- KI: "+ kiScore,370,50);
         draw.drawString(motivationText,370,80);
 
         if(end){
