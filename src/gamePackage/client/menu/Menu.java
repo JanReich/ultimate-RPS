@@ -18,6 +18,13 @@ public abstract class Menu implements BasicInteractableObject {
             protected BufferedImage background;
             protected MenuController controller;
 
+        public Menu(Display display) {
+
+            this.display = display;
+
+            init();
+        }
+
         public Menu(Display display, MenuController controller) {
 
             this.display = display;

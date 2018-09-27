@@ -1,6 +1,7 @@
 package gamePackage.client;
 
 import config.ServerConfig;
+import gamePackage.client.menu.Lobby;
 import gamePackage.server.GameServer;
 import graphics.Display;
 
@@ -55,5 +56,8 @@ import graphics.Display;
         private void joinServer() {
 
             client = new GameClient(serverIP, port);
+
+            Lobby lobby = new Lobby(display);
+            display.getActivePanel().drawObjectOnPanel(lobby);
         }
     }
