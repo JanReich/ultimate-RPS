@@ -26,6 +26,7 @@ public class Singleplayer implements BasicInteractableObject {
     private boolean canPlay = true;
     private int KIscore = 0;
     private int playerscore = 0;
+    private String motivationText = "->";
 
 
 
@@ -90,13 +91,16 @@ public class Singleplayer implements BasicInteractableObject {
             won = true;
             playerscore = playerscore +1;
             System.out.println("Gewonnen");
+            motivationText = "-> Nice!";
         }else if(auswahl==KIauswahl){
             canPlay = true;
             System.out.println("Unentschieden");
+            motivationText = "-> Unentschieden...";
         }else{
             won = false;
             KIscore = KIscore + 1;
             System.err.println("Verloren");
+            motivationText = "-> Verloren :(";
         }
 
         if(playerscore >= 3){
@@ -125,5 +129,6 @@ public class Singleplayer implements BasicInteractableObject {
         }
 
         draw.drawString("Player: "+ playerscore +" ----- KI: "+KIscore,370,50);
+        draw.drawString(motivationText,370,80);
     }
 }
