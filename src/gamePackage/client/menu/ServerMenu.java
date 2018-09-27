@@ -160,8 +160,8 @@ import java.net.Socket;
                         //draw Strings
                     draw.setColour(Color.BLACK);
                     draw.drawString(nameInput.getInputQuerry(), 385, 352);
-                    draw.drawString(ipInput.getInputQuerry(), 375,472);
-                    draw.drawString(portInput.getInputQuerry(), 375, 592);
+                    draw.drawString(ipInput.getInputQuerry(), 385,472);
+                    draw.drawString(portInput.getInputQuerry(), 385, 592);
                 }
 
                 if(addressPopup) {
@@ -318,11 +318,11 @@ import java.net.Socket;
                     this.popupAddButton = new Button(680, 560, 125, 50, "res/images/menu/buttons/Add-server-button", true);
                     display.getActivePanel().drawObjectOnPanel(popupAddButton);
 
-                    ipInput = new Inputmanager(12);
+                    ipInput = new Inputmanager(15);
                     display.getActivePanel().addManagement(ipInput);
                     portInput = new Inputmanager(5);
                     display.getActivePanel().addManagement(portInput);
-                    nameInput = new Inputmanager();
+                    nameInput = new Inputmanager(12);
                     display.getActivePanel().addManagement(nameInput);
                 }
             }
@@ -494,7 +494,7 @@ import java.net.Socket;
 
                     this.image = ImageHelper.getImage("res/images/menu/server-slot.png");
 
-                    join = new Button(x + 613, y + 72, 78, 30, "res/images/menu/buttons/ok-button", true);
+                    join = new Button(x + 613, y + 72, 78, 30, "res/images/menu/buttons/Join-server-button", true);
                     delete = new Button(x + 674, y + 6, 25, 25, "res/images/menu/buttons/close-button",true);
                 }
 
