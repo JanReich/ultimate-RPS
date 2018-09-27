@@ -1,5 +1,6 @@
 package gamePackage.client.menu;
 
+import gamePackage.client.singleplayer.Singleplayer;
 import graphics.Display;
 import toolBox.Button;
 import toolBox.DrawHelper;
@@ -14,7 +15,8 @@ import java.awt.event.MouseEvent;
                     //Referenzen
                 private Button duell;
                 private Button tournament;
-                private Button singleplayer;
+                private Button singleplayerButton;
+                private Singleplayer singleplayer;
 
             public MainMenu(Display display, MenuController controller) {
 
@@ -27,8 +29,8 @@ import java.awt.event.MouseEvent;
             background = ImageHelper.getImage("res/images/menu/main-menu-temp.png");
 
                 //Button's
-            this.singleplayer = new Button(305, 380, 350, 85, "res/images/menu/buttons/sing-button", true);
-            display.getActivePanel().drawObjectOnPanel(singleplayer);
+            this.singleplayerButton = new Button(305, 380, 350, 85, "res/images/menu/buttons/sing-button", true);
+            display.getActivePanel().drawObjectOnPanel(singleplayerButton);
             this.duell = new Button(75, 600, 350, 85,"res/images/menu/buttons/duell-button", true);
             display.getActivePanel().drawObjectOnPanel(duell);
             this.tournament = new Button(540, 600, 350, 85,"res/images/menu/buttons/tournament-button", true);
@@ -40,11 +42,11 @@ import java.awt.event.MouseEvent;
                 //remove buttons
             display.getActivePanel().removeObjectFromPanel(duell);
             display.getActivePanel().removeObjectFromPanel(tournament);
-            display.getActivePanel().removeObjectFromPanel(singleplayer);
+            display.getActivePanel().removeObjectFromPanel(singleplayerButton);
 
             duell = null;
             tournament = null;
-            singleplayer = null;
+            singleplayerButton = null;
         }
 
         @Override
@@ -56,18 +58,20 @@ import java.awt.event.MouseEvent;
                 //Button's
             draw.drawButton(duell);
             draw.drawButton(tournament);
-            draw.drawButton(singleplayer);
+            draw.drawButton(singleplayerButton);
         }
 
         @Override
         public void update(double dt) {
 
-            if(singleplayer.isClicked()) {
+            if(singleplayerButton.isClicked()) {
 
                     //Starte den Singleplayer-Modus
                 display.getActivePanel().removeObjectFromPanel(controller);
                 controller.removeMainMenu();
 
+                singleplayer = new Singleplayer(display);
+                display.getActivePanel().drawObjectOnPanel(singleplayer);
             }
 
                 //Starte MultiMenu

@@ -1,5 +1,6 @@
 package gamePackage.client.singleplayer;
 
+import graphics.Display;
 import graphics.interfaces.BasicInteractableObject;
 import toolBox.DrawHelper;
 import toolBox.ImageHelper;
@@ -23,7 +24,7 @@ public class Singleplayer implements BasicInteractableObject {
 
 
 
-    public Singleplayer(int auswahlPapier, int auswahlSchere, int auswahlStein){
+    public Singleplayer(Display display){
 
         this.auswahlPapier = 1;
         this.auswahlSchere = 2;
