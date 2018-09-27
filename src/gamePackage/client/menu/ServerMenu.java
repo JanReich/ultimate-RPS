@@ -118,6 +118,11 @@ public class ServerMenu extends Menu {
             if(config.isSlot1()) {
 
                 drawSlot(draw, slot1, con1);
+
+                draw.setColour(Color.BLACK);
+                draw.drawString(config.getName1() + "", slot1.getX() + 50, slot1.getY() + 47);
+                draw.drawString(config.getServerIP1() + "", slot1.getX() + 120, slot1.getY() + 72);
+                draw.drawString(config.getServerPort1() + "", slot1.getX() + 120, slot1.getY() + 97);
             }
 
             if(config.isSlot2()) {
