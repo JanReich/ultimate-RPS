@@ -152,7 +152,7 @@ import java.net.Socket;
                 draw.drawButton(add);
                 draw.drawButton(direct);
 
-                if(direcPopup) {
+                if(directPopup) {
 
                         //draw  popup
                     draw.drawImage(direcPopup, 115, 330, 730, 300);
