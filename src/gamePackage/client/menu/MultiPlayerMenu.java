@@ -28,9 +28,9 @@ import java.awt.event.MouseEvent;
             background = ImageHelper.getImage("res/images/menu/multi-menu.png");
 
                 //Buttons
-            this.join = new Button(315, 310, 330, 90, "res/images/menu/buttons/sing-button", true);
+            this.join = new Button(315, 310, 330, 90, "res/images/menu/buttons/join-button", true);
             display.getActivePanel().drawObjectOnPanel(join);
-            this.host = new Button(315, 470, 330, 90, "res/images/menu/buttons/sing-button", true);
+            this.host = new Button(315, 470, 330, 90, "res/images/menu/buttons/host-button", true);
             display.getActivePanel().drawObjectOnPanel(host);
             this.back = new Button(30, 860, 155, 50, "res/images/menu/buttons/Back-button", true);
             display.getActivePanel().drawObjectOnPanel(back);
