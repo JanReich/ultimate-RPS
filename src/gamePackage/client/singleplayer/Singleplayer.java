@@ -1,6 +1,8 @@
 package gamePackage.client.singleplayer;
 
 import com.sun.media.jfxmedia.events.PlayerStateEvent;
+import gamePackage.client.menu.MainMenu;
+import gamePackage.client.menu.MenuController;
 import graphics.Display;
 import graphics.interfaces.BasicInteractableObject;
 import toolBox.DrawHelper;
@@ -16,16 +18,22 @@ public class Singleplayer implements BasicInteractableObject {
     private BufferedImage stein;
     private BufferedImage papier;
     private BufferedImage schere;
+    private BufferedImage win;
+    private BufferedImage lost;
     private BufferedImage linkeHand;
     private BufferedImage rechteHand;
+    private MenuController controller;
     private int auswahlStein;
     private int auswahlPapier;
     private int auswahlSchere;
     private int auswahl = 0;
     private boolean won = false;
     private boolean canPlay = true;
+    private boolean end = false;
     private int KIscore = 0;
     private int playerscore = 0;
+    private String motivationText = "->";
+
 
 
 
@@ -37,6 +45,9 @@ public class Singleplayer implements BasicInteractableObject {
         stein = ImageHelper.getImage("res/images/Singleplayer/stone.png");
         papier = ImageHelper.getImage("res/images/Singleplayer/paper.png");
         schere = ImageHelper.getImage("res/images/Singleplayer/schere.png");
+        background = ImageHelper.getImage("res/images/Singleplayer/background.png");
+        win = ImageHelper.getImage("res/images/Singleplayer/win.png");
+        lost = ImageHelper.getImage("res/images/Singleplayer/lost.png");
 
     }
 
@@ -86,27 +97,38 @@ public class Singleplayer implements BasicInteractableObject {
     public void KImove(){
         int KIauswahl = (int)(Math.random()*3+1);
         if(auswahl==1&&KIauswahl==3||auswahl==2&&KIauswahl==1||auswahl==3&&KIauswahl==2){
-            won = true;
+
             playerscore = playerscore +1;
-            System.out.println("Gewonnen");
+
+            motivationText = "-> Nice!";
         }else if(auswahl==KIauswahl){
             canPlay = true;
-            System.out.println("Unentschieden");
+
+            motivationText = "-> Unentschieden...";
         }else{
-            won = false;
+
             KIscore = KIscore + 1;
-            System.err.println("Verloren");
+
+            motivationText = "-> Verloren :(";
         }
 
         if(playerscore >= 3){
             canPlay=false;
+            motivationText = "Geiler Typ!";
+            won = true;
+            end = true;
+
             //WinScreen
         }else if(KIscore >= 3){
             canPlay=false;
+            motivationText = "Du bist kacke!";
+            won = false;
+            end = true;
             //LooseScreen
         }
 
     }
+
 
     @Override
     public void update(double delta) {
@@ -115,11 +137,23 @@ public class Singleplayer implements BasicInteractableObject {
 
     @Override
     public void draw(DrawHelper draw) {
+        draw.drawImage(background,0,0,1000,1000);
         if(canPlay) {
             draw.drawImage(stein, 416, 516, 128, 128);
             draw.drawImage(schere, 286, 516, 128, 128);
             draw.drawImage(papier, 546, 516, 128, 128);
         }
+
         draw.drawString("Player: "+ playerscore +" ----- KI: "+KIscore,370,50);
+        draw.drawString(motivationText,370,80);
+
+        if(end){
+            if(won){
+                draw.drawImage(win, 250, 250, 500, 500);
+            }else if(!won){
+                draw.drawImage(lost, 250, 150, 500, 457);
+            }
+        }
     }
+
 }
