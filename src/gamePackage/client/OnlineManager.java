@@ -11,12 +11,12 @@ public class OnlineManager {
             private String username;
             private String serverIP;
 
-        public OnlineManager(Display display, String username, String serverIP, int port) {
+        public OnlineManager(Display display, String username, boolean host) {
 
 
         }
 
-        public OnlineManager(Display display, String username, String serverIP, int port, boolean host) {
+        public OnlineManager(Display display, String username, String serverIP, int port) {
 
 
         }

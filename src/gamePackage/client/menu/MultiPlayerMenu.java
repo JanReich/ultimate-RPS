@@ -1,5 +1,6 @@
 package gamePackage.client.menu;
 
+import gamePackage.client.OnlineManager;
 import graphics.Display;
 import toolBox.Button;
 import toolBox.DrawHelper;
@@ -17,9 +18,14 @@ import java.awt.event.MouseEvent;
             private Button host;
             private Button back;
 
-        public MultiPlayerMenu(Display display, MenuController controller) {
+            private String username;
+            private OnlineManager onlineManager;
+
+        public MultiPlayerMenu(Display display, MenuController controller, String username) {
 
             super(display, controller);
+
+            this.username = username;
         }
 
         @Override
@@ -70,7 +76,9 @@ import java.awt.event.MouseEvent;
 
             else if(host.isClicked()) {
 
-                //TODO: HOST MENU
+                onlineManager = new OnlineManager(display, username, true);
+                remove();
+                display.getActivePanel().removeObjectFromPanel(this);
             }
 
             //Zurück zum MainMenu

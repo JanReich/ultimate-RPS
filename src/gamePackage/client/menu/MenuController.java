@@ -85,7 +85,7 @@ import java.awt.event.MouseEvent;
 
         public void createMultiplayerMenu() {
 
-            this.multiplayerMenu = new MultiPlayerMenu(display, this);
+            this.multiplayerMenu = new MultiPlayerMenu(display, this, username);
             display.getActivePanel().drawObjectOnPanel(multiplayerMenu);
         }
 
