@@ -78,14 +78,14 @@ import java.awt.event.MouseEvent;
             else if(duell.isClicked()) {
 
                 controller.removeMainMenu();
-                controller.createNameMenu(0);
+                controller.createNameMenu("duell");
             }
 
                 //Starte Tunier-Menü
             else if(tournament.isClicked()) {
 
                 controller.removeMainMenu();
-                controller.createNameMenu(1);
+                controller.createNameMenu("tournament");
             }
         }
 

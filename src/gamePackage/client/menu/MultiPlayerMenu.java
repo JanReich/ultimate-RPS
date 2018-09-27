@@ -19,13 +19,15 @@ import java.awt.event.MouseEvent;
             private Button back;
 
             private String username;
+            private String gameType;
             private OnlineManager onlineManager;
 
-        public MultiPlayerMenu(Display display, MenuController controller, String username) {
+        public MultiPlayerMenu(Display display, MenuController controller, String gameType, String username) {
 
             super(display, controller);
 
             this.username = username;
+            this.gameType = gameType;
         }
 
         @Override
@@ -71,7 +73,7 @@ import java.awt.event.MouseEvent;
             if(join.isClicked()) {
 
                 controller.removeMultiplayerMenu();
-                controller.createServerMenu();
+                controller.createServerMenu(gameType);
             }
 
             else if(host.isClicked()) {

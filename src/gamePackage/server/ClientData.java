@@ -2,17 +2,14 @@ package gamePackage.server;
 
     public class ClientData {
 
-                //Attribute
+
             private int port;
+            private String clientIP;
             private int clientID;
 
             private boolean host;
-            private boolean spectator;
-
-                //Referent
             private String username;
-            private String clientIP;
-
+            private boolean spectator;
 
         public ClientData(String username, int clientID, boolean host) {
 
@@ -68,5 +65,15 @@ package gamePackage.server;
         public boolean isSpectator() {
 
             return spectator;
+        }
+
+        public void setClientID(int clientID) {
+
+            this.clientID = clientID;
+        }
+
+        public void setSpectator(boolean spectator) {
+
+            this.spectator = spectator;
         }
     }

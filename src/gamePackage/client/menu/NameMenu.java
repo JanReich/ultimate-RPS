@@ -13,12 +13,7 @@ import java.awt.image.BufferedImage;
     public class NameMenu extends Menu {
 
                 //Attribute
-            /**
-             * Type beschreibt, welches Menü als nächstes kommt
-             * 0 = duell
-             * 1 = tournament
-             */
-            private int type;
+            private String gameType;
             /**
              * In dieser Methode wird eine ID für einen Fehler übergeben, damit dieser graphisch dargestellt werden kann.
              * 0 = kein Fehler
@@ -31,10 +26,10 @@ import java.awt.image.BufferedImage;
             private BufferedImage image;
             private Inputmanager nameInput;
 
-        public NameMenu(Display display, MenuController controller, int type) {
+        public NameMenu(Display display, MenuController controller, String gameType) {
 
             super(display, controller);
-            this.type = type;
+            this.gameType = gameType;
         }
 
         @Override
@@ -91,14 +86,14 @@ import java.awt.image.BufferedImage;
 
                 if(getNameInput().getInputQuerry().length() >= 3) {
 
-                    if(type == 0) {
+                    if(gameType.equalsIgnoreCase("duell")) {
 
                         controller.removeNameMenu();
-                        controller.createMultiplayerMenu();
-                    } else if(type == 1) {
+                        controller.createMultiplayerMenu(gameType);
+                    } else if(gameType.equalsIgnoreCase("tournament")) {
 
                         controller.removeNameMenu();
-                        controller.createTournamentMenu();
+                        controller.createMultiplayerMenu(gameType);
                     }
                 } else
                     errorID = 1;
@@ -108,10 +103,5 @@ import java.awt.image.BufferedImage;
         public Inputmanager getNameInput() {
 
             return nameInput;
-        }
-
-        public int getType() {
-
-            return type;
         }
     }

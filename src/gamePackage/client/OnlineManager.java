@@ -14,6 +14,7 @@ import graphics.Display;
             private Display display;
             private String username;
             private String serverIP;
+            private String gameType;
 
             private GameServer server;
             private GameClient client;
@@ -27,12 +28,13 @@ import graphics.Display;
             createServer();
         }
 
-        public OnlineManager(Display display, String username, String serverIP, int port) {
+        public OnlineManager(Display display, String gameType, String username, String serverIP, int port) {
 
             this.port = port;
             this.display = display;
             this.username = username;
             this.serverIP = serverIP;
+            this.gameType = gameType;
 
             joinServer();
         }
@@ -41,7 +43,7 @@ import graphics.Display;
 
             ServerConfig config = new ServerConfig();
 
-            server = new GameServer(config.getServerPort(), config.getMinPlayers(), config.getMaxPlayers(), config.getMaxSpectator(), config.isSpectatorJoin());
+            server = new GameServer(config.getServerPort(), config.getMinPlayers(), config.getMaxPlayers(), config.getMaxSpectator(), config.isSpectatorJoin(), gameType);
             serverIP = "localhost";
             port = config.getServerPort();
 

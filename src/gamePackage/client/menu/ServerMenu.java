@@ -26,6 +26,7 @@ import java.net.Socket;
 
                 //Referenzen
             private String username;
+            private String gameType;
             private BufferedImage popup;
             private BufferedImage direcPopup;
             private OnlineManager onlineManager;
@@ -51,10 +52,11 @@ import java.net.Socket;
             private Button add;
             private Button direct;
 
-            public ServerMenu(Display display, MenuController controller, String username) {
+            public ServerMenu(Display display, MenuController controller, String gameType, String username) {
 
                 super(display, controller);
 
+                this.gameType = gameType;
                 this.username = username;
             }
 
@@ -271,7 +273,7 @@ import java.net.Socket;
                 if(back.isClicked()) {
 
                     controller.removeServerMenu();
-                    controller.createMultiplayerMenu();
+                    controller.createMultiplayerMenu(gameType);
                 }
 
                 if(refresh != null)
@@ -414,7 +416,7 @@ import java.net.Socket;
 
             private void connect(String serverIP, int serverPort) {
 
-                onlineManager = new OnlineManager(display, username, serverIP, serverPort);
+                onlineManager = new OnlineManager(display, gameType, username, serverIP, serverPort);
                 display.getActivePanel().removeObjectFromPanel(this);
             }
 

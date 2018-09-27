@@ -83,9 +83,9 @@ import java.awt.event.MouseEvent;
         // TYPE: 1 - MultiplayerMenu
         //
 
-        public void createMultiplayerMenu() {
+        public void createMultiplayerMenu(String gameType) {
 
-            this.multiplayerMenu = new MultiPlayerMenu(display, this, username);
+            this.multiplayerMenu = new MultiPlayerMenu(display, this, gameType, username);
             display.getActivePanel().drawObjectOnPanel(multiplayerMenu);
         }
 
@@ -100,9 +100,9 @@ import java.awt.event.MouseEvent;
         // TYPE: 2 - ServerMenu
         //
 
-        public void createServerMenu() {
+        public void createServerMenu(String gameType) {
 
-            this.serverMenu = new ServerMenu(display, this, username);
+            this.serverMenu = new ServerMenu(display, this, gameType, username);
             display.getActivePanel().drawObjectOnPanel(serverMenu);
         }
 
@@ -117,9 +117,9 @@ import java.awt.event.MouseEvent;
         // TYPE: 3 - NameMenu
         //
 
-        public void createNameMenu(int type) {
+        public void createNameMenu(String gameType) {
 
-            this.nameMenu = new NameMenu(display, this, type);
+            this.nameMenu = new NameMenu(display, this, gameType);
             display.getActivePanel().drawObjectOnPanel(nameMenu);
         }
 
@@ -129,19 +129,5 @@ import java.awt.event.MouseEvent;
             nameMenu.remove();
             display.getActivePanel().removeObjectFromPanel(nameMenu);
             nameMenu = null;
-        }
-
-        //
-        // TYPE: 4 - TournamentMenu
-        //
-
-        public void createTournamentMenu() {
-
-
-        }
-
-        public void removeTournamentMenu() {
-
-
         }
     }

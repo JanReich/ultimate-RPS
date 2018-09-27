@@ -5,28 +5,31 @@ import abitur.netz.Server;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
     public class GameServer extends Server {
 
                 //Attribute
-            private int playerCount;
+            private boolean started;
 
+            private int playerCount;
+            private int spectatorCount;
             private final int minPlayers;
             private final int maxPlayers;
             private final int maxSpectators;
             private final boolean spectatingAllowed;
 
-            private boolean started;
-
                 //Referenzen
+            private String gameType;
             private List<String> names;
             private String[] clientIDs;
-            private HashMap<String, ClientData> clients;
+            private Map<String, ClientData> clients;
 
-        public GameServer(int pPort, int minPlayers, int maxPlayers, int maxSpectators, boolean spectatingAllowed) {
+        public GameServer(int pPort, int minPlayers, int maxPlayers, int maxSpectators, boolean spectatingAllowed, String gameType) {
 
             super(pPort);
 
+            this.gameType = gameType;
             this.minPlayers = minPlayers;
             this.maxPlayers = maxPlayers;
             this.maxSpectators = maxSpectators;
@@ -46,10 +49,12 @@ import java.util.List;
         @Override
         public void processMessage(String pClientIP, int pClientPort, String pMessage) {
 
+                //Format - RegisterClient: <gameType>: <username>: <spectator>: <host>
             if(pMessage.startsWith("RegisterClient: ")) {
 
                 if(clients.get(pClientIP) == null) {
 
+                        //Die Nachricht in Attributen speichern
                     String messages[] = pMessage.split(": ");
 
                     boolean host = false;
@@ -108,6 +113,19 @@ import java.util.List;
 
             }
         }
+
+        public int getClientID() {
+
+            for (int i = 0; i < clientIDs.length; i++) {
+
+                if(clientIDs[i] == null) {
+
+                    return i;
+                } else continue;
+            }
+            return -1;
+        }
+
 
         @Override
         public void processClosingConnection(String pClientIP, int pClientPort) {
