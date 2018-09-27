@@ -15,17 +15,17 @@ public class Singleplayer implements BasicInteractableObject {
     private BufferedImage schere;
     private BufferedImage linkeHand;
     private BufferedImage rechteHand;
-    private String auswahlStein;
-    private String auswahlPapier;
-    private String auswahlSchere;
+    private int auswahlStein;
+    private int auswahlPapier;
+    private int auswahlSchere;
 
 
 
-    public Singleplayer(String auswahlPapier, String auswahlSchere, String auswahlStein){
+    public Singleplayer(int auswahlPapier, int auswahlSchere, int auswahlStein){
 
-        this.auswahlPapier = "Papier";
-        this.auswahlSchere = "Schere";
-        this.auswahlStein  = "Stein";
+        this.auswahlPapier = 1;
+        this.auswahlSchere = 2;
+        this.auswahlStein  = 3;
 
     }
 
@@ -41,6 +41,10 @@ public class Singleplayer implements BasicInteractableObject {
 
     @Override
     public void mouseReleased(MouseEvent event) {
+
+        //Stein entspricht der Nummer 3
+        //Papier entspricht der Nummer 1
+        //Schere entspricht der Nummer 2
 
     }
 
