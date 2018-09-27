@@ -70,7 +70,7 @@ import java.awt.event.MouseEvent;
                 display.getActivePanel().removeObjectFromPanel(controller);
                 controller.removeMainMenu();
 
-                singleplayer = new Singleplayer(display);
+                singleplayer = new Singleplayer();
                 display.getActivePanel().drawObjectOnPanel(singleplayer);
             }
 
