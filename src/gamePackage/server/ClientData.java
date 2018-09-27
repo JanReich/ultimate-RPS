@@ -18,9 +18,10 @@ package gamePackage.server;
             this.username = username;
         }
 
-        public ClientData(String clientIP, int port, String username, boolean spectator) {
+        public ClientData(String clientIP, int port, String username, boolean spectator, boolean host) {
 
             this.port = port;
+            this.host = host;
             this.clientIP = clientIP;
 
             this.username = username;

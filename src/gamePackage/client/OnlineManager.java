@@ -19,11 +19,12 @@ import graphics.Display;
             private GameServer server;
             private GameClient client;
 
-        public OnlineManager(Display display, String username, boolean host) {
+        public OnlineManager(Display display, String gameType, String username, boolean host) {
 
             this.host = host;
             this.display = display;
             this.username = username;
+            this.gameType = gameType;
 
             createServer();
         }

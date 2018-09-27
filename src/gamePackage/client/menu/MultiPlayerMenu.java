@@ -78,7 +78,7 @@ import java.awt.event.MouseEvent;
 
             else if(host.isClicked()) {
 
-                onlineManager = new OnlineManager(display, username, true);
+                onlineManager = new OnlineManager(display, gameType, username, true);
                 remove();
                 display.getActivePanel().removeObjectFromPanel(this);
             }

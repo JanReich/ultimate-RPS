@@ -23,6 +23,7 @@ import java.util.Map;
             private String gameType;
             private List<String> names;
             private String[] clientIDs;
+            private String[] spectatorIDs;
             private Map<String, ClientData> clients;
 
         public GameServer(int pPort, int minPlayers, int maxPlayers, int maxSpectators, boolean spectatingAllowed, String gameType) {
@@ -38,6 +39,7 @@ import java.util.Map;
             this.names = new ArrayList<>();
             this.clients = new HashMap<>();
             this.clientIDs = new String[maxPlayers];
+            this.spectatorIDs = new String[maxSpectators];
         }
 
         @Override
@@ -57,54 +59,49 @@ import java.util.Map;
                         //Die Nachricht in Attributen speichern
                     String messages[] = pMessage.split(": ");
 
-                    boolean host = false;
-                    boolean spectator = false;
                     String username = messages[2];
+                    String userGameType = messages[1];
+                    boolean host = Boolean.getBoolean(messages[4]);
+                    boolean spectator = Boolean.parseBoolean(messages[3]);
 
-                    if(messages.length == 5)
-                        host = Boolean.parseBoolean(messages[4]);
-                     else
-                        spectator = true;
-
-                     if(!names.contains(username)) {
+                    if(userGameType.equalsIgnoreCase(gameType)) {
 
                         if(!(!spectatingAllowed && spectator)) {
 
-                            if(!started) {
+                            if(!names.contains(userGameType)) {
 
-                                if(spectator) {
+                                if(!started || spectator) {
 
-                                    names.add(username);
-                                    send(pClientIP, pClientPort, "RegisterSuccessful: ");
-                                    clients.put(pClientIP, new ClientData(pClientIP, pClientPort, username, spectator));
-                                    System.out.println("[Server] Client \"" + username + "\" hat sich mit dem Server als Spectator verbunden!");
-                                } else {
+                                    if(spectator) {
 
-                                    if(playerCount < maxPlayers) {
+                                        if(spectatorCount < maxSpectators) {
 
-                                        playerCount++;
-                                        int clientID = -1;
+                                            names.add(username);
+                                            int spectatorID = generateSpectatorID();
+                                            clients.put(pClientIP, new ClientData(pClientIP, pClientPort, username, spectator, host));
+                                            System.out.println("[Server] Client \"" + username + "\" hat sich mit dem Server als Spectator verbunden!");
+                                            send(pClientIP, pClientPort, "RegisterSuccessful: ");
+                                            sendToAll("joinedSpectator: username: " + username + ": clientID: " + spectatorID + ": host: " + host);
+                                        } else send(pClientIP, pClientPort, "Disconnect: Server full");
+                                    }
+                                        //when a Player join's
+                                    else {
 
-                                        for (int i = 0; i < clientIDs.length; i++) {
+                                        if(playerCount < maxPlayers) {
 
-                                            if(clientIDs[i] == null) {
-
-                                                clientID = i;
-                                                clientIDs[i] = pClientIP;
-                                            }
+                                            playerCount++;
+                                            names.add(username);
+                                            int userClientID = generateClientID();
+                                            clients.put(pClientIP, new ClientData(pClientIP, pClientPort, host, username, userClientID));
+                                            System.out.println("[Server] Client \"" + username + "\" hat sich mit dem Server als Spieler verbunden!");
+                                            send(pClientIP, pClientPort, "RegisterSuccessful: " + userClientID);
+                                            sendToAll("joinedPlayer: username: " + username + ": clientID: " + userClientID + ": host: " + host);
                                         }
-
-                                        names.add(username);
-                                        clients.put(pClientIP, new ClientData(pClientIP, pClientPort, host, username, clientID));
-                                        System.out.println("[Server] Client \"" + username + "\" hat sich mit dem Server als Spieler verbunden!");
-
-                                        send(pClientIP, pClientPort, "RegisterSuccessful: " + clientID);
-                                        sendToAll("joined: username: " + username + ": clientID: " + clientID + ": host: " + host);
-                                    } else send(pClientIP, pClientPort,"Disconnect: Server full");
-                                }
-                            } else send(pClientIP, pClientPort, "Disconnect: Game Already started");
+                                    }
+                                } else send(pClientIP, pClientPort, "Disconnect: Game Already started");
+                            } else send(pClientIP, pClientPort, "Disconnect: Username Already in use");
                         } else send(pClientIP, pClientPort, "Disconnect: No Spectators allowed");
-                     } else send(pClientIP, pClientPort, "Disconnect: Username Already in use");
+                    } else send(pClientIP, pClientPort, "Disconnect: This Server is running on another gamemode");
                 } else send(pClientIP, pClientPort, "Disconnect: A Client of this Device is already connected to the Server");
             }
 
@@ -114,11 +111,23 @@ import java.util.Map;
             }
         }
 
-        public int getClientID() {
+        public int generateClientID() {
 
             for (int i = 0; i < clientIDs.length; i++) {
 
                 if(clientIDs[i] == null) {
+
+                    return i;
+                } else continue;
+            }
+            return -1;
+        }
+
+        public int generateSpectatorID() {
+
+            for (int i = 0; i < spectatorIDs.length; i++) {
+
+                if(spectatorIDs[i] == null) {
 
                     return i;
                 } else continue;
