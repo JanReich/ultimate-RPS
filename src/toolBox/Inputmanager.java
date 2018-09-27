@@ -226,7 +226,7 @@ import java.awt.event.MouseEvent;
                     break;
                 case KeyEvent.VK_BACK_SPACE:
 
-                    if(inputQuerry.length() >= 1)
+                    if(inputQuerry.length() >= 1 && typing)
                         inputQuerry = inputQuerry.substring(0, inputQuerry.length() - 1);
                     break;
                 case KeyEvent.VK_PERIOD:    //Punkt

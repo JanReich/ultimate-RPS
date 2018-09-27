@@ -120,7 +120,15 @@ public class FileHelper {
 
                 for (Map.Entry<String, String> config : configs.entrySet()) {
 
-                    properties.setProperty(config.getKey(), config.getValue());
+                    try {
+
+                        properties.setProperty(config.getKey(), config.getValue());
+                    } catch (NullPointerException e) {
+
+                        e.printStackTrace();
+                        System.out.println(config.getValue());
+                        System.out.println(config.getKey());
+                    }
                 }
 
                 FileOutputStream writer = new FileOutputStream(file);

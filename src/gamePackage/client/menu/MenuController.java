@@ -44,6 +44,8 @@ import java.awt.event.MouseEvent;
         @Override
         public void keyReleased(KeyEvent e) {
 
+            if(KeyEvent.VK_SPACE == e.getKeyCode())
+                System.out.println("___________________________________________");
         }
 
         @Override
