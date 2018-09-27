@@ -17,6 +17,7 @@ import java.net.Socket;
 
                 //Attribute
             private int errorID;
+            private boolean directPopup;
             private boolean addressPopup;
 
             private boolean con1;
@@ -26,6 +27,7 @@ import java.net.Socket;
 
                 //Referenzen
             private BufferedImage popup;
+            private BufferedImage direcPopup;
 
                 //Serverslots
             private ServerSlot slot1;
@@ -49,6 +51,8 @@ import java.net.Socket;
             public ServerMenu(Display display, MenuController controller) {
 
                 super(display, controller);
+
+                this.direcPopup = ImageHelper.getImage("res/images/menu/direct-popup.png");
             }
 
             @Override
@@ -61,7 +65,7 @@ import java.net.Socket;
                 display.getActivePanel().drawObjectOnPanel(back);
                 this.add = new Button(228, 796, 166, 60, "res/images/menu/buttons/Add-server-button",true);
                 display.getActivePanel().drawObjectOnPanel(add);
-                this.direct = new Button(580, 796, 166, 60, "res/images/menu/buttons/Add-server-button",true);
+                this.direct = new Button(580, 796, 166, 60, "res/images/menu/buttons/direct-button",true);
                 display.getActivePanel().drawObjectOnPanel(direct);
 
                 config = new ServerListConfig();
@@ -147,6 +151,12 @@ import java.net.Socket;
                 draw.drawButton(back);
                 draw.drawButton(add);
                 draw.drawButton(direct);
+
+                if(direcPopup) {
+
+                        //draw  popup
+                    draw.drawImage(direcPopup, 115, 330, 730, 300);
+                }
 
                 if(addressPopup) {
 
