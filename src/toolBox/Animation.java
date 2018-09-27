@@ -27,7 +27,7 @@ public class Animation implements GraphicalObject {
         this.animationSpeed = animationSpeed;
         this.amountOfImages = amountOfImages;
         this.breakTime = breakTime;
-        //this.spriteSheet = createNewImage(path);
+        this.spriteSheet = ImageHelper.getImage(path);
         this.sprites = new BufferedImage[amountOfImages];
         repeating = true;
         spriteTimer = animationSpeed;
@@ -37,7 +37,7 @@ public class Animation implements GraphicalObject {
         this.animationSpeed = animationSpeed;
         this.amountOfImages = amountOfImages;
         this.breakTime = breakTime;
-        //this.spriteSheet = createNewImage(path);
+        this.spriteSheet = ImageHelper.getImage(path);
         this.sprites = new BufferedImage[amountOfImages];
         this.repeating = repeating;
         spriteTimer = animationSpeed;
