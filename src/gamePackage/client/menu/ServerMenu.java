@@ -294,8 +294,8 @@ import java.net.Socket;
 
                                 try {
 
-                                    onlineManager = new OnlineManager(display, "", ipInput.getInputQuerry(), Integer.parseInt(portInput.getInputQuerry()));
                                     removeDirecPopUp();
+                                    connect(ipInput.getInputQuerry(), Integer.parseInt(portInput.getInputQuerry()));
                                 } catch (NumberFormatException e) {
 
                                     errorID = 3;
@@ -309,6 +309,11 @@ import java.net.Socket;
 
                         removeServerSlot(slot1, 1);
                         slot1 = null;
+
+                        if(slot1.getJoin().isClicked()) {
+
+                            connect(config.getServerIP1(), Integer.parseInt(config.getServerIP1()));
+                        }
                     }
 
                 if(config.isSlot2())
@@ -316,6 +321,11 @@ import java.net.Socket;
 
                         removeServerSlot(slot2, 2);
                         slot2 = null;
+
+                        if(slot2.getJoin().isClicked()) {
+
+                            connect(config.getServerIP2(), Integer.parseInt(config.getServerIP2()));
+                        }
                     }
 
                 if(config.isSlot3())
@@ -323,6 +333,11 @@ import java.net.Socket;
 
                         removeServerSlot(slot3, 3);
                         slot3 = null;
+
+                        if(slot3.getJoin().isClicked()) {
+
+                            connect(config.getServerIP3(), Integer.parseInt(config.getServerIP3()));
+                        }
                     }
 
                 if(config.isSlot4())
@@ -330,6 +345,12 @@ import java.net.Socket;
 
                         removeServerSlot(slot4, 4);
                         slot4 = null;
+
+
+                        if(slot4.getJoin().isClicked()) {
+
+                            connect(config.getServerIP4(), Integer.parseInt(config.getServerIP4()));
+                        }
                     }
 
 
@@ -367,6 +388,12 @@ import java.net.Socket;
                             } else errorID = 2;
                         } else errorID = 1;
                     }
+            }
+
+            private void connect(String serverIP, int serverPort) {
+
+                onlineManager = new OnlineManager(display, username, serverIP, serverPort);
+                display.getActivePanel().removeObjectFromPanel(this);
             }
 
             private void createPopup() {
