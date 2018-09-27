@@ -119,28 +119,28 @@ import java.net.Socket;
 
                     drawSlot(draw, slot1, con1);
 
-                    drawSlotinformation(draw, slot1.getX(), slot1.getY());
+                    drawSlotinformation(draw, 1, slot1.getX(), slot1.getY());
                 }
 
                 if(config.isSlot2()) {
 
                     drawSlot(draw, slot2, con2);
 
-                    drawSlotinformation(draw, slot2.getX(), slot2.getY());
+                    drawSlotinformation(draw, 2, slot2.getX(), slot2.getY());
                 }
 
                 if(config.isSlot3()) {
 
                     drawSlot(draw, slot3, con3);
 
-                    drawSlotinformation(draw, slot3.getX(), slot3.getY());
+                    drawSlotinformation(draw, 3, slot3.getX(), slot3.getY());
                 }
 
                 if(config.isSlot4()) {
 
                     drawSlot(draw, slot4, con4);
 
-                    drawSlotinformation(draw, slot4.getX(), slot4.getY());
+                    drawSlotinformation(draw, 4, slot4.getX(), slot4.getY());
                 }
 
                     //button's
@@ -188,9 +188,8 @@ import java.net.Socket;
                 draw.drawButton(slot.getDelete());
                 draw.drawButton(slot.getJoin());
 
-                if(connection) draw.setColour(Color.GREEN);
-                else draw.setColour(Color.RED);
-                draw.drawRec(slot.getX() + 660, slot.getY() + 37, 25, 25);
+                if(connection) draw.drawImage(slot.getConnectionTrue(), 765, 266, 50, 40);
+                draw.drawImage(slot.getConnectionFalse(), 765, 266, 50, 40);
             }
 
             @Override
@@ -462,14 +461,30 @@ import java.net.Socket;
                 }
             }
 
-            private void drawSlotinformation(DrawHelper draw, int x, int y) {
+            private void drawSlotinformation(DrawHelper draw, int type, int x, int y) {
 
                 draw.setColour(Color.BLACK);
                 draw.setFont(new Font("Impact", Font.PLAIN, 15));
                 draw.drawString(config.getName1() + "", x + 74, y + 37);
                 draw.setFont(new Font("Impact", Font.PLAIN, 25));
-                draw.drawString(config.getServerIP1() + "", x + 120, y + 72);
-                draw.drawString(config.getServerPort1() + "", x + 120, y + 97);
+
+                if(type == 1) {
+
+                    draw.drawString(config.getServerIP1() + "", x + 120, y + 72);
+                    draw.drawString(config.getServerPort1() + "", x + 120, y + 97);
+                } else if(type == 2) {
+
+                    draw.drawString(config.getServerIP2() + "", x + 120, y + 72);
+                    draw.drawString(config.getServerPort2() + "", x + 120, y + 97);
+                } else if(type == 3) {
+
+                    draw.drawString(config.getServerIP3() + "", x + 120, y + 72);
+                    draw.drawString(config.getServerPort3() + "", x + 120, y + 97);
+                } else if(type == 4) {
+
+                    draw.drawString(config.getServerIP4() + "", x + 120, y + 72);
+                    draw.drawString(config.getServerPort4() + "", x + 120, y + 97);
+                }
             }
 
             private class ServerSlot {
@@ -484,6 +499,8 @@ import java.net.Socket;
                     private Button join;
                     private Button delete;
                     private BufferedImage image;
+                    private BufferedImage connectionTrue;
+                    private BufferedImage connectionFalse;
 
                 public ServerSlot(int x, int y, int width, int height) {
 
@@ -493,6 +510,8 @@ import java.net.Socket;
                     this.height = height;
 
                     this.image = ImageHelper.getImage("res/images/menu/server-slot.png");
+                    this.connectionTrue = ImageHelper.getImage("res/images/menu/connection-icon2.png");
+                    this.connectionFalse = ImageHelper.getImage("res/images/menu/connection-icon1.png");
 
                     join = new Button(x + 613, y + 72, 78, 30, "res/images/menu/buttons/Join-server-button", true);
                     delete = new Button(x + 674, y + 6, 25, 25, "res/images/menu/buttons/close-button",true);
@@ -533,6 +552,16 @@ import java.net.Socket;
                 public BufferedImage getImage() {
 
                     return image;
+                }
+
+                public BufferedImage getConnectionTrue() {
+
+                    return connectionTrue;
+                }
+
+                public BufferedImage getConnectionFalse() {
+
+                    return connectionFalse;
                 }
             }
         }
