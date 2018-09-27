@@ -16,6 +16,8 @@ public class Singleplayer implements BasicInteractableObject {
     private BufferedImage stein;
     private BufferedImage papier;
     private BufferedImage schere;
+    private BufferedImage win;
+    private BufferedImage lost;
     private BufferedImage linkeHand;
     private BufferedImage rechteHand;
     private int auswahlStein;
@@ -24,6 +26,7 @@ public class Singleplayer implements BasicInteractableObject {
     private int auswahl = 0;
     private boolean won = false;
     private boolean canPlay = true;
+    private boolean end = false;
     private int KIscore = 0;
     private int playerscore = 0;
     private String motivationText = "->";
@@ -39,6 +42,8 @@ public class Singleplayer implements BasicInteractableObject {
         papier = ImageHelper.getImage("res/images/Singleplayer/paper.png");
         schere = ImageHelper.getImage("res/images/Singleplayer/schere.png");
         background = ImageHelper.getImage("res/images/Singleplayer/background.png");
+        win = ImageHelper.getImage("res/images/Singleplayer/win.png");
+        lost = ImageHelper.getImage("res/images/Singleplayer/lost.png");
 
     }
 
@@ -88,7 +93,7 @@ public class Singleplayer implements BasicInteractableObject {
     public void KImove(){
         int KIauswahl = (int)(Math.random()*3+1);
         if(auswahl==1&&KIauswahl==3||auswahl==2&&KIauswahl==1||auswahl==3&&KIauswahl==2){
-            won = true;
+
             playerscore = playerscore +1;
 
             motivationText = "-> Nice!";
@@ -97,7 +102,7 @@ public class Singleplayer implements BasicInteractableObject {
 
             motivationText = "-> Unentschieden...";
         }else{
-            won = false;
+
             KIscore = KIscore + 1;
 
             motivationText = "-> Verloren :(";
@@ -106,10 +111,15 @@ public class Singleplayer implements BasicInteractableObject {
         if(playerscore >= 3){
             canPlay=false;
             motivationText = "Geiler Typ!";
+            won = true;
+            end = true;
+
             //WinScreen
         }else if(KIscore >= 3){
             canPlay=false;
             motivationText = "Du bist kacke!";
+            won = false;
+            end = true;
             //LooseScreen
         }
 
@@ -132,5 +142,13 @@ public class Singleplayer implements BasicInteractableObject {
 
         draw.drawString("Player: "+ playerscore +" ----- KI: "+KIscore,370,50);
         draw.drawString(motivationText,370,80);
+
+        if(end){
+            if(won){
+                draw.drawImage(win, 250, 250, 500, 500);
+            }else if(!won){
+                draw.drawImage(lost, 250, 150, 500, 457);
+            }
+        }
     }
 }
