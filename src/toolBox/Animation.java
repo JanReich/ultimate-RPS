@@ -64,6 +64,14 @@ public class Animation implements GraphicalObject {
         return image;
     }
 
+    public BufferedImage getFirstSprite(){
+        if(sprites[0]!= null) {
+            return sprites[0];
+        }else{
+            return null;
+        }
+    }
+
     @Override
     public void update(double dt) {
 
