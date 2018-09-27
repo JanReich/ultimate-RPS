@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-    public class AnimatedButton implements AdvancedInteractableObject {
+public class AnimatedButton implements AdvancedInteractableObject {
 
                 //Attribute
             private double x;
@@ -29,13 +29,15 @@ import java.awt.image.BufferedImage;
             this.height = height;
 
             this.image = ImageHelper.getImage(path + ".png");
-            this.animation = new Animation(path + "-animation.png", 0.4, 8, 0, true);
+            this.animation = new Animation(path + "-animation.png", 0.04, 8, 0, true);
         }
 
         public void paint(DrawHelper draw) {
 
-            if(!inside) draw.drawImage(image, x, y, width, height);
-            else draw.drawImage(animation.getAnimation(), x, y, width, height);
+            if(animation.getAnimation() == null)
+                draw.drawImage(image, x, y, width, height);
+            else
+                draw.drawImage(animation.getAnimation(), x, y, width, height);
         }
 
         @Override
@@ -93,5 +95,10 @@ import java.awt.image.BufferedImage;
         public boolean isClicked() {
 
             return clicked;
+        }
+
+        public Animation getAnimation() {
+
+            return animation;
         }
     }

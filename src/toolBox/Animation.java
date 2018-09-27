@@ -75,7 +75,7 @@ public class Animation implements GraphicalObject {
     @Override
     public void update(double dt) {
 
-        if(stopped)
+        if(!stopped)
             spriteTimer = spriteTimer -dt;
     }
 
