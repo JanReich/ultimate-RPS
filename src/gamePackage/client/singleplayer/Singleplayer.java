@@ -89,6 +89,13 @@ public class Singleplayer implements BasicInteractableObject {
         }else{
             won = false;
         }
+        if(won){
+
+            System.out.println("Du hast verloren");
+        }else{
+
+            System.out.println("Du hast gewonnen");
+        }
 
     }
 
