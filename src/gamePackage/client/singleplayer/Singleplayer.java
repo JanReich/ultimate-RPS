@@ -49,13 +49,13 @@ public class Singleplayer implements BasicInteractableObject {
     public void init(){
         stein = ImageHelper.getImage("res/images/Singleplayer/stone.png");
         papier = ImageHelper.getImage("res/images/Singleplayer/paper.png");
-        schere = ImageHelper.getImage("res/images/Singleplayer/schere.png");
+        schere = ImageHelper.getImage("res/images/Singleplayer/scissor.png");
         background = ImageHelper.getImage("res/images/Singleplayer/background.png");
         win = ImageHelper.getImage("res/images/Singleplayer/win.png");
         lost = ImageHelper.getImage("res/images/Singleplayer/lost.png");
         playerHand = new Animation("res/images/Singleplayer/stone-ani.png", 0.04, 22, 0, false);
         comHand = new Animation("res/images/Singleplayer/stone-ani-right.png", 0.04, 22, 0, false);
-        backButton = new Button(50,850,210,56,"res/images/menu/buttons/kicked-back",true);
+        backButton = new Button(50,850,210,56,"res/images/menu/buttons/back-to-menu",true);
         display.getActivePanel().drawObjectOnPanel(backButton);
     }
 
