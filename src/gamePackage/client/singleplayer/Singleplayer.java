@@ -1,7 +1,5 @@
 package gamePackage.client.singleplayer;
 
-import com.sun.media.jfxmedia.events.PlayerStateEvent;
-import gamePackage.client.menu.MainMenu;
 import gamePackage.client.menu.MenuController;
 import graphics.Display;
 import graphics.interfaces.BasicInteractableObject;

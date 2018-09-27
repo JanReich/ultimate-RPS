@@ -3,10 +3,8 @@ package gamePackage.client.menu;
 import config.ServerListConfig;
 import gamePackage.client.OnlineManager;
 import graphics.Display;
+import toolBox.*;
 import toolBox.Button;
-import toolBox.DrawHelper;
-import toolBox.ImageHelper;
-import toolBox.Inputmanager;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -46,9 +44,9 @@ import java.net.Socket;
                 //Button's
             private Button back;
             private Button join;
-            private Button refresh;
             private Button closeButton;
             private Button popupAddButton;
+            private AnimatedButton refresh;
 
             private Button add;
             private Button direct;
@@ -73,7 +71,7 @@ import java.net.Socket;
                 display.getActivePanel().drawObjectOnPanel(add);
                 this.direct = new Button(580, 796, 166, 60, "res/images/menu/buttons/direct-button",true);
                 display.getActivePanel().drawObjectOnPanel(direct);
-                this.refresh = new Button(458, 796, 60, 60, "res/images/menu/buttons/refresh-button", true);
+                this.refresh = new AnimatedButton(458, 796, 60, 60, "res/images/menu/buttons/refresh-button");
                 display.getActivePanel().drawObjectOnPanel(refresh);
 
                 config = new ServerListConfig();
