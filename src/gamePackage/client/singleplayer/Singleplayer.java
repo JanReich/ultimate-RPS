@@ -86,6 +86,7 @@ public class Singleplayer implements BasicInteractableObject {
             won = true;
         }else if(auswahl==KIauswahl){
             canPlay = true;
+            System.out.println("Unentschieden");
         }else{
             won = false;
         }
