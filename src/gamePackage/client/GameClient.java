@@ -9,6 +9,7 @@ import java.util.HashMap;
 
                 //Attribute
 
+
                 //Referenzen
             private ClientData data;
             private HashMap<Integer, ClientData> connectedClients;
