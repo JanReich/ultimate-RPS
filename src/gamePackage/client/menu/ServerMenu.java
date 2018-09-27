@@ -208,7 +208,7 @@ import java.net.Socket;
                 draw.drawButton(slot.getJoin());
 
                 if(connection) draw.drawImage(slot.getConnectionTrue(), slot.getX() + 640, slot.getY() + 31, 50, 40);
-                draw.drawImage(slot.getConnectionFalse(), slot.getX() + 640, slot.getY() + 31, 50, 40);
+                else draw.drawImage(slot.getConnectionFalse(), slot.getX() + 640, slot.getY() + 31, 50, 40);
             }
 
             @Override
@@ -294,8 +294,8 @@ import java.net.Socket;
 
                                 try {
 
-                                    removeDirecPopUp();
                                     connect(ipInput.getInputQuerry(), Integer.parseInt(portInput.getInputQuerry()));
+                                    removeDirecPopUp();
                                 } catch (NumberFormatException e) {
 
                                     errorID = 3;
