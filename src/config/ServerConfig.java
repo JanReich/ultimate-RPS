@@ -13,6 +13,8 @@ public class ServerConfig extends Config {
         private int minPlayers;
         private int maxPlayers;
 
+        private int maxSpectator;
+
         private boolean spectatorJoin;
 
             //Referenzen
@@ -30,6 +32,8 @@ public class ServerConfig extends Config {
 
         minPlayers = Integer.parseInt(FileHelper.getProperty(file, "Min-Player"));
         maxPlayers = Integer.parseInt(FileHelper.getProperty(file, "Max-Player"));
+
+        maxPlayers = Integer.parseInt(FileHelper.getProperty(file, "Max-Spectator"));
 
         if(FileHelper.getProperty(file, "Spectator-Join").equalsIgnoreCase("allowed")) spectatorJoin = true;
         else spectatorJoin = false;
@@ -49,7 +53,9 @@ public class ServerConfig extends Config {
             config.put("MinPort", "2");
             config.put("MaxPort", "2");
 
-            config.put("Spectator-Join", "denied");
+            config.put("Max-Spectator", "10");
+
+            config.put("Spectator-Join", "allowed");
 
             FileHelper.setProperty(file, config);
         }
@@ -101,5 +107,10 @@ public class ServerConfig extends Config {
     public void setSpectatorJoin(boolean spectatorJoin) {
 
         this.spectatorJoin = spectatorJoin;
+    }
+
+    public int getMaxSpectator() {
+
+        return maxSpectator;
     }
 }

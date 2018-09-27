@@ -15,6 +15,7 @@ import java.util.List;
 
             private final int minPlayers;
             private final int maxPlayers;
+            private final int maxSpectators;
             private final boolean spectatingAllowed;
 
                 //Referenzen
@@ -22,12 +23,13 @@ import java.util.List;
             private String[] clientIDs;
             private HashMap<String, ClientData> clients;
 
-        public GameServer(int pPort, int minPlayers, int maxPlayers, boolean spectatingAllowed) {
+        public GameServer(int pPort, int minPlayers, int maxPlayers, int maxSpectators, boolean spectatingAllowed) {
 
             super(pPort);
 
             this.minPlayers = minPlayers;
             this.maxPlayers = maxPlayers;
+            this.maxSpectators = maxSpectators;
             this.spectatingAllowed = spectatingAllowed;
 
             this.names = new ArrayList<>();
