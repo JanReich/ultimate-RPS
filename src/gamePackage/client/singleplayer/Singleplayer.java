@@ -90,24 +90,26 @@ public class Singleplayer implements BasicInteractableObject {
         if(auswahl==1&&KIauswahl==3||auswahl==2&&KIauswahl==1||auswahl==3&&KIauswahl==2){
             won = true;
             playerscore = playerscore +1;
-            System.out.println("Gewonnen");
+
             motivationText = "-> Nice!";
         }else if(auswahl==KIauswahl){
             canPlay = true;
-            System.out.println("Unentschieden");
+
             motivationText = "-> Unentschieden...";
         }else{
             won = false;
             KIscore = KIscore + 1;
-            System.err.println("Verloren");
+
             motivationText = "-> Verloren :(";
         }
 
         if(playerscore >= 3){
             canPlay=false;
+            motivationText = "Geiler Typ!";
             //WinScreen
         }else if(KIscore >= 3){
             canPlay=false;
+            motivationText = "Du bist kacke!";
             //LooseScreen
         }
 
