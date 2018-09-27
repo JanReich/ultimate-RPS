@@ -49,13 +49,23 @@ public class Singleplayer implements BasicInteractableObject {
     public void mouseReleased(MouseEvent event) {
 
         //Stein entspricht der Nummer 3
-
+        if(event.getX()>=416&&event.getX()<=546&&event.getY()>=516&&event.getY()<=646){
+            System.out.println("Stein");
+            auswahl = auswahlStein;
+        }
 
         //Papier entspricht der Nummer 1
-
+        if(event.getX()>=546&&event.getX()<=676&&event.getY()>=516&&event.getY()<=646){
+            System.out.println("Papier");
+            auswahl = auswahlPapier;
+        }
 
 
         //Schere entspricht der Nummer 2
+        if(event.getX()>=286&&event.getX()<=416&&event.getY()>=516&&event.getY()<=646){
+            System.out.println("Schere");
+            auswahl = auswahlSchere;
+        }
 
     }
 
@@ -66,6 +76,8 @@ public class Singleplayer implements BasicInteractableObject {
 
     @Override
     public void draw(DrawHelper draw) {
-        draw.drawImage(stein,416,416,128,128);
+        draw.drawImage(stein,416,516,128,128);
+        draw.drawImage(schere,286,516,128,128);
+        draw.drawImage(papier,546,516,128,128);
     }
 }
