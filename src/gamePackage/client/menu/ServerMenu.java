@@ -17,6 +17,7 @@ import java.net.Socket;
 
                 //Attribute
             private int errorID;
+            private boolean directPopup;
             private boolean addressPopup;
 
             private boolean con1;
@@ -26,6 +27,7 @@ import java.net.Socket;
 
                 //Referenzen
             private BufferedImage popup;
+            private BufferedImage direcPopup;
 
                 //Serverslots
             private ServerSlot slot1;
@@ -49,6 +51,8 @@ import java.net.Socket;
             public ServerMenu(Display display, MenuController controller) {
 
                 super(display, controller);
+
+                this.direcPopup = ImageHelper.getImage("res/images/menu/direct-popup.png");
             }
 
             @Override
@@ -61,7 +65,7 @@ import java.net.Socket;
                 display.getActivePanel().drawObjectOnPanel(back);
                 this.add = new Button(228, 796, 166, 60, "res/images/menu/buttons/Add-server-button",true);
                 display.getActivePanel().drawObjectOnPanel(add);
-                this.direct = new Button(580, 796, 166, 60, "res/images/menu/buttons/Add-server-button",true);
+                this.direct = new Button(580, 796, 166, 60, "res/images/menu/buttons/direct-button",true);
                 display.getActivePanel().drawObjectOnPanel(direct);
 
                 config = new ServerListConfig();
@@ -148,6 +152,12 @@ import java.net.Socket;
                 draw.drawButton(add);
                 draw.drawButton(direct);
 
+                if(direcPopup) {
+
+                        //draw  popup
+                    draw.drawImage(direcPopup, 115, 330, 730, 300);
+                }
+
                 if(addressPopup) {
 
                         //draw popup
@@ -188,8 +198,8 @@ import java.net.Socket;
                 draw.drawButton(slot.getDelete());
                 draw.drawButton(slot.getJoin());
 
-                if(connection) draw.drawImage(slot.getConnectionTrue(), 765, 266, 50, 40);
-                draw.drawImage(slot.getConnectionFalse(), 765, 266, 50, 40);
+                if(connection) draw.drawImage(slot.getConnectionTrue(), slot.getX() + 640, slot.getY() + 31, 50, 40);
+                draw.drawImage(slot.getConnectionFalse(), slot.getX() + 640, slot.getY() + 31, 50, 40);
             }
 
             @Override
@@ -464,24 +474,30 @@ import java.net.Socket;
             private void drawSlotinformation(DrawHelper draw, int type, int x, int y) {
 
                 draw.setColour(Color.BLACK);
-                draw.setFont(new Font("Impact", Font.PLAIN, 15));
-                draw.drawString(config.getName1() + "", x + 74, y + 37);
                 draw.setFont(new Font("Impact", Font.PLAIN, 25));
 
                 if(type == 1) {
 
+                    draw.drawString(config.getName1() + "", x + 74, y + 37);
+                    draw.setFont(new Font("Impact", Font.PLAIN, 25));
                     draw.drawString(config.getServerIP1() + "", x + 120, y + 72);
                     draw.drawString(config.getServerPort1() + "", x + 120, y + 97);
                 } else if(type == 2) {
 
+                    draw.drawString(config.getName2() + "", x + 74, y + 37);
+                    draw.setFont(new Font("Impact", Font.PLAIN, 25));
                     draw.drawString(config.getServerIP2() + "", x + 120, y + 72);
                     draw.drawString(config.getServerPort2() + "", x + 120, y + 97);
                 } else if(type == 3) {
 
+                    draw.drawString(config.getName3() + "", x + 74, y + 37);
+                    draw.setFont(new Font("Impact", Font.PLAIN, 25));
                     draw.drawString(config.getServerIP3() + "", x + 120, y + 72);
                     draw.drawString(config.getServerPort3() + "", x + 120, y + 97);
                 } else if(type == 4) {
 
+                    draw.drawString(config.getName4() + "", x + 74, y + 37);
+                    draw.setFont(new Font("Impact", Font.PLAIN, 25));
                     draw.drawString(config.getServerIP4() + "", x + 120, y + 72);
                     draw.drawString(config.getServerPort4() + "", x + 120, y + 97);
                 }
