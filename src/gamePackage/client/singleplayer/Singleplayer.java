@@ -18,7 +18,7 @@ public class Singleplayer implements BasicInteractableObject {
     private String auswahlStein;
     private String auswahlPapier;
     private String auswahlSchere;
-    //
+
 
 
     public Singleplayer(String auswahlPapier, String auswahlSchere, String auswahlStein){
