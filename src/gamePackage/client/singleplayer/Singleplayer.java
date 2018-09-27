@@ -1,11 +1,12 @@
 package gamePackage.client.singleplayer;
 
 import gamePackage.client.menu.MenuController;
-import graphics.Display;
 import graphics.interfaces.BasicInteractableObject;
+import toolBox.Animation;
 import toolBox.DrawHelper;
 import toolBox.ImageHelper;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -18,11 +19,12 @@ public class Singleplayer implements BasicInteractableObject {
     private BufferedImage schere;
     private BufferedImage win;
     private BufferedImage lost;
-    private BufferedImage linkeHand;
+    private BufferedImage left, right;
+    private Animation leftHand, rightHand;
     private BufferedImage rechteHand;
     private MenuController controller;
 
-    private int auswahl = 0;
+    private int choice = 0;
     private boolean won = false;
     private boolean canPlay = true;
     private boolean end = false;
@@ -31,17 +33,18 @@ public class Singleplayer implements BasicInteractableObject {
     private String motivationText = "->";
 
 
-
-
     public Singleplayer(){
+        init();
+    }
 
+    public void init(){
         stein = ImageHelper.getImage("res/images/Singleplayer/stone.png");
         papier = ImageHelper.getImage("res/images/Singleplayer/paper.png");
         schere = ImageHelper.getImage("res/images/Singleplayer/schere.png");
         background = ImageHelper.getImage("res/images/Singleplayer/background.png");
         win = ImageHelper.getImage("res/images/Singleplayer/win.png");
         lost = ImageHelper.getImage("res/images/Singleplayer/lost.png");
-
+        //left = ImageHelper.getImage()
     }
 
     @Override
@@ -60,7 +63,7 @@ public class Singleplayer implements BasicInteractableObject {
             //Stein entspricht der Nummer 3
             if (event.getX() >= 416 && event.getX() <= 546 && event.getY() >= 516 && event.getY() <= 646) {
                 System.out.println("Stein");
-                auswahl = 1;
+                choice = 1;
 
                 KImove();
             }
@@ -68,7 +71,7 @@ public class Singleplayer implements BasicInteractableObject {
             //Papier entspricht der Nummer 1
             if (event.getX() >= 546 && event.getX() <= 676 && event.getY() >= 516 && event.getY() <= 646) {
                 System.out.println("Papier");
-                auswahl = 2;
+                choice = 2;
 
                 KImove();
 
@@ -78,7 +81,7 @@ public class Singleplayer implements BasicInteractableObject {
             //Schere entspricht der Nummer 2
             if (event.getX() >= 286 && event.getX() <= 416 && event.getY() >= 516 && event.getY() <= 646) {
                 System.out.println("Schere");
-                auswahl = 3;
+                choice = 3;
 
                 KImove();
 
@@ -89,12 +92,12 @@ public class Singleplayer implements BasicInteractableObject {
 
     public void KImove(){
         int KIauswahl = (int)(Math.random()*3+1);
-        if(auswahl==1&&KIauswahl==3||auswahl==2&&KIauswahl==1||auswahl==3&&KIauswahl==2){
+        if(choice ==1&&KIauswahl==3|| choice ==2&&KIauswahl==1|| choice ==3&&KIauswahl==2){
 
             playerscore = playerscore +1;
 
             motivationText = "-> Nice!";
-        }else if(auswahl==KIauswahl){
+        }else if(choice ==KIauswahl){
             canPlay = true;
 
             motivationText = "-> Unentschieden...";
