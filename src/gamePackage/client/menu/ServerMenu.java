@@ -7,12 +7,14 @@ import toolBox.DrawHelper;
 import toolBox.ImageHelper;
 import toolBox.Inputmanager;
 
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
     public class ServerMenu extends Menu {
 
             //Attribute
+        private int errorID;
         private boolean addressPopup;
 
             //Referenzen
@@ -56,6 +58,10 @@ import java.awt.image.BufferedImage;
             display.getActivePanel().drawObjectOnPanel(direct);
 
             config = new ServerListConfig();
+            loadSlots();
+        }
+
+        private void loadSlots() {
 
             if(config.isSlot1())
                 slot1 = createServerSlot(1);
@@ -65,6 +71,17 @@ import java.awt.image.BufferedImage;
                 slot3 = createServerSlot(3);
             if(config.isSlot4())
                 slot4 = createServerSlot(4);
+
+            if(add != null && config.isSlot1() && config.isSlot2() && config.isSlot3() && config.isSlot4()) {
+
+                display.getActivePanel().removeObjectFromPanel(add);
+                add = null;
+            }
+            else if(add == null && (!config.isSlot1() || !config.isSlot2() || !config.isSlot3() || !config.isSlot4())) {
+
+                this.add = new Button(228, 796, 166, 60, "res/images/menu/buttons/Add-server-button",true);
+                display.getActivePanel().drawObjectOnPanel(add);
+            }
         }
 
         @Override
@@ -87,6 +104,7 @@ import java.awt.image.BufferedImage;
         public void draw(DrawHelper draw) {
 
                 //draw background
+            draw.setColour(Color.BLACK);
             draw.drawImage(background, 0, 0, display.getWidth(), display.getHeight());
 
                 //draw server slots
@@ -137,6 +155,23 @@ import java.awt.image.BufferedImage;
                 draw.drawString(ipInput.getInputQuerry(), 375,472);
                 draw.drawString(portInput.getInputQuerry(), 375, 592);
             }
+
+            if(addressPopup) {
+
+                draw.setColour(Color.RED);
+                draw.setFont(new Font("Impact", Font.BOLD, 30));
+
+                if (errorID == 1) {
+
+                    draw.drawString("ungültige IP!", 385, 660);
+                } else if (errorID == 2) {
+
+                    draw.drawString("Die Eingabefelder dürfen nicht leer sein!", 187, 660);
+                } else if(errorID == 3) {
+
+                    draw.drawString("Der Port muss numerisch sein!", 265, 660);
+                }
+            }
         }
 
         @Override
@@ -180,9 +215,9 @@ import java.awt.image.BufferedImage;
                 controller.createMultiplayerMenu();
             }
 
-            else if(add.isClicked()) {
-                if(!addressPopup) createPopup();
-            }
+            if(add != null)
+                 if(add.isClicked())
+                    if(!addressPopup) createPopup();
 
             if(addressPopup) {
                 if (closeButton.isClicked()) removePopup();
@@ -216,6 +251,42 @@ import java.awt.image.BufferedImage;
                     removeServerSlot(slot4, 4);
                     slot4 = null;
                 }
+
+
+            /**
+             * ErrorID:
+             * 1 = ungültige IP
+             * 2 = Felder dürfen nicht leer sein
+             * 3 = Der Port muss numerisch sein
+             */
+            if(addressPopup)
+                if(popupAddButton.isClicked()) {
+
+                    if(ipInput.getInputQuerry().contains(".") || ipInput.getInputQuerry().equalsIgnoreCase("localhost")) {
+
+                        if(nameInput.getInputQuerry().length() != 0 && portInput.getInputQuerry().length() != 0) {
+
+                            try {
+
+                                if(!config.isSlot1()) {
+                                    saveServer(1, ipInput.getInputQuerry(), Integer.parseInt(portInput.getInputQuerry()), nameInput.getInputQuerry());
+                                } else if(!config.isSlot2()) {
+                                    saveServer(2, ipInput.getInputQuerry(), Integer.parseInt(portInput.getInputQuerry()), nameInput.getInputQuerry());
+                                } else if(!config.isSlot3()) {
+                                    saveServer(3, ipInput.getInputQuerry(), Integer.parseInt(portInput.getInputQuerry()), nameInput.getInputQuerry());
+                                } else if(!config.isSlot4()) {
+                                    saveServer(4, ipInput.getInputQuerry(), Integer.parseInt(portInput.getInputQuerry()), nameInput.getInputQuerry());
+                                }
+
+                                removePopup();
+                                loadSlots();
+                            } catch (NumberFormatException e) {
+
+                                errorID = 3;
+                            }
+                        } else errorID = 2;
+                    } else errorID = 1;
+                }
         }
 
         private void createPopup() {
@@ -241,6 +312,7 @@ import java.awt.image.BufferedImage;
 
             if(addressPopup) {
 
+                errorID = -1;
                 addressPopup = false;
                 display.getActivePanel().removeObjectFromPanel(closeButton);
                 closeButton = null;
@@ -314,6 +386,38 @@ import java.awt.image.BufferedImage;
                     config.setName4("Empty");
                     config.setServerIP4("Empty");
                     config.setServerPort4(-1);
+                    break;
+            }
+            config.save();
+        }
+
+        public void saveServer(int type, String serverIP, int serverPort, String name) {
+
+            switch (type) {
+
+                case 1:
+                    config.setSlot1(true);
+                    config.setName1(name);
+                    config.setServerIP1(serverIP);
+                    config.setServerPort1(serverPort);
+                    break;
+                case 2:
+                    config.setSlot2(true);
+                    config.setName2(name);
+                    config.setServerIP2(serverIP);
+                    config.setServerPort2(serverPort);
+                    break;
+                case 3:
+                    config.setSlot3(true);
+                    config.setName3(name);
+                    config.setServerIP3(serverIP);
+                    config.setServerPort3(serverPort);
+                    break;
+                case 4:
+                    config.setSlot4(true);
+                    config.setName4(name);
+                    config.setServerIP4(serverIP);
+                    config.setServerPort4(serverPort);
                     break;
             }
             config.save();
