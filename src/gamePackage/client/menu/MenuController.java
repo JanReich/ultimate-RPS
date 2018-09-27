@@ -1,5 +1,6 @@
 package gamePackage.client.menu;
 
+import gamePackage.client.singleplayer.Singleplayer;
 import graphics.Display;
 import graphics.interfaces.ManagementObject;
 import toolBox.Button;
@@ -28,6 +29,8 @@ import java.awt.event.MouseEvent;
             private NameMenu nameMenu;
             private ServerMenu serverMenu;
             private MultiPlayerMenu multiplayerMenu;
+            private Singleplayer singleplayer;
+
 
             private String username;
 
@@ -89,6 +92,7 @@ import java.awt.event.MouseEvent;
             display.getActivePanel().drawObjectOnPanel(multiplayerMenu);
         }
 
+
         public void removeMultiplayerMenu()  {
 
             multiplayerMenu.remove();
@@ -129,5 +133,14 @@ import java.awt.event.MouseEvent;
             nameMenu.remove();
             display.getActivePanel().removeObjectFromPanel(nameMenu);
             nameMenu = null;
+        }
+
+        public void createSingleplayer(){
+            singleplayer = new Singleplayer(display, this);
+            display.getActivePanel().drawObjectOnPanel(singleplayer);
+        }
+        public void removeSingleplayer(){
+            display.getActivePanel().removeObjectFromPanel(singleplayer);
+            singleplayer = null;
         }
     }

@@ -59,6 +59,8 @@ public class Animation implements GraphicalObject {
             } else if(repeating){
                 spriteNumber = 0;
                 spriteTimer = breakTime;
+            }else{
+                stopped = true;
             }
         }
         return image;
@@ -77,6 +79,10 @@ public class Animation implements GraphicalObject {
 
         if(!stopped)
             spriteTimer = spriteTimer -dt;
+    }
+
+    public boolean isFinished(){
+        return stopped;
     }
 
     @Override

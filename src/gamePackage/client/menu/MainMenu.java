@@ -16,7 +16,6 @@ import java.awt.event.MouseEvent;
                 private Button duell;
                 private Button tournament;
                 private Button singleplayerButton;
-                private Singleplayer singleplayer;
 
             public MainMenu(Display display, MenuController controller) {
 
@@ -69,9 +68,7 @@ import java.awt.event.MouseEvent;
                     //Starte den Singleplayer-Modus
                 display.getActivePanel().removeObjectFromPanel(controller);
                 controller.removeMainMenu();
-
-                singleplayer = new Singleplayer();
-                display.getActivePanel().drawObjectOnPanel(singleplayer);
+                controller.createSingleplayer();
             }
 
                 //Starte MultiMenu
