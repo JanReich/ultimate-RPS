@@ -21,6 +21,8 @@ public class Singleplayer implements BasicInteractableObject {
     private int auswahlPapier;
     private int auswahlSchere;
     private int auswahl = 0;
+    private boolean won = false;
+    private boolean canPlay = true;
 
 
 
@@ -47,24 +49,45 @@ public class Singleplayer implements BasicInteractableObject {
 
     @Override
     public void mouseReleased(MouseEvent event) {
+        if(canPlay) {
+            //Stein entspricht der Nummer 3
+            if (event.getX() >= 416 && event.getX() <= 546 && event.getY() >= 516 && event.getY() <= 646) {
+                System.out.println("Stein");
+                auswahl = auswahlStein;
+                canPlay = false;
+                KImove();
+            }
 
-        //Stein entspricht der Nummer 3
-        if(event.getX()>=416&&event.getX()<=546&&event.getY()>=516&&event.getY()<=646){
-            System.out.println("Stein");
-            auswahl = auswahlStein;
+            //Papier entspricht der Nummer 1
+            if (event.getX() >= 546 && event.getX() <= 676 && event.getY() >= 516 && event.getY() <= 646) {
+                System.out.println("Papier");
+                auswahl = auswahlPapier;
+                canPlay = false;
+                KImove();
+
+            }
+
+
+            //Schere entspricht der Nummer 2
+            if (event.getX() >= 286 && event.getX() <= 416 && event.getY() >= 516 && event.getY() <= 646) {
+                System.out.println("Schere");
+                auswahl = auswahlSchere;
+                canPlay = false;
+                KImove();
+
+            }
         }
 
-        //Papier entspricht der Nummer 1
-        if(event.getX()>=546&&event.getX()<=676&&event.getY()>=516&&event.getY()<=646){
-            System.out.println("Papier");
-            auswahl = auswahlPapier;
-        }
+    }
 
-
-        //Schere entspricht der Nummer 2
-        if(event.getX()>=286&&event.getX()<=416&&event.getY()>=516&&event.getY()<=646){
-            System.out.println("Schere");
-            auswahl = auswahlSchere;
+    public void KImove(){
+        int KIauswahl = (int)(Math.random()*3+1);
+        if(auswahl==1&&KIauswahl==3||auswahl==2&&KIauswahl==1||auswahl==3&&KIauswahl==2){
+            won = true;
+        }else if(auswahl==KIauswahl){
+            canPlay = true;
+        }else{
+            won = false;
         }
 
     }
@@ -76,8 +99,10 @@ public class Singleplayer implements BasicInteractableObject {
 
     @Override
     public void draw(DrawHelper draw) {
-        draw.drawImage(stein,416,516,128,128);
-        draw.drawImage(schere,286,516,128,128);
-        draw.drawImage(papier,546,516,128,128);
+        if(canPlay) {
+            draw.drawImage(stein, 416, 516, 128, 128);
+            draw.drawImage(schere, 286, 516, 128, 128);
+            draw.drawImage(papier, 546, 516, 128, 128);
+        }
     }
 }
