@@ -109,6 +109,7 @@ public class Singleplayer implements BasicInteractableObject {
 
     }
 
+
     @Override
     public void update(double delta) {
 
