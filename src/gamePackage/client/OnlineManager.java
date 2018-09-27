@@ -4,7 +4,7 @@ import config.ServerConfig;
 import gamePackage.server.GameServer;
 import graphics.Display;
 
-public class OnlineManager {
+    public class OnlineManager {
 
                 //Attribute
             private int port;
