@@ -1,6 +1,7 @@
 package main;
 
 import gamePackage.client.menu.MenuController;
+
 import graphics.Display;
 
 import java.awt.*;

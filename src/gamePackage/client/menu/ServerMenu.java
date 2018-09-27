@@ -10,8 +10,10 @@ import toolBox.Inputmanager;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
-    public class ServerMenu extends Menu {
+public class ServerMenu extends Menu {
 
             //Attribute
         private int errorID;
@@ -421,6 +423,20 @@ import java.awt.image.BufferedImage;
                     break;
             }
             config.save();
+        }
+
+        private boolean checkServerAlive(String ip, int port) {
+
+            try {
+
+                Socket sock = new Socket ();
+                sock.connect(new InetSocketAddress(ip, port), 2000);
+                sock.close();
+                return true;
+            } catch (Exception e) {
+
+                return false;
+            }
         }
 
         private class ServerSlot {
