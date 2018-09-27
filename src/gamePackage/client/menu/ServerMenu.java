@@ -46,6 +46,7 @@ import java.net.Socket;
                 //Button's
             private Button back;
             private Button join;
+            private Button refresh;
             private Button closeButton;
             private Button popupAddButton;
 
@@ -72,6 +73,8 @@ import java.net.Socket;
                 display.getActivePanel().drawObjectOnPanel(add);
                 this.direct = new Button(580, 796, 166, 60, "res/images/menu/buttons/direct-button",true);
                 display.getActivePanel().drawObjectOnPanel(direct);
+                this.refresh = new Button(458, 796, 60, 60, "res/images/menu/buttons/refresh-button", true);
+                display.getActivePanel().drawObjectOnPanel(refresh);
 
                 config = new ServerListConfig();
                 loadSlots();
@@ -114,6 +117,8 @@ import java.net.Socket;
                 closeButton = null;
                 display.getActivePanel().removeObjectFromPanel(popupAddButton);
                 popupAddButton = null;
+                display.getActivePanel().removeObjectFromPanel(refresh);
+                refresh = null;
             }
 
             @Override
@@ -156,6 +161,7 @@ import java.net.Socket;
                 draw.drawButton(back);
                 draw.drawButton(add);
                 draw.drawButton(direct);
+                draw.drawButton(refresh);
 
                 if(directPopup) {
 
@@ -265,6 +271,14 @@ import java.net.Socket;
 
                     controller.removeServerMenu();
                     controller.createMultiplayerMenu();
+                }
+
+                if(refresh.isClicked() && !addressPopup && !directPopup) {
+
+                    if(config.isSlot1()) con1 = checkServerAlive(config.getServerIP1(), config.getServerPort1());
+                    if(config.isSlot2()) con2 = checkServerAlive(config.getServerIP2(), config.getServerPort2());
+                    if(config.isSlot3()) con3 = checkServerAlive(config.getServerIP3(), config.getServerPort3());
+                    if(config.isSlot4()) con4 = checkServerAlive(config.getServerIP4(), config.getServerPort4());
                 }
 
                 if(add != null)

@@ -17,8 +17,6 @@ public class MainProgram {
 
         public MainProgram() {
 
-            new GameServer(666, 2, 2,2,true);
-
             display = new Display();
             controller = new MenuController(display);
 
