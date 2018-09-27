@@ -27,6 +27,10 @@ import java.awt.image.BufferedImage;
         @Override
         public void init() {
 
+                //TODO: Buttons einfügen, dabei darauf achten, dass diese 4% kleiner werden!
+                //TODO: ALLE BUTTONS schonaml an die richtigen Stellen setzen. Falls Sie
+                //TODO: sich micht etwas anderem überlappen, dann die entsprechende Textur auskommentieren!
+
             playerLaser1 = ImageHelper.getImage("res/images/lobby/player-laser1.png");
             playerLaser2 = ImageHelper.getImage("res/images/lobby/player-laser2.png");
 
