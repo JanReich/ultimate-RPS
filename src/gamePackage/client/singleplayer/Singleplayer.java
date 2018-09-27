@@ -43,7 +43,12 @@ public class Singleplayer implements BasicInteractableObject {
     public void mouseReleased(MouseEvent event) {
 
         //Stein entspricht der Nummer 3
+
+
         //Papier entspricht der Nummer 1
+
+
+
         //Schere entspricht der Nummer 2
 
     }
