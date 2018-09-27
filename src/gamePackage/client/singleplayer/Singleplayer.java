@@ -1,6 +1,8 @@
 package gamePackage.client.singleplayer;
 
 import com.sun.media.jfxmedia.events.PlayerStateEvent;
+import gamePackage.client.menu.MainMenu;
+import gamePackage.client.menu.MenuController;
 import graphics.Display;
 import graphics.interfaces.BasicInteractableObject;
 import toolBox.DrawHelper;
@@ -20,6 +22,7 @@ public class Singleplayer implements BasicInteractableObject {
     private BufferedImage lost;
     private BufferedImage linkeHand;
     private BufferedImage rechteHand;
+    private MenuController controller;
     private int auswahlStein;
     private int auswahlPapier;
     private int auswahlSchere;
@@ -30,6 +33,7 @@ public class Singleplayer implements BasicInteractableObject {
     private int KIscore = 0;
     private int playerscore = 0;
     private String motivationText = "->";
+
 
 
 
@@ -151,4 +155,5 @@ public class Singleplayer implements BasicInteractableObject {
             }
         }
     }
+
 }
