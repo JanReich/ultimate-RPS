@@ -28,8 +28,8 @@ import java.awt.image.BufferedImage;
             this.width = width;
             this.height = height;
 
-            this.image = ImageHelper.getImage(path);
-            this.animation = new Animation(path, 0.4, 8, 0, true);
+            this.image = ImageHelper.getImage(path + ".png");
+            this.animation = new Animation(path + "-animation.png", 0.4, 8, 0, true);
         }
 
         public void paint(DrawHelper draw) {
