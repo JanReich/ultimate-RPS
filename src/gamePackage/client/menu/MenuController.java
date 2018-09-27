@@ -29,6 +29,8 @@ import java.awt.event.MouseEvent;
             private ServerMenu serverMenu;
             private MultiPlayerMenu multiplayerMenu;
 
+            private String username;
+
         public MenuController(Display display) {
 
             this.display = display;
@@ -100,7 +102,7 @@ import java.awt.event.MouseEvent;
 
         public void createServerMenu() {
 
-            this.serverMenu = new ServerMenu(display, this);
+            this.serverMenu = new ServerMenu(display, this, username);
             display.getActivePanel().drawObjectOnPanel(serverMenu);
         }
 
@@ -123,6 +125,7 @@ import java.awt.event.MouseEvent;
 
         public void removeNameMenu() {
 
+            username = nameMenu.getNameInput().getInputQuerry();
             nameMenu.remove();
             display.getActivePanel().removeObjectFromPanel(nameMenu);
             nameMenu = null;

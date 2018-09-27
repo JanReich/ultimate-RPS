@@ -1,6 +1,7 @@
 package gamePackage.client.menu;
 
 import config.ServerListConfig;
+import gamePackage.client.OnlineManager;
 import graphics.Display;
 import toolBox.Button;
 import toolBox.DrawHelper;
@@ -26,8 +27,10 @@ import java.net.Socket;
             private boolean con4;
 
                 //Referenzen
+            private String username;
             private BufferedImage popup;
             private BufferedImage direcPopup;
+            private OnlineManager onlineManager;
 
                 //Serverslots
             private ServerSlot slot1;
@@ -42,17 +45,18 @@ import java.net.Socket;
 
                 //Button's
             private Button back;
+            private Button join;
             private Button closeButton;
             private Button popupAddButton;
 
             private Button add;
             private Button direct;
 
-            public ServerMenu(Display display, MenuController controller) {
+            public ServerMenu(Display display, MenuController controller, String username) {
 
                 super(display, controller);
 
-                this.direcPopup = ImageHelper.getImage("res/images/menu/direct-popup.png");
+                this.username = username;
             }
 
             @Override
@@ -60,6 +64,7 @@ import java.net.Socket;
 
                 popup = ImageHelper.getImage("res/images/menu/add-popup.png");
                 background = ImageHelper.getImage("res/images/menu/server-menu.png");
+                direcPopup = ImageHelper.getImage("res/images/menu/direct-popup.png");
 
                 this.back = new Button(30, 860, 155, 50, "res/images/menu/buttons/Back-button", true);
                 display.getActivePanel().drawObjectOnPanel(back);
@@ -156,6 +161,13 @@ import java.net.Socket;
 
                         //draw  popup
                     draw.drawImage(direcPopup, 115, 330, 730, 300);
+
+                        //Draw Button's
+                    draw.drawButton(join);
+                    draw.drawButton(closeButton);
+
+                    draw.drawString(ipInput.getInputQuerry(), 380, 415);
+                    draw.drawString(portInput.getInputQuerry(), 380, 530);
                 }
 
                 if(addressPopup) {
@@ -172,9 +184,6 @@ import java.net.Socket;
                     draw.drawString(nameInput.getInputQuerry(), 385, 352);
                     draw.drawString(ipInput.getInputQuerry(), 385,472);
                     draw.drawString(portInput.getInputQuerry(), 385, 592);
-                }
-
-                if(addressPopup) {
 
                     draw.setColour(Color.RED);
                     draw.setFont(new Font("Impact", Font.BOLD, 30));
@@ -205,7 +214,22 @@ import java.net.Socket;
             @Override
             public void mouseReleased(MouseEvent event) {
 
-                if(addressPopup) {
+                if(directPopup) {
+
+                    if (isInside(event, 375, 390, 240, 25)) {
+
+                        ipInput.setTyping(true);
+                        portInput.setTyping(false);
+                    } else if (isInside(event, 375, 505, 240, 25)) {
+
+                        portInput.setTyping(true);
+                        ipInput.setTyping(false);
+                    } else {
+
+                        ipInput.setTyping(false);
+                        portInput.setTyping(false);
+                    }
+                } else if(addressPopup) {
 
                     if (isInside(event, 375, 330, 230, 25)) {
 
@@ -244,13 +268,41 @@ import java.net.Socket;
                 }
 
                 if(add != null)
-                     if(add.isClicked())
+                    if(add.isClicked() && !directPopup)
                         if(!addressPopup) createPopup();
 
-                if(addressPopup) {
-                    if (closeButton.isClicked()) removePopup();
+                if(direct != null) {
+                    if(direct.isClicked() && !addressPopup) {
+
+                        if(!directPopup) createDirectPopup();
+                    }
                 }
 
+                if(closeButton != null)
+                    if (closeButton.isClicked()) {
+
+                        if(addressPopup) removePopup();
+                        else if(directPopup) removeDirecPopUp();
+                    }
+
+                if(directPopup)
+                    if(join.isClicked()) {
+
+                        if(ipInput.getInputQuerry().contains(".") || ipInput.getInputQuerry().equalsIgnoreCase("localhost")) {
+
+                            if (portInput.getInputQuerry().length() != 0) {
+
+                                try {
+
+                                    onlineManager = new OnlineManager(display, "", ipInput.getInputQuerry(), Integer.parseInt(portInput.getInputQuerry()));
+                                    removeDirecPopUp();
+                                } catch (NumberFormatException e) {
+
+                                    errorID = 3;
+                                }
+                            } else errorID = 2;
+                        } else errorID = 1;
+                    }
 
                 if(config.isSlot1())
                     if(slot1.getDelete().isClicked()) {
@@ -354,6 +406,34 @@ import java.net.Socket;
                     display.getActivePanel().removeObjectFromPanel(nameInput);
                     nameInput = null;
                 }
+            }
+
+            private void createDirectPopup() {
+
+                directPopup = true;
+                this.join = new Button(690, 500, 110, 45, "res/images/menu/buttons/Join-server-button", true);
+                display.getActivePanel().drawObjectOnPanel(join);
+                this.closeButton = new Button(763, 372, 45, 45, "res/images/menu/buttons/close-button", true);
+                display.getActivePanel().drawObjectOnPanel(closeButton);
+
+                ipInput = new Inputmanager(15);
+                display.getActivePanel().addManagement(ipInput);
+                portInput = new Inputmanager(5);
+                display.getActivePanel().addManagement(portInput);
+            }
+
+            private void removeDirecPopUp() {
+
+                errorID = -1;
+                directPopup = false;
+                display.getActivePanel().removeObjectFromPanel(closeButton);
+                this.closeButton = null;
+                display.getActivePanel().removeObjectFromPanel(join);
+                this.join = null;
+                display.getActivePanel().removeObjectFromPanel(ipInput);
+                ipInput = null;
+                display.getActivePanel().removeObjectFromPanel(portInput);
+                portInput = null;
             }
 
             private ServerSlot createServerSlot(int index) {
