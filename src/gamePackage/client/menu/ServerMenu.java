@@ -119,28 +119,28 @@ import java.net.Socket;
 
                     drawSlot(draw, slot1, con1);
 
-                    drawSlotinformation(draw, slot1.getX(), slot1.getY());
+                    drawSlotinformation(draw, 1, slot1.getX(), slot1.getY());
                 }
 
                 if(config.isSlot2()) {
 
                     drawSlot(draw, slot2, con2);
 
-                    drawSlotinformation(draw, slot2.getX(), slot2.getY());
+                    drawSlotinformation(draw, 2, slot2.getX(), slot2.getY());
                 }
 
                 if(config.isSlot3()) {
 
                     drawSlot(draw, slot3, con3);
 
-                    drawSlotinformation(draw, slot3.getX(), slot3.getY());
+                    drawSlotinformation(draw, 3, slot3.getX(), slot3.getY());
                 }
 
                 if(config.isSlot4()) {
 
                     drawSlot(draw, slot4, con4);
 
-                    drawSlotinformation(draw, slot4.getX(), slot4.getY());
+                    drawSlotinformation(draw, 4, slot4.getX(), slot4.getY());
                 }
 
                     //button's
