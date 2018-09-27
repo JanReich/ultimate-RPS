@@ -188,8 +188,8 @@ import java.net.Socket;
                 draw.drawButton(slot.getDelete());
                 draw.drawButton(slot.getJoin());
 
-                if(connection) draw.drawImage(slot.getConnectionTrue(), 765, 266, 50, 40);
-                draw.drawImage(slot.getConnectionFalse(), 765, 266, 50, 40);
+                if(connection) draw.drawImage(slot.getConnectionTrue(), slot.getX() + 640, slot.getY() + 31, 50, 40);
+                draw.drawImage(slot.getConnectionFalse(), slot.getX() + 640, slot.getY() + 31, 50, 40);
             }
 
             @Override
@@ -464,24 +464,30 @@ import java.net.Socket;
             private void drawSlotinformation(DrawHelper draw, int type, int x, int y) {
 
                 draw.setColour(Color.BLACK);
-                draw.setFont(new Font("Impact", Font.PLAIN, 15));
-                draw.drawString(config.getName1() + "", x + 74, y + 37);
                 draw.setFont(new Font("Impact", Font.PLAIN, 25));
 
                 if(type == 1) {
 
+                    draw.drawString(config.getName1() + "", x + 74, y + 37);
+                    draw.setFont(new Font("Impact", Font.PLAIN, 25));
                     draw.drawString(config.getServerIP1() + "", x + 120, y + 72);
                     draw.drawString(config.getServerPort1() + "", x + 120, y + 97);
                 } else if(type == 2) {
 
+                    draw.drawString(config.getName2() + "", x + 74, y + 37);
+                    draw.setFont(new Font("Impact", Font.PLAIN, 25));
                     draw.drawString(config.getServerIP2() + "", x + 120, y + 72);
                     draw.drawString(config.getServerPort2() + "", x + 120, y + 97);
                 } else if(type == 3) {
 
+                    draw.drawString(config.getName3() + "", x + 74, y + 37);
+                    draw.setFont(new Font("Impact", Font.PLAIN, 25));
                     draw.drawString(config.getServerIP3() + "", x + 120, y + 72);
                     draw.drawString(config.getServerPort3() + "", x + 120, y + 97);
                 } else if(type == 4) {
 
+                    draw.drawString(config.getName4() + "", x + 74, y + 37);
+                    draw.setFont(new Font("Impact", Font.PLAIN, 25));
                     draw.drawString(config.getServerIP4() + "", x + 120, y + 72);
                     draw.drawString(config.getServerPort4() + "", x + 120, y + 97);
                 }
