@@ -73,6 +73,7 @@ import java.net.Socket;
                 display.getActivePanel().drawObjectOnPanel(direct);
                 this.refresh = new AnimatedButton(458, 796, 60, 60, "res/images/menu/buttons/refresh-button");
                 display.getActivePanel().drawObjectOnPanel(refresh);
+                display.getActivePanel().drawObjectOnPanel(refresh.getAnimation());
 
                 config = new ServerListConfig();
                 loadSlots();
@@ -105,6 +106,8 @@ import java.net.Socket;
             public void remove() {
 
                 removePopup();
+                removeDirecPopUp();
+                display.getActivePanel().drawObjectOnPanel(refresh.getAnimation());
                 display.getActivePanel().removeObjectFromPanel(add);
                 add = null;
                 display.getActivePanel().removeObjectFromPanel(back);
@@ -469,16 +472,19 @@ import java.net.Socket;
 
             private void removeDirecPopUp() {
 
-                errorID = -1;
-                directPopup = false;
-                display.getActivePanel().removeObjectFromPanel(closeButton);
-                this.closeButton = null;
-                display.getActivePanel().removeObjectFromPanel(join);
-                this.join = null;
-                display.getActivePanel().removeObjectFromPanel(ipInput);
-                ipInput = null;
-                display.getActivePanel().removeObjectFromPanel(portInput);
-                portInput = null;
+                if(directPopup) {
+
+                    errorID = -1;
+                    directPopup = false;
+                    display.getActivePanel().removeObjectFromPanel(closeButton);
+                    this.closeButton = null;
+                    display.getActivePanel().removeObjectFromPanel(join);
+                    this.join = null;
+                    display.getActivePanel().removeObjectFromPanel(ipInput);
+                    ipInput = null;
+                    display.getActivePanel().removeObjectFromPanel(portInput);
+                    portInput = null;
+                }
             }
 
             private ServerSlot createServerSlot(int index) {
