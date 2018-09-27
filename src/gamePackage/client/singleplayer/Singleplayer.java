@@ -37,6 +37,7 @@ public class Singleplayer implements BasicInteractableObject {
         stein = ImageHelper.getImage("res/images/Singleplayer/stone.png");
         papier = ImageHelper.getImage("res/images/Singleplayer/paper.png");
         schere = ImageHelper.getImage("res/images/Singleplayer/schere.png");
+        background = ImageHelper.getImage("res/images/Singleplayer/background.png");
 
     }
 
@@ -115,11 +116,13 @@ public class Singleplayer implements BasicInteractableObject {
 
     @Override
     public void draw(DrawHelper draw) {
+        draw.drawImage(background,0,0,1000,1000);
         if(canPlay) {
             draw.drawImage(stein, 416, 516, 128, 128);
             draw.drawImage(schere, 286, 516, 128, 128);
             draw.drawImage(papier, 546, 516, 128, 128);
         }
+
         draw.drawString("Player: "+ playerscore +" ----- KI: "+KIscore,370,50);
     }
 }
