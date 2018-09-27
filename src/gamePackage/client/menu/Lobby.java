@@ -39,7 +39,7 @@ public class Lobby extends Menu {
                 //draw background
             draw.drawImage(background, 0, 0, display.getWidth(), display.getHeight());
 
-            draw.drawImage(playerLaser1, 35, 260);
+            draw.drawImage(playerLaser1, 49, 265, 278, 109);
         }
 
         @Override
