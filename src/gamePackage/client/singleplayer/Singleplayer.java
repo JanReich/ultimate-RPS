@@ -97,12 +97,13 @@ public class Singleplayer implements BasicInteractableObject {
             KIscore = KIscore + 1;
             System.err.println("Verloren");
         }
-        if(won){
 
-            System.out.println("Du hast verloren");
-        }else{
-
-            System.out.println("Du hast gewonnen");
+        if(playerscore >= 3){
+            canPlay=false;
+            //WinScreen
+        }else if(KIscore >= 3){
+            canPlay=false;
+            //LooseScreen
         }
 
     }
