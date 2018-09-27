@@ -71,7 +71,7 @@ import java.net.Socket;
                 display.getActivePanel().drawObjectOnPanel(add);
                 this.direct = new Button(580, 796, 166, 60, "res/images/menu/buttons/direct-button",true);
                 display.getActivePanel().drawObjectOnPanel(direct);
-                this.refresh = new AnimatedButton(458, 796, 60, 60, "res/images/menu/buttons/refresh-button");
+                this.refresh = new AnimatedButton(458, 796, 60, 60, "res/images/menu/buttons/refresh-button-animation.png");
                 display.getActivePanel().drawObjectOnPanel(refresh);
                 display.getActivePanel().drawObjectOnPanel(refresh.getAnimation());
 
@@ -274,13 +274,14 @@ import java.net.Socket;
                     controller.createMultiplayerMenu();
                 }
 
-                if(refresh.isClicked() && !addressPopup && !directPopup) {
+                if(refresh != null)
+                    if(refresh.isClicked() && !addressPopup && !directPopup) {
 
-                    if(config.isSlot1()) con1 = checkServerAlive(config.getServerIP1(), config.getServerPort1());
-                    if(config.isSlot2()) con2 = checkServerAlive(config.getServerIP2(), config.getServerPort2());
-                    if(config.isSlot3()) con3 = checkServerAlive(config.getServerIP3(), config.getServerPort3());
-                    if(config.isSlot4()) con4 = checkServerAlive(config.getServerIP4(), config.getServerPort4());
-                }
+                        if(config.isSlot1()) con1 = checkServerAlive(config.getServerIP1(), config.getServerPort1());
+                        if(config.isSlot2()) con2 = checkServerAlive(config.getServerIP2(), config.getServerPort2());
+                        if(config.isSlot3()) con3 = checkServerAlive(config.getServerIP3(), config.getServerPort3());
+                        if(config.isSlot4()) con4 = checkServerAlive(config.getServerIP4(), config.getServerPort4());
+                    }
 
                 if(add != null)
                     if(add.isClicked() && !directPopup)

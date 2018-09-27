@@ -4,9 +4,8 @@ import graphics.interfaces.AdvancedInteractableObject;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 
-public class AnimatedButton implements AdvancedInteractableObject {
+    public class AnimatedButton implements AdvancedInteractableObject {
 
                 //Attribute
             private double x;
@@ -19,7 +18,6 @@ public class AnimatedButton implements AdvancedInteractableObject {
 
                 //Referenzen
             private Animation animation;
-            private BufferedImage image;
 
         public AnimatedButton(double x, double y, double width, double height, String path) {
 
@@ -28,16 +26,14 @@ public class AnimatedButton implements AdvancedInteractableObject {
             this.width = width;
             this.height = height;
 
-            this.image = ImageHelper.getImage(path + ".png");
-            this.animation = new Animation(path + "-animation.png", 0.04, 8, 0, true);
+            this.animation = new Animation(path, 0.04, 8, 0, true);
         }
 
         public void paint(DrawHelper draw) {
 
             if(animation.getAnimation() == null)
-                draw.drawImage(image, x, y, width, height);
-            else
-                draw.drawImage(animation.getAnimation(), x, y, width, height);
+                draw.drawImage(animation.getFirstSprite(), x, y, width, height);
+            else draw.drawImage(animation.getAnimation(), x, y, width, height);
         }
 
         @Override
