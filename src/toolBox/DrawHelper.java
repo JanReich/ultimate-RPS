@@ -140,15 +140,9 @@ public class DrawHelper {
         if(g2d != null && button != null) button.paint(this);
     }
 
-        //AnimationOld()
-    public void drawAnimation(AnimationOld animation, int x, int y, int width, int height) {
+    public void drawButton(AnimatedButton button) {
 
-        if(g2d != null && animation != null) g2d.drawImage(animation.getCurrentAnimation(), x, y, width, height, null);
-    }
-
-    public void drawAnimation(AnimationOld animation, int x, int y) {
-
-        if(animation != null) this.drawAnimation(animation, x , y, animation.getCurrentAnimation().getWidth(), animation.getCurrentAnimation().getHeight());
+        if(g2d != null && button != null) button.paint(this);
     }
 
         //Fonts

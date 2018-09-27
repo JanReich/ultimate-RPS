@@ -15,7 +15,7 @@ public class Animation implements GraphicalObject {
     private int spriteNumber;
     private int amountOfImages;
     private boolean repeating;
-
+    private boolean stopped;
 
     private BufferedImage image;
     private BufferedImage[] sprites;
@@ -64,17 +64,25 @@ public class Animation implements GraphicalObject {
         return image;
     }
 
-
-
     @Override
     public void update(double dt) {
-        spriteTimer = spriteTimer -dt;
 
-
+        if(stopped)
+            spriteTimer = spriteTimer -dt;
     }
 
     @Override
     public void draw(DrawHelper draw) {
 
+    }
+
+    public void start() {
+
+        stopped = false;
+    }
+
+    public void stop() {
+
+        stopped = true;
     }
 }

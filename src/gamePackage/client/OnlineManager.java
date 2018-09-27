@@ -48,6 +48,7 @@ import graphics.Display;
             joinServer();
         }
 
+
         private void joinServer() {
 
             client = new GameClient(serverIP, port);

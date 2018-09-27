@@ -11,12 +11,12 @@ import java.util.List;
                 //Attribute
             private int playerCount;
 
-            private boolean started;
-
             private final int minPlayers;
             private final int maxPlayers;
             private final int maxSpectators;
             private final boolean spectatingAllowed;
+
+            private boolean started;
 
                 //Referenzen
             private List<String> names;
