@@ -33,7 +33,7 @@ public class ServerConfig extends Config {
         minPlayers = Integer.parseInt(FileHelper.getProperty(file, "Min-Player"));
         maxPlayers = Integer.parseInt(FileHelper.getProperty(file, "Max-Player"));
 
-        maxPlayers = Integer.parseInt(FileHelper.getProperty(file, "Max-Spectator"));
+        maxSpectator = Integer.parseInt(FileHelper.getProperty(file, "Max-Spectator"));
 
         if(FileHelper.getProperty(file, "Spectator-Join").equalsIgnoreCase("allowed")) spectatorJoin = true;
         else spectatorJoin = false;
