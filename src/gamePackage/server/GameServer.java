@@ -80,8 +80,8 @@ import java.util.Map;
                                             int spectatorID = generateSpectatorID();
                                             clients.put(pClientIP, new ClientData(pClientIP, pClientPort, username, spectator, host));
                                             System.out.println("[Server] Client \"" + username + "\" hat sich mit dem Server als Spectator verbunden!");
-                                            send(pClientIP, pClientPort, "RegisterSuccessful: ");
-                                            sendToAll("joinedSpectator: username: " + username + ": clientID: " + spectatorID + ": host: " + host);
+                                            send(pClientIP, pClientPort, "RegisterSuccessful: " + spectatorID);
+                                            sendToAll("JoinedSpectator: " + username + ": " + spectatorID + ": " + host);
                                         } else send(pClientIP, pClientPort, "Disconnect: Server full");
                                     }
                                         //when a Player join's
@@ -95,9 +95,12 @@ import java.util.Map;
                                             clients.put(pClientIP, new ClientData(pClientIP, pClientPort, host, username, userClientID));
                                             System.out.println("[Server] Client \"" + username + "\" hat sich mit dem Server als Spieler verbunden!");
                                             send(pClientIP, pClientPort, "RegisterSuccessful: " + userClientID);
-                                            sendToAll("joinedPlayer: username: " + username + ": clientID: " + userClientID + ": host: " + host);
+                                            sendToAll("JoinedPlayer: " + username + ": " + userClientID + ": " + host);
                                         }
                                     }
+
+                                        //Den Clients übermitteln, welche Spieler und Spectaors bereits gejoint sind
+
                                 } else send(pClientIP, pClientPort, "Disconnect: Game Already started");
                             } else send(pClientIP, pClientPort, "Disconnect: Username Already in use");
                         } else send(pClientIP, pClientPort, "Disconnect: No Spectators allowed");

@@ -20,9 +20,9 @@ import graphics.Display;
             private GameServer server;
             private GameClient client;
 
-        public OnlineManager(Display display, String gameType, String username, boolean host) {
+        public OnlineManager(Display display, String gameType, String username) {
 
-            this.host = host;
+            this.host = true;
             this.display = display;
             this.username = username;
             this.gameType = gameType;
@@ -37,6 +37,7 @@ import graphics.Display;
             this.username = username;
             this.serverIP = serverIP;
             this.gameType = gameType;
+            this.host = false;
 
             joinServer();
         }
@@ -55,7 +56,7 @@ import graphics.Display;
 
         private void joinServer() {
 
-            client = new GameClient(serverIP, port);
+            client = new GameClient(serverIP, port, gameType, username, false, host);
 
             Lobby lobby = new Lobby(display);
             display.getActivePanel().drawObjectOnPanel(lobby);

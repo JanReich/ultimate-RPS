@@ -9,78 +9,100 @@ import java.util.HashMap;
 
                 //Attribute
 
-
                 //Referenzen
             private ClientData data;
-            private HashMap<Integer, ClientData> connectedClients;
+            private HashMap<Integer, ClientData> connectedPlayers;
+            private HashMap<Integer, ClientData> connectedSpectators;
 
-        public GameClient(String pServerIP, int pServerPort) {
+        public GameClient(String pServerIP, int pServerPort, String gameType, String username, boolean spectator, boolean host) {
 
             super(pServerIP, pServerPort);
 
-            connectedClients = new HashMap<>();
+            connectedPlayers = new HashMap<>();
+            connectedSpectators = new HashMap<>();
+
+            data = new ClientData(username, spectator, host);
+            registerClient(gameType);
+
         }
 
         @Override
         public void processMessage(String pMessage) {
 
-                //Format: clientData: username: <name>: clientID: <ID>: host: <boolean>
-                //Falls schon Clients auf dem Server sind werden ihre Daten in dieser Methode geschickt.
-            if(pMessage.startsWith("clientData: ")) {
-
-                String[] messages = pMessage.split(": ");
-
-                //Player
-                if(pMessage.length() == 7)
-                    connectedClients.put(Integer.parseInt(messages[4]), new ClientData(messages[2], Integer.parseInt(messages[4]), Boolean.parseBoolean(messages[6])));
-                }
-
-            else if(pMessage.startsWith("joined: ")) {
-
-                String[] messages = pMessage.split(": ");
-
-                    //Player
-                if(pMessage.length() == 7)
-                    connectedClients.put(Integer.parseInt(messages[4]), new ClientData(messages[2], Integer.parseInt(messages[4]), Boolean.parseBoolean(messages[6])));
-            }
-
-            else if(pMessage.startsWith("clientDisconnect: ")) {
-
-                String[] messages = pMessage.split(": ");
-
-                if(connectedClients.get(Integer.parseInt(messages[4])).getUsername().equalsIgnoreCase(messages[2]));
-                    connectedClients.remove(Integer.parseInt(messages[4]));
-            }
-
-                //Falls die Verbindung vom Server wieder getrennt werden muss:
-            else if(pMessage.startsWith("disconnect: ")) {
-
-                    //Wenn der Client gekickt wird.
-                if(pMessage.contains("kick")) {
-
-
-                } else {
-
-                    System.err.println(pMessage.replace("disconnect: ", ""));
-                }
-            }
-
-
+                //Format - RegisterSuccessful: <ClientID> oder <SpectatorID>
             if(pMessage.startsWith("RegisterSuccessful: ")) {
 
                 String[] messages = pMessage.split(": ");
 
-                    //Player
-                if(messages.length == 2) {
+                if(data.isSpectator()) {
 
-                    //data = new ClientData()
+                    data.setSpectatorID(Integer.parseInt(messages[1]));
+                } else {
+
+                    data.setClientID(Integer.parseInt(messages[1]));
                 }
+            }
 
-                    //Spectator
-                else {
+                //Format - JoinedSpectator <username> <spectatorID> <host>
+            if(pMessage.startsWith("JoinedSpectator: ")) {
 
+                String[] messages = pMessage.split(": ");
 
+                String username = messages[1];
+                int spectatorID = Integer.parseInt(messages[2]);
+                boolean host = Boolean.parseBoolean(messages[3]);
+
+                ClientData data = new ClientData(username, true, host, spectatorID);
+                connectedSpectators.put(spectatorID, data);
+            }
+
+                //Format - JoinedPlayer <username> <clientID> <host>
+            if(pMessage.startsWith("JoinedPlayer: ")) {
+
+                String[] messages = pMessage.split(": ");
+
+                String username = messages[1];
+                int clientID = Integer.parseInt(messages[2]);
+                boolean host = Boolean.parseBoolean(messages[3]);
+
+                ClientData data = new ClientData(username, host, false, clientID, false);
+                connectedPlayers.put(clientID, data);
+            }
+
+                //Format - PlayerReady: <clientID>
+            if(pMessage.startsWith("PlayerReady: ")) {
+
+                String[] messages = pMessage.split(": ");
+                int clientID = Integer.parseInt(messages[1]);
+
+                if(connectedPlayers.containsKey(clientID)) {
+
+                        //TODO: READY
+                }
+            }
+
+                //Format - PlayerUnReady: <clientID>
+            if(pMessage.startsWith("PlayerUnReady: ")) {
+
+                String[] messages = pMessage.split(": ");
+                int clientID = Integer.parseInt(messages[1]);
+
+                if(connectedPlayers.containsKey(clientID)) {
+
+                    //TODO: READY
                 }
             }
         }
+
+        /**
+         * In dieser Methode registriert sich der Client beim Server
+         * @param gameType
+         */
+        public void registerClient(String gameType) {
+
+                //Format - RegisterClient: <gameType>: <username>: <spectator>: <host>
+            send("RegisterClient: " + gameType + ": " + data.getUsername() + ": " + data.isSpectator() + ": " + data.isHost());
+        }
+
+
     }

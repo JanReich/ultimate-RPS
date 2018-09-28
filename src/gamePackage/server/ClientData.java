@@ -4,18 +4,41 @@ package gamePackage.server;
 
 
             private int port;
-            private String clientIP;
-            private int clientID;
-
             private boolean host;
+            private int clientID;
+            private int spectatorID;
             private String username;
+            private String clientIP;
             private boolean spectator;
 
-        public ClientData(String username, int clientID, boolean host) {
+            private boolean ready;
+
+        public ClientData(String username, boolean spectator, boolean host) {
+
+            this.host = host;
+            this.username = username;
+            this.spectator = spectator;
+        }
+
+            //Register Player
+        public ClientData(String username, boolean spectator, boolean host, int clientID, boolean ready) {
 
             this.host = host;
             this.clientID = clientID;
             this.username = username;
+            this.spectator = spectator;
+
+            this.ready = ready;
+        }
+
+
+            //Register Spectator
+        public ClientData(String username, boolean spectator, boolean host, int spectatorID) {
+
+            this.host = host;
+            this.username = username;
+            this.spectator = spectator;
+            this.spectatorID = spectatorID;
         }
 
         public ClientData(String clientIP, int port, String username, boolean spectator, boolean host) {
@@ -76,5 +99,15 @@ package gamePackage.server;
         public void setSpectator(boolean spectator) {
 
             this.spectator = spectator;
+        }
+
+        public int getSpectatorID() {
+
+            return spectatorID;
+        }
+
+        public void setSpectatorID(int spectatorID) {
+
+            this.spectatorID = spectatorID;
         }
     }
