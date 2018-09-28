@@ -29,6 +29,7 @@ import java.awt.image.BufferedImage;
         public OnlineMenu(Display display, GameClient gameClient) {
 
             this.display = display;
+            this.gameClient = gameClient;
             this.background = ImageHelper.getImage("res/images/Singleplayer/background.png");
 
             this.stone = ImageHelper.getImage("res/images/Singleplayer/stone.png");
