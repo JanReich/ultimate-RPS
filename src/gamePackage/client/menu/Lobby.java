@@ -98,9 +98,23 @@ import java.util.ArrayList;
 
             if(gameClient.getData().isSpectator()) {
 
-                if(gameClient.getConnectedPlayers().get(0) == null) draw.drawButton(playerClickToJoin1);
+                if(gameClient.getConnectedPlayers().get(0) == null) {
+
+                    if(!display.getActivePanel().contains(playerClickToJoin1)) {
+
+                        display.getActivePanel().drawObjectOnPanel(playerClickToJoin1);
+                    }
+                    draw.drawButton(playerClickToJoin1);
+                }
                 else draw.drawImage(playerLaser1, 49, 265, 278, 109);
-                if(gameClient.getConnectedPlayers().get(1) == null) draw.drawButton(playerClickToJoin2);
+                if(gameClient.getConnectedPlayers().get(1) == null) {
+
+                    if(!display.getActivePanel().contains(playerClickToJoin2)) {
+
+                        display.getActivePanel().drawObjectOnPanel(playerClickToJoin2);
+                    }
+                    draw.drawButton(playerClickToJoin2);
+                }
                 else draw.drawImage(playerLaser2, 348, 600, 278, 109);
             } else {
 
@@ -138,34 +152,6 @@ import java.util.ArrayList;
         public void update(double dt) {
 
             if(errorTime > 0) errorTime -= dt;
-
-                //Erstellen des ClickToPlay Buttons, falls es möglich ist
-            if(gameClient.getConnectedPlayers().get(0) == null && playerClickToJoin1 == null && gameClient.getData().isSpectator()) {
-
-                playerClickToJoin1 = new Button(162, 285, 161, 61, "res/images/lobby/click-play-button", true);
-                display.getActivePanel().drawObjectOnPanel(playerClickToJoin1);
-            } else if(gameClient.getConnectedPlayers().get(0) != null && playerClickToJoin1 != null) {
-
-                display.getActivePanel().removeObjectFromPanel(playerClickToJoin1);
-                playerClickToJoin1 = null;
-            }
-
-                //Erstellen des ClickToPlay Buttons, falls es möglich ist
-            addButton();
-            removeButton();
-
-            if(playerClickToJoin1 != null)
-                if(playerClickToJoin1.isClicked() && gameClient.getData().isSpectator()) {
-
-                    gameClient.spectatorToPlayer(gameClient.getData().getSpectatorID(), 0);
-                }
-
-            if(playerClickToJoin2 != null)
-                if(playerClickToJoin2.isClicked() && gameClient.getData().isSpectator()) {
-
-                    gameClient.spectatorToPlayer(gameClient.getData().getSpectatorID(), 1);
-                }
-
 
             if(kick1.isClicked()) {
 
@@ -207,24 +193,6 @@ import java.util.ArrayList;
                         }
                     } else errorTime = 3;
                 }
-            }
-        }
-
-        private void addButton() {
-
-            if(gameClient.getConnectedPlayers().get(1) == null && playerClickToJoin1 == null && gameClient.getData().isSpectator()) {
-
-                playerClickToJoin2 = new Button(348, 622, 161, 61, "res/images/lobby/click-play-button", true);
-                display.getActivePanel().drawObjectOnPanel(playerClickToJoin2);
-            }
-        }
-
-        private void removeButton() {
-
-            if(gameClient.getConnectedPlayers().get(1) != null && playerClickToJoin2 != null) {
-
-                display.getActivePanel().removeObjectFromPanel(playerClickToJoin2);
-                playerClickToJoin2 = null;
             }
         }
 

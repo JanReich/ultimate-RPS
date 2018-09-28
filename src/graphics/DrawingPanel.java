@@ -117,6 +117,11 @@ public class DrawingPanel extends Panel implements KeyListener, MouseListener, M
 
     }
 
+    public boolean contains(Object o) {
+
+        if(graphicalObjects.contains(o)) return true; return false;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
