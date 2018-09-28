@@ -153,6 +153,18 @@ import java.util.ArrayList;
 
             if(errorTime > 0) errorTime -= dt;
 
+            if(playerClickToJoin1 != null)
+                if(playerClickToJoin1.isClicked()) {
+
+                    gameClient.spectatorToPlayer(gameClient.getData().getSpectatorID(), 0);
+                }
+
+            if(playerClickToJoin2 != null)
+                if(playerClickToJoin2.isClicked()) {
+
+                    gameClient.spectatorToPlayer(gameClient.getData().getSpectatorID(), 1);
+                }
+
             if(kick1.isClicked()) {
 
                 if(gameClient.getData().isHost()) {
