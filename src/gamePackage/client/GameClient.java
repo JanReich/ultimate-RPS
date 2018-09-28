@@ -49,8 +49,6 @@ import java.util.HashMap;
 
                     data.setSpectatorID(-1);
                     data.setClientID(Integer.parseInt(messages[1]));
-
-                    System.out.println("Your Client ID is: " + messages[1]);
                 }
 
                 lobby = new Lobby(display, this);
@@ -122,9 +120,8 @@ import java.util.HashMap;
                     }
                 } else if(pMessage.startsWith("KickSpectator: ")) {
 
-                    System.out.println("test1");
                     if(clientID == data.getSpectatorID()) {
-                        System.out.println("test2");
+
                         lobby.remove();
                         close();
                         KickedMenu menu = new KickedMenu(display);
@@ -147,7 +144,13 @@ import java.util.HashMap;
                 String[] messages = pMessage.split(": ");
                 int spectatorID = Integer.parseInt(messages[1]);
 
+                lobby.removeSpectatorSlot(spectatorID);
                 connectedSpectators.remove(spectatorID);
+            }
+
+            if(pMessage.startsWith("Disconnect: ")) {
+
+                System.err.println(pMessage);
             }
         }
 
