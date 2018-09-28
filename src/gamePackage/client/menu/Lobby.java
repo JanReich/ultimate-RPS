@@ -140,10 +140,10 @@ import java.awt.image.BufferedImage;
 
         }
 
-        private void check(Button checkReady, Button ) {
+        /*private void check(Button checkReady, Button ) {
 
 
-        }
+        }*/
 
         @Override
         public void mouseReleased(MouseEvent event) {
