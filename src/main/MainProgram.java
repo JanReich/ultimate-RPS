@@ -1,6 +1,5 @@
 package main;
 
-import gamePackage.client.menu.KickedMenu;
 import gamePackage.client.menu.MenuController;
 
 import graphics.Display;
@@ -19,7 +18,6 @@ public class MainProgram {
 
             display = new Display();
             controller = new MenuController(display);
-
             display.getActivePanel().addManagement(controller);
         }
 

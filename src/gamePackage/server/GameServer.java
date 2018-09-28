@@ -145,7 +145,6 @@ import java.util.Map;
                     if(players == readyPlayers) {
 
                         started = true;
-                        System.out.println("test");
                         sendToAll("StartGame: ");
                     }
                 }

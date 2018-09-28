@@ -156,6 +156,9 @@ import java.util.HashMap;
 
                     lobby.remove();
                     lobby.removeSpectatorSlot(connectedPlayers.get(i).getSpectatorID());
+
+                    OnlineMenu menu = new OnlineMenu(display, this);
+                    display.getActivePanel().drawObjectOnPanel(menu);
                 }
 
                 for (int i = 0; i < connectedPlayers.size(); i++) {
