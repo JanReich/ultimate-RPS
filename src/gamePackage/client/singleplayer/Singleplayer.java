@@ -21,17 +21,20 @@ public class Singleplayer implements BasicInteractableObject {
     private BufferedImage stein;
     private BufferedImage papier;
     private BufferedImage schere;
+    private BufferedImage counter = ImageHelper.getImage("res/images/Singleplayer/counter3.png");
     private BufferedImage win;
     private BufferedImage lost;
     private Animation playerHand;
     private Animation comHand;
     private Button backButton;
 
-
+    private int countedNumber;
+    private boolean canCount = true;
+    private double countTime = 5;
     private int choice = 0;
     private int kiChoice = 0;
     private boolean won = false;
-    private boolean canPlay = true;
+    private boolean canPlay = false;
     private boolean end = false;
     private int kiScore = 0;
     private int playerscore = 0;
@@ -120,6 +123,7 @@ public class Singleplayer implements BasicInteractableObject {
             draw.drawButton(backButton);
         }
 
+        draw.drawImage(counter,760,0,200,200);
 
 
 
@@ -181,13 +185,13 @@ public class Singleplayer implements BasicInteractableObject {
             motivationText = "-> Verloren :(";
         }
 
-        if(playerscore >= 3){
+        if(playerscore >= countedNumber){
             motivationText = "Geiler Typ!";
             won = true;
             end = true;
             canPlay = false;
             //WinScreen
-        }else if(kiScore >= 3){
+        }else if(kiScore >= countedNumber){
             motivationText = "Du bist kacke!";
             won = false;
             end = true;
@@ -211,6 +215,15 @@ public class Singleplayer implements BasicInteractableObject {
             controller.removeSingleplayer();
         }
 
+        if(canCount){
+            countTime = countTime - delta;
+            countedNumber = (int)(Math.random()*7+4);
+            counter = ImageHelper.getImage("res/images/Singleplayer/counter"+countedNumber+".png");
+        }
+        if(canCount&&countTime<=0){
+            canCount = false;
+            canPlay=true;
+        }
     }
 
 
