@@ -159,13 +159,13 @@ import java.awt.image.BufferedImage;
 
                 if (isInside(event, 430, 300, 128, 128)) {
 
-                    active = 0;
+                    active = 1;
                 } else if (isInside(event, 300, 300, 128, 128)) {
 
-                    active = 2;
+                    active = 3;
                 } else if (isInside(event, 560, 300, 128, 128)) {
 
-                    active = 1;
+                    active = 2;
                 }
             }
         }
