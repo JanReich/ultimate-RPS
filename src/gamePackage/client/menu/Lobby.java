@@ -144,7 +144,7 @@ import java.util.ArrayList;
 
                 playerClickToJoin1 = new Button(162, 285, 161, 61, "res/images/lobby/click-play-button", true);
                 display.getActivePanel().drawObjectOnPanel(playerClickToJoin1);
-            } else if(gameClient.getConnectedPlayers().get(0) != null && playerClickToJoin1 != null && gameClient.getData().isSpectator()) {
+            } else if(gameClient.getConnectedPlayers().get(0) != null && playerClickToJoin1 != null) {
 
                 display.getActivePanel().removeObjectFromPanel(playerClickToJoin1);
                 playerClickToJoin1 = null;
@@ -155,22 +155,22 @@ import java.util.ArrayList;
 
                 playerClickToJoin2 = new Button(348, 622, 161, 61, "res/images/lobby/click-play-button", true);
                 display.getActivePanel().drawObjectOnPanel(playerClickToJoin2);
-            } else if(gameClient.getConnectedPlayers().get(1) != null && playerClickToJoin2 != null && gameClient.getData().isSpectator()) {
+            } else if(gameClient.getConnectedPlayers().get(1) != null && playerClickToJoin2 != null) {
 
                 display.getActivePanel().removeObjectFromPanel(playerClickToJoin2);
                 playerClickToJoin2 = null;
             }
 
             if(playerClickToJoin1 != null)
-                if(playerClickToJoin1.isClicked()) {
+                if(playerClickToJoin1.isClicked() && gameClient.getData().isSpectator()) {
 
-
+                    gameClient.spectatorToPlayer(gameClient.getData().getSpectatorID(), 0);
                 }
 
             if(playerClickToJoin2 != null)
-                if(playerClickToJoin2.isClicked()) {
+                if(playerClickToJoin2.isClicked() && gameClient.getData().isSpectator()) {
 
-
+                    gameClient.spectatorToPlayer(gameClient.getData().getSpectatorID(), 1);
                 }
 
 
