@@ -175,10 +175,13 @@ import java.util.Map;
 
                             for (int i = 0; i < clientIDs.length; i++) {
 
-                                if(clientIDs[i].equals(pClientIP)) {
+                                if(clientIDs[i] != null) {
 
-                                    clientIDs[i] = null;
-                                    sendToAll("clientDisconnect: " + i);
+                                    if (clientIDs[i].equals(pClientIP)) {
+
+                                        clientIDs[i] = null;
+                                        sendToAll("clientDisconnect: " + i);
+                                    }
                                 }
                             }
 

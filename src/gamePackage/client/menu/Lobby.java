@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
     public class Lobby extends Menu {
 
                 //Attribute
+            private double errorTime;
             private boolean readyPlayer1;
             private boolean readyPlayer2;
 
@@ -121,6 +122,12 @@ import java.awt.image.BufferedImage;
                 if(gameClient.getConnectedPlayers().get(1) != null) draw.drawString(gameClient.getConnectedPlayers().get(1).getUsername(), 365, 665);
             }
 
+            if(errorTime > 0) {
+
+                draw.setColour(Color.RED);
+                draw.setFont(new Font("Impact", Font.PLAIN, 30));
+                draw.drawString("Du hast keine Berechtigung um diesen Client zu kicken!", 100, 100);
+            }
 
             /*draw.drawImage(kickButton1, 333 , 317 ,70, 26);
             draw.drawImage(kickButton2, 270 , 653 ,70, 26);
@@ -139,7 +146,20 @@ import java.awt.image.BufferedImage;
         @Override
         public void update(double dt) {
 
+            if(errorTime > 0) errorTime -= dt;
 
+            if(kick1.isClicked()) {
+
+                if(gameClient.getData().isHost()) {
+
+
+                } else errorTime = 3;
+            }
+
+            if(kick2.isClicked()) {
+
+
+            }
         }
 
         @Override

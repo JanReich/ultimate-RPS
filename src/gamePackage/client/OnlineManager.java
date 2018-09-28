@@ -1,7 +1,6 @@
 package gamePackage.client;
 
 import config.ServerConfig;
-import gamePackage.client.menu.Lobby;
 import gamePackage.server.GameServer;
 import graphics.Display;
 
