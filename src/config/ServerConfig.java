@@ -5,7 +5,7 @@ import toolBox.FileHelper;
 import java.io.File;
 import java.util.HashMap;
 
-public class ServerConfig extends Config {
+    public class ServerConfig extends Config {
 
             //Attribute
         private int serverPort;

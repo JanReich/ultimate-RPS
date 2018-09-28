@@ -45,6 +45,7 @@ import java.net.Socket;
                 //Button's
             private Button back;
             private Button join;
+            private Button spectator;
             private Button closeButton;
             private Button popupAddButton;
             private AnimatedButton refresh;
@@ -174,6 +175,7 @@ import java.net.Socket;
                         //Draw Button's
                     draw.drawButton(join);
                     draw.drawButton(closeButton);
+                    draw.drawButton(spectator);
 
                     draw.drawString(ipInput.getInputQuerry(), 380, 415);
                     draw.drawString(portInput.getInputQuerry(), 380, 530);
@@ -305,7 +307,7 @@ import java.net.Socket;
                     }
 
                 if(directPopup)
-                    if(join.isClicked()) {
+                    if(join.isClicked() || spectator.isClicked()) {
 
                         if(ipInput.getInputQuerry().contains(".") || ipInput.getInputQuerry().equalsIgnoreCase("localhost")) {
 
@@ -313,8 +315,15 @@ import java.net.Socket;
 
                                 try {
 
-                                    connect(ipInput.getInputQuerry(), Integer.parseInt(portInput.getInputQuerry()), false);
-                                    removeDirecPopUp();
+                                    if(spectator.isClicked()) {
+
+                                        connect(ipInput.getInputQuerry(), Integer.parseInt(portInput.getInputQuerry()), true);
+                                        removeDirecPopUp();
+                                    } else if(join.isClicked()) {
+
+                                        connect(ipInput.getInputQuerry(), Integer.parseInt(portInput.getInputQuerry()), false);
+                                        removeDirecPopUp();
+                                    }
                                 } catch (NumberFormatException e) {
 
                                     errorID = 3;
@@ -487,6 +496,8 @@ import java.net.Socket;
                 display.getActivePanel().drawObjectOnPanel(join);
                 this.closeButton = new Button(763, 372, 45, 45, "res/images/menu/buttons/close-button", true);
                 display.getActivePanel().drawObjectOnPanel(closeButton);
+                this.spectator = new Button(690, 555, 110, 45, "res/images/menu/buttons/spectate-button", true);
+                display.getActivePanel().drawObjectOnPanel(spectator);
 
                 ipInput = new Inputmanager(15);
                 display.getActivePanel().addManagement(ipInput);
@@ -504,6 +515,8 @@ import java.net.Socket;
                     this.closeButton = null;
                     display.getActivePanel().removeObjectFromPanel(join);
                     this.join = null;
+                    display.getActivePanel().removeObjectFromPanel(spectator);
+                    spectator = null;
                     display.getActivePanel().removeObjectFromPanel(ipInput);
                     ipInput = null;
                     display.getActivePanel().removeObjectFromPanel(portInput);
