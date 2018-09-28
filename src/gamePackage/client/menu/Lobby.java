@@ -170,7 +170,6 @@ import java.util.ArrayList;
             if(playerClickToJoin2 != null)
                 if(playerClickToJoin2.isClicked() && gameClient.getData().isSpectator()) {
 
-                    System.out.println("test");
                     gameClient.spectatorToPlayer(gameClient.getData().getSpectatorID(), 1);
                 }
 
@@ -219,8 +218,15 @@ import java.util.ArrayList;
         }
 
         @Override
-        public void mouseReleased(MouseEvent event) {
+        public void mouseReleased(MouseEvent e) {
 
+            if(playerClickToJoin2 != null) {
+
+                if(e.getX() > playerClickToJoin2.getX() && e.getX() < playerClickToJoin2.getX() + playerClickToJoin2.getWidth() && e.getY() > playerClickToJoin2.getY() && e.getY() < playerClickToJoin2.getY() + playerClickToJoin2.getHeight()) {
+
+                    System.out.println("test");
+                }
+            }
         }
 
         public void createSpectatorSlot(int spectatorID, String name) {
