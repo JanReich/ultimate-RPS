@@ -151,12 +151,12 @@ import java.util.ArrayList;
                 playerClickToJoin1 = null;
             }
 
-            if(gameClient.getConnectedPlayers().get(0) == null && playerClickToJoin1 == null && gameClient.getData().isSpectator()) {
+            if(gameClient.getConnectedPlayers().get(1) == null && playerClickToJoin1 == null && gameClient.getData().isSpectator()) {
 
                 System.out.println("test");
                 playerClickToJoin2 = new Button(348, 622, 161, 61, "res/images/lobby/click-play-button", true);
                 display.getActivePanel().drawObjectOnPanel(playerClickToJoin2);
-            } else if(gameClient.getConnectedPlayers().get(0) != null && playerClickToJoin2 != null && gameClient.getData().isSpectator()) {
+            } else if(gameClient.getConnectedPlayers().get(1) != null && playerClickToJoin2 != null && gameClient.getData().isSpectator()) {
 
                 display.getActivePanel().removeObjectFromPanel(playerClickToJoin2);
                 playerClickToJoin2 = null;
