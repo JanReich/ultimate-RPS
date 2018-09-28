@@ -153,6 +153,7 @@ import java.util.HashMap;
                 String[] messages = pMessage.split(": ");
                 int specID = Integer.parseInt(messages[1]);
                 int clientID = Integer.parseInt(messages[2]);
+                lobby.removeSpectatorSlot(specID);
 
                 ClientData data = new ClientData(connectedSpectators.get(specID).getUsername(), connectedSpectators.get(specID).isHost(), false, clientID, false);
                 connectedSpectators.remove(specID);
