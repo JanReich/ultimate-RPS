@@ -99,7 +99,9 @@ import java.util.ArrayList;
             if(gameClient.getData().isSpectator()) {
 
                 if(gameClient.getConnectedPlayers().get(0) == null) draw.drawButton(playerClickToJoin1);
+                else draw.drawImage(playerLaser1, 49, 265, 278, 109);
                 if(gameClient.getConnectedPlayers().get(1) == null) draw.drawButton(playerClickToJoin2);
+                else draw.drawImage(playerLaser2, 348, 600, 278, 109);
             } else {
 
                     //draw PlayerLaser
