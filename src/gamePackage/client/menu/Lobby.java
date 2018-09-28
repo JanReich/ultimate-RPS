@@ -164,7 +164,7 @@ import java.util.ArrayList;
         public void update(double dt) {
 
             if(gameClient.getConnectedPlayers().get(0) != null) readyPlayer1 = gameClient.getConnectedPlayers().get(0).isReady();
-            if(gameClient.getConnectedPlayers().get(1) != null) readyPlayer1 = gameClient.getConnectedPlayers().get(1).isReady();
+            if(gameClient.getConnectedPlayers().get(1) != null) readyPlayer2 = gameClient.getConnectedPlayers().get(1).isReady();
 
             if(errorTime > 0) errorTime -= dt;
 
