@@ -435,9 +435,9 @@ import java.net.Socket;
                     }
             }
 
-            private void connect(String serverIP, int serverPort, boolean spectater) {
+            private void connect(String serverIP, int serverPort, boolean spectator) {
 
-                onlineManager = new OnlineManager(display, gameType, username, serverIP, serverPort);
+                onlineManager = new OnlineManager(display, gameType, username, serverIP, serverPort, spectator);
                 display.getActivePanel().removeObjectFromPanel(this);
             }
 
