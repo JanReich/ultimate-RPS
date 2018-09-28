@@ -125,8 +125,8 @@ import java.awt.image.BufferedImage;
             if(errorTime > 0) {
 
                 draw.setColour(Color.RED);
-                draw.setFont(new Font("Impact", Font.PLAIN, 30));
-                draw.drawString("Du hast keine Berechtigung um diesen Client zu kicken!", 100, 100);
+                draw.setFont(new Font("Impact", Font.PLAIN, 28));
+                draw.drawString("Du hast keine Berechtigung um diesen Client zu kicken!", 10, 100);
             }
 
             /*draw.drawImage(kickButton1, 333 , 317 ,70, 26);
