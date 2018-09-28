@@ -248,7 +248,7 @@ import java.util.ArrayList;
                 this.width = width;
                 this.height = height;
                 this.spectatorID = spectatorID;
-                this.kick = new Button(x + 170, y + 7 + 115 * spectatorID, 70, 33, "res/images/lobby/kick-button", true);
+                this.kick = new Button(x + 170, y + 7, 70, 33, "res/images/lobby/kick-button", true);
                 this.slot  = ImageHelper.getImage("res/images/lobby/spectator-tab.png");
             }
 
