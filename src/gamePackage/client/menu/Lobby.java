@@ -170,6 +170,7 @@ import java.util.ArrayList;
             if(playerClickToJoin2 != null)
                 if(playerClickToJoin2.isClicked() && gameClient.getData().isSpectator()) {
 
+                    System.out.println("test");
                     gameClient.spectatorToPlayer(gameClient.getData().getSpectatorID(), 1);
                 }
 
