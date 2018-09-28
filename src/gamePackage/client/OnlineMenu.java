@@ -138,6 +138,7 @@ import java.awt.image.BufferedImage;
                 if(active == 1 || active == 2 || active == 3) {
 
                     change = false;
+                    gameClient.choose(gameClient.getData().getClientID(), active);
                 }
             }
         }
