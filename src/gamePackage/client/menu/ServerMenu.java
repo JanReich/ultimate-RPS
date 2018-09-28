@@ -215,6 +215,7 @@ import java.net.Socket;
                 draw.drawImage(slot.getImage(), slot.getX(), slot.getY(), slot.getWidth(), slot.getHeight());
                 draw.drawButton(slot.getDelete());
                 draw.drawButton(slot.getJoin());
+                draw.drawButton(slot.getSpectate());
 
                 if(connection) draw.drawImage(slot.getConnectionTrue(), slot.getX() + 640, slot.getY() + 31, 50, 40);
                 else draw.drawImage(slot.getConnectionFalse(), slot.getX() + 640, slot.getY() + 31, 50, 40);
@@ -312,7 +313,7 @@ import java.net.Socket;
 
                                 try {
 
-                                    connect(ipInput.getInputQuerry(), Integer.parseInt(portInput.getInputQuerry()));
+                                    connect(ipInput.getInputQuerry(), Integer.parseInt(portInput.getInputQuerry()), false);
                                     removeDirecPopUp();
                                 } catch (NumberFormatException e) {
 
@@ -326,7 +327,7 @@ import java.net.Socket;
 
                     if (slot1.getJoin().isClicked()) {
 
-                        connect(config.getServerIP1(), config.getServerPort1());
+                        connect(config.getServerIP1(), config.getServerPort1(), false);
                     }
 
                     if (slot1.getDelete().isClicked()) {
@@ -334,13 +335,18 @@ import java.net.Socket;
                         removeServerSlot(slot1, 1);
                         slot1 = null;
                     }
+
+                    if(slot1.getSpectate().isClicked()) {
+
+                        connect(config.getServerIP1(), config.getServerPort1(), true);
+                    }
                 }
 
                 if(config.isSlot2()) {
 
                     if (slot2.getJoin().isClicked()) {
 
-                        connect(config.getServerIP2(), config.getServerPort2());
+                        connect(config.getServerIP2(), config.getServerPort2(), false);
                     }
 
                     if (slot2.getDelete().isClicked()) {
@@ -348,13 +354,18 @@ import java.net.Socket;
                         removeServerSlot(slot2, 2);
                         slot2 = null;
                     }
+
+                    if(slot2.getSpectate().isClicked()) {
+
+                        connect(config.getServerIP2(), config.getServerPort2(), true);
+                    }
                 }
 
                 if(config.isSlot3()) {
 
                     if (slot3.getJoin().isClicked()) {
 
-                        connect(config.getServerIP3(), config.getServerPort3());
+                        connect(config.getServerIP3(), config.getServerPort3(), false);
                     }
 
                     if (slot3.getDelete().isClicked()) {
@@ -362,19 +373,29 @@ import java.net.Socket;
                         removeServerSlot(slot3, 3);
                         slot3 = null;
                     }
+
+                    if(slot3.getSpectate().isClicked()) {
+
+                        connect(config.getServerIP3(), config.getServerPort3(), true);
+                    }
                 }
 
                 if(config.isSlot4()) {
 
                     if (slot4.getJoin().isClicked()) {
 
-                        connect(config.getServerIP4(), config.getServerPort4());
+                        connect(config.getServerIP4(), config.getServerPort4(), false);
                     }
 
                     if (slot4.getDelete().isClicked()) {
 
                         removeServerSlot(slot4, 4);
                         slot4 = null;
+                    }
+
+                    if(slot4.getSpectate().isClicked()) {
+
+                        connect(config.getServerIP4(), config.getServerPort4(), true);
                     }
                 }
 
@@ -414,7 +435,7 @@ import java.net.Socket;
                     }
             }
 
-            private void connect(String serverIP, int serverPort) {
+            private void connect(String serverIP, int serverPort, boolean spectater) {
 
                 onlineManager = new OnlineManager(display, gameType, username, serverIP, serverPort);
                 display.getActivePanel().removeObjectFromPanel(this);
@@ -518,6 +539,7 @@ import java.net.Socket;
 
                     display.getActivePanel().drawObjectOnPanel(temp.getJoin());
                     display.getActivePanel().drawObjectOnPanel(temp.getDelete());
+                    display.getActivePanel().drawObjectOnPanel(temp.getSpectate());
                 }
                 return temp;
             }
@@ -526,6 +548,7 @@ import java.net.Socket;
 
                 display.getActivePanel().removeObjectFromPanel(slot.getJoin());
                 display.getActivePanel().removeObjectFromPanel(slot.getDelete());
+                display.getActivePanel().removeObjectFromPanel(slot.getSpectate());
 
                 switch (type) {
 
@@ -648,6 +671,7 @@ import java.net.Socket;
                         //Referenzen
                     private Button join;
                     private Button delete;
+                    private Button spectate;
                     private BufferedImage image;
                     private BufferedImage connectionTrue;
                     private BufferedImage connectionFalse;
@@ -665,6 +689,7 @@ import java.net.Socket;
 
                     join = new Button(x + 613, y + 72, 78, 30, "res/images/menu/buttons/Join-server-button", true);
                     delete = new Button(x + 674, y + 6, 25, 25, "res/images/menu/buttons/close-button",true);
+                    spectate = new Button(x + 513, y + 72, 78, 30, "res/images/menu/buttons/spectate-button", true);
                 }
 
                 // GETTER
@@ -697,6 +722,11 @@ import java.net.Socket;
                 public Button getDelete() {
 
                     return delete;
+                }
+
+                public Button getSpectate() {
+
+                    return spectate;
                 }
 
                 public BufferedImage getImage() {

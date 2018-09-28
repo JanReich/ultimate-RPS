@@ -9,6 +9,7 @@ import graphics.Display;
                 //Attribute
             private int port;
             private boolean host;
+            private boolean spectator;
 
                 //Referenzen
             private Display display;
@@ -25,17 +26,19 @@ import graphics.Display;
             this.display = display;
             this.username = username;
             this.gameType = gameType;
+            this.spectator = false;
 
             createServer();
         }
 
-        public OnlineManager(Display display, String gameType, String username, String serverIP, int port) {
+        public OnlineManager(Display display, String gameType, String username, String serverIP, int port, boolean spectator) {
 
             this.port = port;
             this.display = display;
             this.username = username;
             this.serverIP = serverIP;
             this.gameType = gameType;
+            this.spectator = spectator;
             this.host = false;
 
             joinServer();
@@ -55,6 +58,6 @@ import graphics.Display;
 
         private void joinServer() {
 
-            client = new GameClient(display, serverIP, port, gameType, username, false, host);
+            client = new GameClient(display, serverIP, port, gameType, username, spectator, host);
         }
     }
