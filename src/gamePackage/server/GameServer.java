@@ -88,6 +88,7 @@ import java.util.Map;
                                         //when a Player join's
                                     else {
 
+                                        System.out.println(maxPlayers);
                                         if(playerCount < maxPlayers) {
 
                                             playerCount++;
@@ -143,6 +144,7 @@ import java.util.Map;
                 String[] messages = pMessage.split(": ");
                 int clientID = Integer.parseInt(messages[2]);
 
+                playerCount++;
                 clientIDs[clientID] = pClientIP;
                 clients.get(pClientIP).setSpectator(false);
                 clients.get(pClientIP).setSpectatorID(-1);
