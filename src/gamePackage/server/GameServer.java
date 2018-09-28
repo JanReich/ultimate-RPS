@@ -80,6 +80,7 @@ import java.util.Map;
                                             spectatorCount++;
                                             int spectatorID = generateSpectatorID(pClientIP);
                                             clients.put(pClientIP, new ClientData(pClientIP, pClientPort, username, spectator, host));
+                                            clients.get(pClientIP).setSpectatorID(spectatorID);
                                             System.out.println("[Server] Client \"" + username + "\" hat sich mit dem Server als Spectator verbunden!");
                                             send(pClientIP, pClientPort, "RegisterSuccessful: " + spectatorID);
                                             sendToAll("JoinedSpectator: " + username + ": " + spectatorID + ": " + host);

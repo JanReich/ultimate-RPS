@@ -58,7 +58,6 @@ import java.util.HashMap;
                 //Format - JoinedSpectator <username> <spectatorID> <host>
             if(pMessage.startsWith("JoinedSpectator: ")) {
 
-                System.out.println(pMessage);
                 String[] messages = pMessage.split(": ");
 
                 String username = messages[1];
@@ -91,6 +90,7 @@ import java.util.HashMap;
 
                 if(connectedPlayers.containsKey(clientID)) {
 
+                    connectedPlayers.get(clientID).setReady(true);
                 }
             }
 
@@ -102,6 +102,7 @@ import java.util.HashMap;
 
                 if(connectedPlayers.containsKey(clientID)) {
 
+                    connectedPlayers.get(clientID).setReady(false);
                 }
             }
 

@@ -110,4 +110,14 @@ package gamePackage.server;
 
             this.spectatorID = spectatorID;
         }
+
+        public boolean isReady() {
+
+            return ready;
+        }
+
+        public void setReady(boolean ready) {
+
+            this.ready = ready;
+        }
     }

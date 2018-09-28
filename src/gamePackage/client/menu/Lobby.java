@@ -64,11 +64,7 @@ import java.util.ArrayList;
             kick1 = new Button(333 , 317 ,70, 26, "res/images/lobby/kick-button", true);
             kick2 = new Button(270 , 653 ,70, 26, "res/images/lobby/kick-button", true);
 
-
                 //Add to Display
-            display.getActivePanel().drawObjectOnPanel(ready1);
-            display.getActivePanel().drawObjectOnPanel(ready2);
-
             display.getActivePanel().drawObjectOnPanel(kick1);
             display.getActivePanel().drawObjectOnPanel(kick2);
 
@@ -95,6 +91,22 @@ import java.util.ArrayList;
                 //draw KickButton's
             draw.drawButton(kick1);
             draw.drawButton(kick2);
+
+            if(readyPlayer1) {
+                if(!display.getActivePanel().contains(unReady1)) display.getActivePanel().drawObjectOnPanel(unReady1);
+                draw.drawButton(unReady1);
+            } else {
+                draw.drawButton(ready1);
+                if(!display.getActivePanel().contains(ready1)) display.getActivePanel().drawObjectOnPanel(ready1);
+            }
+
+            if(readyPlayer2) {
+                if(!display.getActivePanel().contains(unReady2)) display.getActivePanel().drawObjectOnPanel(unReady2);
+                draw.drawButton(unReady2);
+            } else {
+                if(!display.getActivePanel().contains(ready2)) display.getActivePanel().drawObjectOnPanel(ready2);
+                draw.drawButton(ready2);
+            }
 
             if(gameClient.getData().isSpectator()) {
 
@@ -151,7 +163,38 @@ import java.util.ArrayList;
         @Override
         public void update(double dt) {
 
+            if(gameClient.getConnectedPlayers().get(0) != null) readyPlayer1 = gameClient.getConnectedPlayers().get(0).isReady();
+            if(gameClient.getConnectedPlayers().get(1) != null) readyPlayer1 = gameClient.getConnectedPlayers().get(1).isReady();
+
             if(errorTime > 0) errorTime -= dt;
+
+            if(readyPlayer1) {
+
+                if(unReady1.isClicked() && gameClient.getData().getClientID() == 0) {
+
+                    gameClient.setReady(false, 0);
+                }
+            } else {
+
+                if(ready1.isClicked() && gameClient.getData().getClientID() == 0) {
+
+                    gameClient.setReady(true, 0);
+                }
+            }
+
+            if(readyPlayer2) {
+
+                if(unReady2.isClicked() && gameClient.getData().getClientID() == 1) {
+
+                    gameClient.setReady(false, 1);
+                }
+            } else {
+
+                if(ready1.isClicked() && gameClient.getData().getClientID() == 1) {
+
+                    gameClient.setReady(true, 1);
+                }
+            }
 
             if(playerClickToJoin1 != null)
                 if(playerClickToJoin1.isClicked()) {
