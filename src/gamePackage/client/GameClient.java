@@ -152,19 +152,14 @@ import java.util.HashMap;
 
             if(pMessage.startsWith("StartGame: ")) {
 
+                lobby.remove();
                 for (int i = 0; i < connectedSpectators.size(); i++) {
 
-                    lobby.remove();
                     lobby.removeSpectatorSlot(connectedPlayers.get(i).getSpectatorID());
-
-                    OnlineMenu menu = new OnlineMenu(display, this);
-                    display.getActivePanel().drawObjectOnPanel(menu);
                 }
 
-                for (int i = 0; i < connectedPlayers.size(); i++) {
-
-                    lobby.remove();
-                }
+                OnlineMenu menu = new OnlineMenu(display, this);
+                display.getActivePanel().drawObjectOnPanel(menu);
             }
 
             if(pMessage.startsWith("ToPlayer: ")) {
