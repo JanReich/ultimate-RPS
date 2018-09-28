@@ -108,9 +108,20 @@ import java.util.Map;
                 } else send(pClientIP, pClientPort, "Disconnect: A Client of this Device is already connected to the Server");
             }
 
-            else if(pMessage.startsWith("")) {
+            else if(pMessage.startsWith("Ready: ")) {
 
+                String[] messages = pMessage.split(": ");
+                int clientID = Integer.parseInt(messages[1]);
 
+                sendToAll("PlayerReady: " + clientID);
+            }
+
+            else if(pMessage.startsWith("Unready")) {
+
+                String[] messages = pMessage.split(": ");
+                int clientID = Integer.parseInt(messages[1]);
+
+                sendToAll("PlayerUnReady: "  + clientID);
             }
         }
 

@@ -12,7 +12,8 @@ import java.awt.image.BufferedImage;
     public class Lobby extends Menu {
 
                 //Attribute
-            private boolean ready;
+            private boolean readyPlayer1;
+            private boolean readyPlayer2;
 
                 //Referenzen
             private GameClient gameClient;
@@ -51,7 +52,7 @@ import java.awt.image.BufferedImage;
             ready1 = new Button(330 , 289 ,79, 26, "res/images/lobby/ready-button", true);
             ready2 = new Button(270 , 625 ,70, 26, "res/images/lobby/ready-button", true);
                 //UnReadyButton
-            unReady2 = new Button(270 , 625 ,70, 26, "res/images/lobby/unReady-button", true);
+            unReady1 = new Button(270 , 625 ,70, 26, "res/images/lobby/unReady-button", true);
             unReady2 = new Button(270 , 625 ,70, 26, "res/images/lobby/unReady-button", true);
                 //KickButton
             kick1 = new Button(333 , 317 ,70, 26, "res/images/lobby/kick-button", true);
@@ -111,14 +112,12 @@ import java.awt.image.BufferedImage;
 
 
                 //draw ReadyButton's
-            if(!ready) {
+            if(!readyPlayer1) {
 
                 draw.drawButton(ready1);
-                draw.drawButton(ready2);
             } else {
 
                 draw.drawButton(unReady1);
-                draw.drawButton(unReady2);
             }
 
             /*draw.drawImage(kickButton1, 333 , 317 ,70, 26);
@@ -138,12 +137,39 @@ import java.awt.image.BufferedImage;
         @Override
         public void update(double dt) {
 
+            if(ready1 != null) {
+
+                if(ready1.isClicked()) {
+
+                    gameClient.setReady(!readyPlayer1, 0);
+                }
+            }
+
+            if(unReady1 != null) {
+
+                if(unReady2.isClicked()) {
+
+                    gameClient.setReady(!readyPlayer1, 0);
+                }
+            }
         }
 
-        /*private void check(Button checkReady, Button ) {
+
+        public void setReadyButton(int client, boolean ready) {
+
+            if(client == 0) {
+
+                if(ready) {
+
+                    display.getActivePanel().drawObjectOnPanel(unReady1);
+                    display.getActivePanel().removeObjectFromPanel(ready1);
+                    this.readyPlayer1 = ready;
+                }
+            } else if(client == 1) {
 
 
-        }*/
+            }
+        }
 
         @Override
         public void mouseReleased(MouseEvent event) {

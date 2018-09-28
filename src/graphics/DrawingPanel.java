@@ -93,8 +93,12 @@ public class DrawingPanel extends Panel implements KeyListener, MouseListener, M
         while (iterator.hasNext()) {
 
             GraphicalObject gObject = iterator.next();
-            gObject.draw(drawHelper);
-            gObject.update(delta / 1000);
+
+            if(gObject != null) {
+
+                gObject.draw(drawHelper);
+                gObject.update(delta / 1000);
+            } else System.err.println("[Error] Es wird versucht ein Objekt == null zuzeichnen");
         }
 
         Iterator<ManagementObject> mIterator = managementObjects.iterator();

@@ -86,7 +86,7 @@ import java.util.HashMap;
 
                 if(connectedPlayers.containsKey(clientID)) {
 
-                        //TODO: READY
+                    lobby.setReadyButton(clientID, true);
                 }
             }
 
@@ -98,7 +98,7 @@ import java.util.HashMap;
 
                 if(connectedPlayers.containsKey(clientID)) {
 
-                    //TODO: READY
+                    lobby.setReadyButton(clientID, false);
                 }
             }
         }
@@ -116,10 +116,10 @@ import java.util.HashMap;
         public void setReady(boolean ready, int clientID) {
 
             if(ready) {
-
+                    //Format - Ready: <clientID>
                 send("Ready: " + clientID);
             } else {
-
+                    //Format - Unready: <clientID>
                 send("Unready: " + clientID);
             }
         }
