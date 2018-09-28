@@ -306,8 +306,21 @@ import java.net.Socket;
                         else if(directPopup) removeDirecPopUp();
                     }
 
-                if(directPopup)
-                    if(join.isClicked() || spectator.isClicked()) {
+                if(directPopup) {
+
+                    boolean clicked = false;
+                    boolean spec = false;
+                    if(join.isClicked()) {
+
+                        spec = false;
+                        clicked = true;
+                    } else if(spectator.isClicked()) {
+
+                        spec = true;
+                        clicked = true;
+                    }
+
+                    if(clicked) {
 
                         if(ipInput.getInputQuerry().contains(".") || ipInput.getInputQuerry().equalsIgnoreCase("localhost")) {
 
@@ -315,11 +328,11 @@ import java.net.Socket;
 
                                 try {
 
-                                    if(spectator.isClicked()) {
+                                    if(spec) {
 
                                         connect(ipInput.getInputQuerry(), Integer.parseInt(portInput.getInputQuerry()), true);
                                         removeDirecPopUp();
-                                    } else if(join.isClicked()) {
+                                    } else {
 
                                         connect(ipInput.getInputQuerry(), Integer.parseInt(portInput.getInputQuerry()), false);
                                         removeDirecPopUp();
@@ -331,6 +344,7 @@ import java.net.Socket;
                             } else errorID = 2;
                         } else errorID = 1;
                     }
+                }
 
                 if(config.isSlot1()) {
 
