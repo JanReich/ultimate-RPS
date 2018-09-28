@@ -15,6 +15,7 @@ import java.util.HashMap;
                 //Referenzen
             private Lobby lobby;
             private ClientData data;
+            private OnlineMenu onlineMenu;
             private HashMap<Integer, ClientData> connectedPlayers;
             private HashMap<Integer, ClientData> connectedSpectators;
 
@@ -158,8 +159,8 @@ import java.util.HashMap;
                     lobby.removeSpectatorSlot(connectedPlayers.get(i).getSpectatorID());
                 }
 
-                OnlineMenu menu = new OnlineMenu(display, this);
-                display.getActivePanel().drawObjectOnPanel(menu);
+                onlineMenu = new OnlineMenu(display, this);
+                display.getActivePanel().drawObjectOnPanel(onlineMenu);
             }
 
             if(pMessage.startsWith("ToPlayer: ")) {
@@ -193,7 +194,7 @@ import java.util.HashMap;
                 int clientID = Integer.parseInt(messages[1]);
                 int choose = Integer.parseInt(messages[2]);
 
-                lobby.setChoose(clientID, choose);
+                onlineMenu.setChoose(clientID, choose);
             }
 
             if(pMessage.startsWith("Disconnect: ")) {
