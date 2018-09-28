@@ -1,7 +1,9 @@
 package gamePackage.client;
 
 import abitur.netz.Client;
+import gamePackage.client.menu.Lobby;
 import gamePackage.server.ClientData;
+import graphics.Display;
 
 import java.util.HashMap;
 
@@ -10,14 +12,18 @@ import java.util.HashMap;
                 //Attribute
 
                 //Referenzen
+            private Lobby lobby;
             private ClientData data;
             private HashMap<Integer, ClientData> connectedPlayers;
             private HashMap<Integer, ClientData> connectedSpectators;
 
-        public GameClient(String pServerIP, int pServerPort, String gameType, String username, boolean spectator, boolean host) {
+            private Display display;
+
+        public GameClient(Display display, String pServerIP, int pServerPort, String gameType, String username, boolean spectator, boolean host) {
 
             super(pServerIP, pServerPort);
 
+            this.display = display;
             connectedPlayers = new HashMap<>();
             connectedSpectators = new HashMap<>();
 
@@ -41,6 +47,9 @@ import java.util.HashMap;
 
                     data.setClientID(Integer.parseInt(messages[1]));
                 }
+
+                lobby = new Lobby(display, this);
+                display.getActivePanel().drawObjectOnPanel(lobby);
             }
 
                 //Format - JoinedSpectator <username> <spectatorID> <host>
@@ -104,5 +113,14 @@ import java.util.HashMap;
             send("RegisterClient: " + gameType + ": " + data.getUsername() + ": " + data.isSpectator() + ": " + data.isHost());
         }
 
+        public void setReady(boolean ready, int clientID) {
 
+            if(ready) {
+
+                send("Ready: " + clientID);
+            } else {
+
+                send("Unready: " + clientID);
+            }
+        }
     }

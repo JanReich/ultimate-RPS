@@ -1,5 +1,6 @@
 package gamePackage.client.menu;
 
+import gamePackage.client.GameClient;
 import graphics.Display;
 import toolBox.Button;
 import toolBox.DrawHelper;
@@ -11,76 +12,89 @@ import java.awt.image.BufferedImage;
     public class Lobby extends Menu {
 
                 //Attribute
+            private boolean ready;
 
                 //Referenzen
+            private GameClient gameClient;
             private BufferedImage playerLaser1;
             private BufferedImage playerLaser2;
 
             private Button playerClickToJoin1;
             private Button playerClickToJoin2;
 
-            private BufferedImage clickSpectateButton;
-            private BufferedImage clickSpectateButtonHover;
-            private BufferedImage kickButton1;
-            private BufferedImage kickButton2;
-            private BufferedImage kickButton3;
-            private BufferedImage kickButton4;
-            private BufferedImage kickButtonHover;
-            private BufferedImage lobbymenu;
-            private BufferedImage notready1;
-            private BufferedImage notready2;
-            private BufferedImage ready;
-            private BufferedImage ready2;
-            private BufferedImage spectator1;
-            private BufferedImage spectator2;
-            private BufferedImage spectator3;
 
-        public Lobby(Display display) {
+                //Button's
+            private Button ready1;
+            private Button ready2;
+
+            private Button unReady1;
+            private Button unReady2;
+
+            private Button kick1;
+            private Button kick2;
+
+        public Lobby(Display display, GameClient gameClient) {
 
             super(display);
+            this.gameClient = gameClient;
         }
 
         @Override
         public void init() {
 
-                //TODO: Buttons einfügen, dabei darauf achten, dass diese 4% kleiner werden!
-                //TODO: ALLE BUTTONS schonaml an die richtigen Stellen setzen. Falls Sie
-                //TODO: sich micht etwas anderem überlappen, dann die entsprechende Textur auskommentieren!
-
+                //background
+            background = ImageHelper.getImage("res/images/lobby/lobby-menu.png");
+                //PlayerLaser
             playerLaser1 = ImageHelper.getImage("res/images/lobby/player-laser1.png");
             playerLaser2 = ImageHelper.getImage("res/images/lobby/player-laser2.png");
+                //ReadyButton's
+            ready1 = new Button(330 , 289 ,79, 26, "res/images/lobby/ready-button", true);
+            ready2 = new Button(270 , 625 ,70, 26, "res/images/lobby/ready-button", true);
+                //UnReadyButton
+            unReady2 = new Button(270 , 625 ,70, 26, "res/images/lobby/unReady-button", true);
+            unReady2 = new Button(270 , 625 ,70, 26, "res/images/lobby/unReady-button", true);
+                //KickButton
+            kick1 = new Button(333 , 317 ,70, 26, "res/images/lobby/kick-button", true);
+            kick2 = new Button(270 , 653 ,70, 26, "res/images/lobby/kick-button", true);
 
-            playerClickToJoin1 = new Button(162, 285, 161, 61, "res/images/lobby/click-play-button", true);
-            display.getActivePanel().drawObjectOnPanel(playerClickToJoin1);
-            playerClickToJoin2 = new Button(348, 622, 161, 61, "res/images/lobby/click-play-button", true);
-            display.getActivePanel().drawObjectOnPanel(playerClickToJoin2);
 
-            background = ImageHelper.getImage("res/images/lobby/lobby-menu.png");
+                //Add to Display
+            display.getActivePanel().drawObjectOnPanel(ready1);
+            display.getActivePanel().drawObjectOnPanel(ready2);
 
-            clickSpectateButton =  ImageHelper.getImage("res/images/lobby/click-spectate-button.png");
+            display.getActivePanel().drawObjectOnPanel(kick1);
+            display.getActivePanel().drawObjectOnPanel(kick2);
+
+
+            //playerClickToJoin1 = new Button(162, 285, 161, 61, "res/images/lobby/click-play-button", true);
+            //playerClickToJoin2 = new Button(348, 622, 161, 61, "res/images/lobby/click-play-button", true);
+
+
+
+
+
+
+            /*clickSpectateButton =  ImageHelper.getImage("res/images/lobby/click-spectate-button.png");
             clickSpectateButtonHover = ImageHelper.getImage("res/images/lobby/click-spectate-button-hover.png");
             kickButton1 = ImageHelper.getImage("res/images/lobby/kick-button.png");
             kickButton2 = ImageHelper.getImage("res/images/lobby/kick-button.png");
             kickButton3 = ImageHelper.getImage("res/images/lobby/kick-button.png");
             kickButton4 = ImageHelper.getImage("res/images/lobby/kick-button.png");
             kickButtonHover = ImageHelper.getImage("res/images/lobby/kick-button-hover.png");
-            notready1 = ImageHelper.getImage("res/images/lobby/notready-button1.png");
-            notready2 = ImageHelper.getImage("res/images/lobby/notready-button2.png");
-            ready = ImageHelper.getImage("res/images/lobby/ready-button.png");
-            ready2 = ImageHelper.getImage("res/images/lobby/ready-button-hover.png");
+
             spectator1 = ImageHelper.getImage("res/images/lobby/spectator-tab.png");
             spectator2 = ImageHelper.getImage("res/images/lobby/spectator-tab.png");
-            spectator3 = ImageHelper.getImage("res/images/lobby/spectator-tab.png");
+            spectator3 = ImageHelper.getImage("res/images/lobby/spectator-tab.png");*/
 
         }
 
         @Override
         public void remove() {
 
-            display.getActivePanel().removeObjectFromPanel(playerClickToJoin1);
-            playerClickToJoin1 = null;
-            display.getActivePanel().removeObjectFromPanel(playerClickToJoin2);
-            playerClickToJoin2 = null;
+            display.getActivePanel().removeObjectFromPanel(kick1);
+            display.getActivePanel().removeObjectFromPanel(kick2);
+            display.getActivePanel().removeObjectFromPanel(unReady1);
+            display.getActivePanel().removeObjectFromPanel(unReady2);
         }
 
         @Override
@@ -88,25 +102,47 @@ import java.awt.image.BufferedImage;
 
                 //draw background
             draw.drawImage(background, 0, 0, display.getWidth(), display.getHeight());
-
+                //draw PlayerLaser
             draw.drawImage(playerLaser1, 49, 265, 278, 109);
             draw.drawImage(playerLaser2, 348, 600, 278, 109);
-            draw.drawImage(kickButton1, 333 , 317 ,70, 26);
+                //draw KickButton's
+            draw.drawButton(kick1);
+            draw.drawButton(kick2);
+
+
+                //draw ReadyButton's
+            if(!ready) {
+
+                draw.drawButton(ready1);
+                draw.drawButton(ready2);
+            } else {
+
+                draw.drawButton(unReady1);
+                draw.drawButton(unReady2);
+            }
+
+            /*draw.drawImage(kickButton1, 333 , 317 ,70, 26);
             draw.drawImage(kickButton2, 270 , 653 ,70, 26);
-            draw.drawImage(notready1, 330 , 289 ,79, 26);
-            draw.drawImage(notready2, 270 , 625 ,70, 26);
-            draw.drawImage(ready, 330 , 289 ,79, 26);
-            draw.drawImage(ready2, 270 , 625 ,70, 26);
             draw.drawImage(spectator1, 675 , 130,260, 60);
             draw.drawImage(spectator2, 675 , 200,260, 60);
             draw.drawImage(spectator3, 675 , 270,260, 60);
             draw.drawImage(kickButton3, 853 , 140 ,70, 33);
-            draw.drawImage(kickButton4, 853 , 210 ,70, 33);
+            draw.drawImage(kickButton4, 853 , 210 ,70, 33);*/
             //Abstand von y immer +70
 
 
             //draw.drawButton(playerClickToJoin1);
             //draw.drawButton(playerClickToJoin2);
+        }
+
+        @Override
+        public void update(double dt) {
+
+        }
+
+        private void check(Button checkReady, Button ) {
+
+
         }
 
         @Override

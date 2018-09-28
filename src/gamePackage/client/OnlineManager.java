@@ -56,9 +56,6 @@ import graphics.Display;
 
         private void joinServer() {
 
-            client = new GameClient(serverIP, port, gameType, username, false, host);
-
-            Lobby lobby = new Lobby(display);
-            display.getActivePanel().drawObjectOnPanel(lobby);
+            client = new GameClient(display, serverIP, port, gameType, username, false, host);
         }
     }
