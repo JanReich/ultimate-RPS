@@ -194,7 +194,7 @@ import java.util.ArrayList;
                 }
             } else {
 
-                if(ready1.isClicked() && gameClient.getData().getClientID() == 1) {
+                if(ready2.isClicked() && gameClient.getData().getClientID() == 1) {
 
                     gameClient.setReady(true, 1);
                 }
