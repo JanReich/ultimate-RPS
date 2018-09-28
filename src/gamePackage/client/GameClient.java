@@ -155,9 +155,12 @@ import java.util.HashMap;
                 int clientID = Integer.parseInt(messages[2]);
                 lobby.removeSpectatorSlot(specID);
 
-                data.setClientID(clientID);
-                data.setSpectatorID(specID);
-                data.setSpectator(false);
+                if(data.getSpectatorID() == specID) {
+
+                    data.setClientID(clientID);
+                    data.setSpectatorID(specID);
+                    data.setSpectator(false);
+                }
 
                 ClientData data = new ClientData(connectedSpectators.get(specID).getUsername(), connectedSpectators.get(specID).isHost(), false, clientID, false);
                 connectedSpectators.remove(specID);
