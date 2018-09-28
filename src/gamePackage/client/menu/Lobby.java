@@ -113,11 +113,13 @@ import java.awt.image.BufferedImage;
 
                 //draw ReadyButton's
 
+            if(gameClient != null) {
+
                 draw.setColour(Color.BLACK);
                 draw.setFont(new Font("Impact", Font.PLAIN, 30));
                 draw.drawString(gameClient.getConnectedPlayers().get(0).getUsername(), 90, 330);
                 draw.drawString(gameClient.getConnectedPlayers().get(1).getUsername(), 365, 665);
-
+            }
 
 
             /*draw.drawImage(kickButton1, 333 , 317 ,70, 26);
