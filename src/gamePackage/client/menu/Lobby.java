@@ -55,11 +55,11 @@ import java.util.ArrayList;
             playerLaser1 = ImageHelper.getImage("res/images/lobby/player-laser1.png");
             playerLaser2 = ImageHelper.getImage("res/images/lobby/player-laser2.png");
                 //ReadyButton's
-            ready1 = new Button(330 , 289 ,79, 26, "res/images/lobby/ready-button", true);
-            ready2 = new Button(270 , 625 ,70, 26, "res/images/lobby/ready-button", true);
+            ready1 = new Button(329 , 289 ,79, 26, "res/images/lobby/ready-button", true);
+            ready2 = new Button(267 , 625 ,79, 26, "res/images/lobby/ready-button", true);
                 //UnReadyButton
-            unReady1 = new Button(330 , 289 ,79, 26, "res/images/lobby/unReady-button", true);
-            unReady2 = new Button(270 , 625 ,70, 26, "res/images/lobby/unReady-button", true);
+            unReady1 = new Button(328 , 289 ,79, 26, "res/images/lobby/unReady-button", true);
+            unReady2 = new Button(266 , 625 ,79, 26, "res/images/lobby/unReady-button", true);
                 //KickButton
             kick1 = new Button(333 , 317 ,70, 26, "res/images/lobby/kick-button", true);
             kick2 = new Button(270 , 653 ,70, 26, "res/images/lobby/kick-button", true);

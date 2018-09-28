@@ -150,6 +150,17 @@ import java.util.HashMap;
                 connectedSpectators.remove(spectatorID);
             }
 
+            if(pMessage.startsWith("StartGame: ")) {
+
+                for (int i = 0; i < connectedSpectators.size(); i++) {
+
+                    lobby.remove();
+                    lobby.removeSpectatorSlot(connectedPlayers.get(i).getSpectatorID());
+
+
+                }
+            }
+
             if(pMessage.startsWith("ToPlayer: ")) {
 
                 String[] messages = pMessage.split(": ");

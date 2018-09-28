@@ -131,6 +131,30 @@ import java.util.Map;
                 int clientID = Integer.parseInt(messages[1]);
 
                 sendToAll("PlayerUnReady: "  + clientID);
+
+                int players = 0;
+                int readyPlayers = 0;
+
+                for(Map.Entry<String, ClientData> entry : clients.entrySet()) {
+
+                    if(!entry.getValue().isSpectator()) {
+
+                        players++;
+                        if(entry.getValue().isReady()) {
+
+                            readyPlayers++;
+                        }
+                    }
+                }
+
+                if(players >= minPlayers) {
+
+                    if(players == readyPlayers) {
+
+                        started = true;
+                        sendToAll("StartGame: ");
+                    }
+                }
             }
 
             else if(pMessage.startsWith("KickPlayer: ") || pMessage.startsWith("KickSpectator: ")) {
