@@ -136,6 +136,20 @@ import java.util.Map;
 
                 sendToAll(pMessage);
             }
+
+                //Format - ToPlayer: <SpecID> <ClientID>
+            else if(pMessage.startsWith("ToPlayer: ")) {
+
+                String[] messages = pMessage.split(": ");
+                int clientID = Integer.parseInt(messages[2]);
+
+                clientIDs[clientID] = pClientIP;
+                clients.get(pClientIP).setSpectator(false);
+                clients.get(pClientIP).setSpectatorID(-1);
+                clients.get(pClientIP).setClientID(clientID);
+
+                sendToAll(pMessage);
+            }
         }
 
         public int generateClientID(String clientIP) {

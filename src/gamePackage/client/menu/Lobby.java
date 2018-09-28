@@ -109,9 +109,6 @@ import java.util.ArrayList;
                 draw.drawImage(playerLaser2, 348, 600, 278, 109);
             }
 
-
-                //draw ReadyButton's
-
             if(gameClient != null) {
 
                 draw.setColour(Color.BLACK);
@@ -129,6 +126,7 @@ import java.util.ArrayList;
 
             for (int i = 0; i < slots.size(); i++) {
 
+                draw.setColour(Color.BLACK);
                 draw.setFont(new Font("Impact", Font.PLAIN, 18));
                 draw.drawImage(slots.get(i).getSlot(), slots.get(i).getX(), slots.get(i).getY(), slots.get(i).getWidth(), slots.get(i).getHeight());
                 draw.drawString(slots.get(i).getName(), slots.get(i).getX() + 22, slots.get(i).getY() + 30);
@@ -141,6 +139,7 @@ import java.util.ArrayList;
 
             if(errorTime > 0) errorTime -= dt;
 
+                //Erstellen des ClickToPlay Buttons, falls es möglich ist
             if(gameClient.getConnectedPlayers().get(0) == null && playerClickToJoin1 == null && gameClient.getData().isSpectator()) {
 
                 playerClickToJoin1 = new Button(162, 285, 161, 61, "res/images/lobby/click-play-button", true);
@@ -151,9 +150,9 @@ import java.util.ArrayList;
                 playerClickToJoin1 = null;
             }
 
+                //Erstellen des ClickToPlay Buttons, falls es möglich ist
             if(gameClient.getConnectedPlayers().get(1) == null && playerClickToJoin1 == null && gameClient.getData().isSpectator()) {
 
-                System.out.println("test");
                 playerClickToJoin2 = new Button(348, 622, 161, 61, "res/images/lobby/click-play-button", true);
                 display.getActivePanel().drawObjectOnPanel(playerClickToJoin2);
             } else if(gameClient.getConnectedPlayers().get(1) != null && playerClickToJoin2 != null && gameClient.getData().isSpectator()) {
@@ -161,6 +160,19 @@ import java.util.ArrayList;
                 display.getActivePanel().removeObjectFromPanel(playerClickToJoin2);
                 playerClickToJoin2 = null;
             }
+
+            if(playerClickToJoin1 != null)
+                if(playerClickToJoin1.isClicked()) {
+
+
+                }
+
+            if(playerClickToJoin2 != null)
+                if(playerClickToJoin2.isClicked()) {
+
+
+                }
+
 
             if(kick1.isClicked()) {
 
