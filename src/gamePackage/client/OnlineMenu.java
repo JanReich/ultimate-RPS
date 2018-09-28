@@ -3,6 +3,7 @@ package gamePackage.client;
 import graphics.Display;
 import graphics.interfaces.BasicInteractableObject;
 import toolBox.Animation;
+import toolBox.Button;
 import toolBox.DrawHelper;
 import toolBox.ImageHelper;
 
@@ -19,12 +20,15 @@ import java.awt.image.BufferedImage;
              * 2 = schere
              */
             private int active;
+            private boolean change;
             private boolean playAnimation;
 
                 //Referenzen
             private Display display;
             private GameClient gameClient;
             private BufferedImage background;
+
+            private Button submit;
 
                 //Buttons
             private BufferedImage stone;
@@ -40,6 +44,7 @@ import java.awt.image.BufferedImage;
         public OnlineMenu(Display display, GameClient gameClient) {
 
             this.active = -1;
+            this.change = true;
             this.display = display;
             this.gameClient = gameClient;
             this.background = ImageHelper.getImage("res/images/Singleplayer/background.png");
@@ -47,9 +52,12 @@ import java.awt.image.BufferedImage;
             this.stone = ImageHelper.getImage("res/images/Singleplayer/stone.png");
             this.paper = ImageHelper.getImage("res/images/Singleplayer/paper.png");
             this.sissors = ImageHelper.getImage("res/images/Singleplayer/scissor.png");
-            this.selectedPaper = ImageHelper.getImage("res/images/Singleplayer/scissor-chosen.png");
+            this.selectedPaper = ImageHelper.getImage("res/images/Singleplayer/paper-chosen.png");
             this.selectedstone = ImageHelper.getImage("res/images/Singleplayer/stone-chosen.png");
             this.selectedSissors = ImageHelper.getImage("res/images/Singleplayer/scissor-chosen.png");
+
+            this.submit = new Button(690, 300, 200, 80, "res/images/menu/buttons/submit", true);
+            display.getActivePanel().drawObjectOnPanel(submit);
 
             left = new Animation("res/images/animations/Stein.png", 0.04, 22, 0, false);
             right = new Animation("res/images/animations/Stein-rechts.png", 0.04, 22, 0, false);
@@ -70,6 +78,8 @@ import java.awt.image.BufferedImage;
 
                 if(active == 2) draw.drawImage(selectedSissors, 300, 300, 128, 128);
                 else draw.drawImage(sissors, 300, 300, 128, 128);
+
+                draw.drawButton(submit);
             }
 
             if(!playAnimation) {
@@ -97,15 +107,18 @@ import java.awt.image.BufferedImage;
         @Override
         public void mouseReleased(MouseEvent event) {
 
-            if(isInside(event, 430, 300, 128, 128)) {
+            if(this.change) {
 
-                active = 0;
-            } else if(isInside(event,300, 300, 128, 128)) {
+                if (isInside(event, 430, 300, 128, 128)) {
 
-                active = 2;
-            } else if(isInside(event, 560, 300, 128, 128)) {
+                    active = 0;
+                } else if (isInside(event, 300, 300, 128, 128)) {
 
-                active = 1;
+                    active = 2;
+                } else if (isInside(event, 560, 300, 128, 128)) {
+
+                    active = 1;
+                }
             }
         }
 
