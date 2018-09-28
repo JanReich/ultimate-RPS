@@ -117,6 +117,23 @@ import java.util.HashMap;
                     display.getActivePanel().drawObjectOnPanel(menu);
                 }
             }
+
+            if(pMessage.startsWith("PlayerDisconnect: ")) {
+
+                String[] messages = pMessage.split(": ");
+                int clientID = Integer.parseInt(messages[1]);
+
+                connectedPlayers.remove(clientID);
+            }
+
+
+            if(pMessage.startsWith("SpectatorDisconnect: ")) {
+
+                String[] messages = pMessage.split(": ");
+                int spectatorID = Integer.parseInt(messages[1]);
+
+                connectedSpectators.remove(spectatorID);
+            }
         }
 
         /**

@@ -185,7 +185,7 @@ import java.util.Map;
                                     if (clientIDs[i].equals(pClientIP)) {
 
                                         clientIDs[i] = null;
-                                        sendToAll("clientDisconnect: " + i);
+                                        sendToAll("PlayerDisconnect: " + i);
                                     }
                                 }
                             }
@@ -193,6 +193,20 @@ import java.util.Map;
                             names.remove(clients.get(pClientIP).getUsername());
                             System.out.println("[Server] Client \"" + clients.get(pClientIP).getUsername() + "\" hat die Verbindung zum Server getrennt!");
                             clients.remove(pClientIP);
+                        } else {
+
+                            spectatorCount--;
+                            for (int i = 0; i < spectatorIDs.length; i++) {
+
+                                if(spectatorIDs[i] != null) {
+
+                                    if (spectatorIDs[i].equals(pClientIP)) {
+
+                                        spectatorIDs[i] = null;
+                                        sendToAll("SpectatorDisconnect: " + i);
+                                    }
+                                }
+                            }
                         }
                     }
                 }

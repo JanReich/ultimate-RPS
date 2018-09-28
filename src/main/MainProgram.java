@@ -1,5 +1,6 @@
 package main;
 
+import gamePackage.client.menu.KickedMenu;
 import gamePackage.client.menu.MenuController;
 
 import graphics.Display;

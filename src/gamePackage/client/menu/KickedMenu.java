@@ -23,7 +23,7 @@ import java.awt.event.MouseEvent;
         @Override
         public void init() {
 
-            back = new Button(100, 100, 100, 80, "res/images/menu/buttons/res/images/menu/buttons/back-to-menu", true);
+            back = new Button(10, 825, 275, 100, "res/images/menu/buttons/back-to-menu", true);
             display.getActivePanel().drawObjectOnPanel(back);
             animation = new Animation("res/images/menu/kicked-screen.png", 0.04, 21, 0, true);
             display.getActivePanel().drawObjectOnPanel(animation);
@@ -34,6 +34,7 @@ import java.awt.event.MouseEvent;
 
             display.getActivePanel().removeObjectFromPanel(animation);
             display.getActivePanel().removeObjectFromPanel(back);
+            display.getActivePanel().removeObjectFromPanel(this);
             back = null;
             animation = null;
         }
@@ -43,7 +44,9 @@ import java.awt.event.MouseEvent;
 
             if(back.isClicked()) {
 
-
+                remove();
+                MenuController controller = new MenuController(display);
+                display.getActivePanel().addManagement(controller);
             }
         }
 
@@ -51,6 +54,7 @@ import java.awt.event.MouseEvent;
         public void draw(DrawHelper draw) {
 
             draw.drawImage(animation.getAnimation(), 0, 0, display.getWidth(), display.getHeight());
+            draw.drawButton(back);
         }
 
         @Override
