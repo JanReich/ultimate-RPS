@@ -58,6 +58,7 @@ import java.util.HashMap;
                 //Format - JoinedSpectator <username> <spectatorID> <host>
             if(pMessage.startsWith("JoinedSpectator: ")) {
 
+                System.out.println("test");
                 String[] messages = pMessage.split(": ");
 
                 String username = messages[1];
@@ -71,8 +72,6 @@ import java.util.HashMap;
 
                 //Format - JoinedPlayer <username> <clientID> <host>
             if(pMessage.startsWith("JoinedPlayer: ")) {
-
-                System.out.println("test");
 
                 String[] messages = pMessage.split(": ");
 
@@ -164,9 +163,15 @@ import java.util.HashMap;
                     data.setSpectator(false);
                 }
 
-                ClientData cData = new ClientData(data.getUsername(), data.isHost(), false, clientID, false);
-                connectedSpectators.remove(specID);
-                connectedPlayers.put(clientID, data);
+                for (int i = 0; i < connectedSpectators.size(); i++) {
+
+                    if(connectedSpectators.get(i).getSpectatorID() == specID) {
+
+                        ClientData cData = new ClientData(connectedSpectators.get(i).getUsername(), false, connectedSpectators.get(i).isHost(), clientID, false);
+                        connectedSpectators.remove(specID);
+                        connectedPlayers.put(clientID, cData);
+                    }
+                }
             }
 
             if(pMessage.startsWith("Disconnect: ")) {
