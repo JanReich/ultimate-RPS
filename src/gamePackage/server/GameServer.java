@@ -103,8 +103,12 @@ import java.util.Map;
                                         //Den Clients übermitteln, welche Spieler und Spectaors bereits gejoint sind
                                     for(Map.Entry<String, ClientData> entry : clients.entrySet()) {
 
-                                        if(entry.getValue().isSpectator()) send(pClientIP, pClientPort, "JoinedSpectator: " + entry.getValue().getUsername() + ": " + entry.getValue().getSpectatorID() + ": " + entry.getValue().isHost());
-                                        else send(pClientIP, pClientPort, "JoinedPlayer: " + entry.getValue().getUsername() + ": " + entry.getValue().getClientID() + ": " + entry.getValue().isHost());
+                                        System.out.println("test");
+                                        if(!entry.getKey().equalsIgnoreCase(pClientIP)) {
+
+                                            if(entry.getValue().isSpectator()) send(pClientIP, pClientPort, "JoinedSpectator: " + entry.getValue().getUsername() + ": " + entry.getValue().getSpectatorID() + ": " + entry.getValue().isHost());
+                                            else send(pClientIP, pClientPort, "JoinedPlayer: " + entry.getValue().getUsername() + ": " + entry.getValue().getClientID() + ": " + entry.getValue().isHost());
+                                        }
                                     }
                                 } else send(pClientIP, pClientPort, "Disconnect: Game Already started");
                             } else send(pClientIP, pClientPort, "Disconnect: Username Already in use");
