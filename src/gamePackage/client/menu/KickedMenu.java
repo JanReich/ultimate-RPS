@@ -25,7 +25,7 @@ import java.awt.event.MouseEvent;
 
             back = new Button(10, 825, 275, 100, "res/images/menu/buttons/back-to-menu", true);
             display.getActivePanel().drawObjectOnPanel(back);
-            animation = new Animation("res/images/menu/kicked-screen.png", 0.04, 21, 0, true);
+            animation = new Animation("res/images/menu/kicked-screen.png", 0.08, 21, 0, true);
             display.getActivePanel().drawObjectOnPanel(animation);
         }
 

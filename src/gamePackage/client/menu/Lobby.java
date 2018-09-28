@@ -210,8 +210,8 @@ import java.util.ArrayList;
         public void createSpectatorSlot(int spectatorID, String name) {
 
             SpectatorSlot slot = new SpectatorSlot(678 , 140 + 115 * spectatorID, 250, 50, spectatorID, name);
-            slots.add(slot);
             display.getActivePanel().drawObjectOnPanel(slot.getKick());
+            slots.add(slot);
         }
 
         public void removeSpectatorSlot(int spectatorID) {
