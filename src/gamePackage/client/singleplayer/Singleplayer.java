@@ -217,7 +217,7 @@ public class Singleplayer implements BasicInteractableObject {
 
         if(canCount){
             countTime = countTime - delta;
-            countedNumber = (int)(Math.random()*7+4);
+            countedNumber = (int)(Math.random()*8+3);
             counter = ImageHelper.getImage("res/images/Singleplayer/counter"+countedNumber+".png");
         }
         if(canCount&&countTime<=0){
