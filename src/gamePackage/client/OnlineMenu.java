@@ -130,6 +130,8 @@ import java.awt.image.BufferedImage;
                         break;
                 }
 
+                display.getActivePanel().drawObjectOnPanel(left);
+                display.getActivePanel().drawObjectOnPanel(right);
                 playAnimation = true;
             }
 
