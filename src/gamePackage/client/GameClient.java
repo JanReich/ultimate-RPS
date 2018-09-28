@@ -187,6 +187,15 @@ import java.util.HashMap;
                 }
             }
 
+            if(pMessage.startsWith("Choose: ")) {
+
+                String[] messages = pMessage.split(": ");
+                int clientID = Integer.parseInt(messages[1]);
+                int choose = Integer.parseInt(messages[2]);
+
+                lobby.setChoose(clientID, choose);
+            }
+
             if(pMessage.startsWith("Disconnect: ")) {
 
                 System.err.println(pMessage);
@@ -201,6 +210,11 @@ import java.util.HashMap;
 
                 //Format - RegisterClient: <gameType>: <username>: <spectator>: <host>
             send("RegisterClient: " + gameType + ": " + data.getUsername() + ": " + data.isSpectator() + ": " + data.isHost());
+        }
+
+        public void choose(int clientID, int choose) {
+
+            send("Choose: " + clientID + ": " + choose);
         }
 
         public void setReady(boolean ready, int clientID) {

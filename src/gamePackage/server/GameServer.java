@@ -20,6 +20,7 @@ import java.util.Map;
             private final boolean spectatingAllowed;
 
                 //Referenzen
+            private int[] active;
             private String gameType;
             private List<String> names;
             private String[] clientIDs;
@@ -38,6 +39,7 @@ import java.util.Map;
 
             this.names = new ArrayList<>();
             this.clients = new HashMap<>();
+            this.active = new int[maxPlayers];
             this.clientIDs = new String[maxPlayers];
             this.spectatorIDs = new String[maxSpectators];
         }
@@ -130,12 +132,15 @@ import java.util.Map;
 
                 for(Map.Entry<String, ClientData> entry : clients.entrySet()) {
 
-                    if(!entry.getValue().isSpectator()) {
+                    if(entry != null) {
 
-                        players++;
-                        if(entry.getValue().isReady()) {
+                        if(!entry.getValue().isSpectator()) {
 
-                            readyPlayers++;
+                            players++;
+                            if (entry.getValue().isReady()) {
+
+                                readyPlayers++;
+                            }
                         }
                     }
                 }
@@ -176,6 +181,11 @@ import java.util.Map;
                 clients.get(pClientIP).setSpectator(false);
                 clients.get(pClientIP).setSpectatorID(-1);
                 clients.get(pClientIP).setClientID(clientID);
+
+                sendToAll(pMessage);
+            }
+
+            else if(pMessage.startsWith("Choose: ")) {
 
                 sendToAll(pMessage);
             }
