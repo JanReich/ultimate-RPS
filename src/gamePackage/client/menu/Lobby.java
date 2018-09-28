@@ -117,8 +117,8 @@ import java.awt.image.BufferedImage;
 
                 draw.setColour(Color.BLACK);
                 draw.setFont(new Font("Impact", Font.PLAIN, 30));
-                draw.drawString(gameClient.getConnectedPlayers().get(0).getUsername(), 90, 330);
-                draw.drawString(gameClient.getConnectedPlayers().get(1).getUsername(), 365, 665);
+                if(gameClient.getConnectedPlayers().get(0) != null) draw.drawString(gameClient.getConnectedPlayers().get(0).getUsername(), 90, 330);
+                if(gameClient.getConnectedPlayers().get(1) != null) draw.drawString(gameClient.getConnectedPlayers().get(1).getUsername(), 365, 665);
             }
 
 
