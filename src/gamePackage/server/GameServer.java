@@ -207,6 +207,10 @@ import java.util.Map;
                                     }
                                 }
                             }
+
+                            names.remove(clients.get(pClientIP).getUsername());
+                            System.out.println("[Server] Client \"" + clients.get(pClientIP).getUsername() + "\" hat die Verbindung zum Server getrennt!");
+                            clients.remove(pClientIP);
                         }
                     }
                 }
