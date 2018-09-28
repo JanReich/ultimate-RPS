@@ -23,7 +23,6 @@ import java.awt.image.BufferedImage;
             private Button playerClickToJoin1;
             private Button playerClickToJoin2;
 
-
                 //Button's
             private Button ready1;
             private Button ready2;
@@ -120,6 +119,14 @@ import java.awt.image.BufferedImage;
                 draw.drawButton(unReady1);
             }
 
+            if(!readyPlayer2) {
+
+                draw.drawButton(ready2);
+            } else {
+
+                draw.drawButton(unReady2);
+            }
+
             /*draw.drawImage(kickButton1, 333 , 317 ,70, 26);
             draw.drawImage(kickButton2, 270 , 653 ,70, 26);
             draw.drawImage(spectator1, 675 , 130,260, 60);
@@ -139,17 +146,19 @@ import java.awt.image.BufferedImage;
 
             if(ready1 != null) {
 
-                if(ready1.isClicked()) {
+                if(!gameClient.getData().isSpectator() && gameClient.getData().getClientID() == 0) {
 
-                    gameClient.setReady(!readyPlayer1, 0);
+                    if(ready1.isClicked())
+                        gameClient.setReady(!readyPlayer1, 0);
                 }
             }
 
             if(unReady1 != null) {
 
-                if(unReady2.isClicked()) {
+                if(!gameClient.getData().isSpectator() && gameClient.getData().getClientID() == 1) {
 
-                    gameClient.setReady(!readyPlayer1, 0);
+                    if(unReady2.isClicked())
+                        gameClient.setReady(!readyPlayer1, 0);
                 }
             }
         }

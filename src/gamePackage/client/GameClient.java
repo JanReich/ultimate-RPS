@@ -123,4 +123,9 @@ import java.util.HashMap;
                 send("Unready: " + clientID);
             }
         }
+
+        public ClientData getData() {
+
+            return data;
+        }
     }
