@@ -42,10 +42,14 @@ import java.util.HashMap;
 
                 if(data.isSpectator()) {
 
+                    data.setClientID(-1);
                     data.setSpectatorID(Integer.parseInt(messages[1]));
                 } else {
 
+                    data.setSpectatorID(-1);
                     data.setClientID(Integer.parseInt(messages[1]));
+
+                    System.out.println("Your Client ID is: " + messages[1]);
                 }
 
                 lobby = new Lobby(display, this);
