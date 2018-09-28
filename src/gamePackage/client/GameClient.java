@@ -113,6 +113,7 @@ import java.util.HashMap;
                 if(clientID == data.getClientID()) {
 
                     lobby.remove();
+                    close();
                     KickedMenu menu = new KickedMenu(display);
                     display.getActivePanel().drawObjectOnPanel(menu);
                 }
