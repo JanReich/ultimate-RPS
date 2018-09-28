@@ -166,18 +166,18 @@ import java.awt.image.BufferedImage;
 
         public void setReadyButton(int client, boolean ready) {
 
-            if(client == 0) {
-
+            System.out.println("test");
                 if(ready) {
 
-                    display.getActivePanel().drawObjectOnPanel(unReady1);
-                    display.getActivePanel().removeObjectFromPanel(ready1);
-                    this.readyPlayer1 = ready;
+                    if(client == 0) {
+
+                        display.getActivePanel().drawObjectOnPanel(unReady1);
+                        display.getActivePanel().removeObjectFromPanel(ready1);
+                        this.readyPlayer1 = ready;
+                    }
                 }
-            } else if(client == 1) {
 
 
-            }
         }
 
         @Override
