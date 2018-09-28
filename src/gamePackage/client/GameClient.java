@@ -90,7 +90,6 @@ import java.util.HashMap;
 
                 if(connectedPlayers.containsKey(clientID)) {
 
-                    lobby.setReadyButton(clientID, true);
                 }
             }
 
@@ -102,7 +101,6 @@ import java.util.HashMap;
 
                 if(connectedPlayers.containsKey(clientID)) {
 
-                    lobby.setReadyButton(clientID, false);
                 }
             }
         }

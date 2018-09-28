@@ -6,6 +6,7 @@ import toolBox.Button;
 import toolBox.DrawHelper;
 import toolBox.ImageHelper;
 
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
@@ -111,21 +112,19 @@ import java.awt.image.BufferedImage;
 
 
                 //draw ReadyButton's
-            if(!readyPlayer1) {
+            if(gameClient.getData().getClientID() == 0) {
 
-                draw.drawButton(ready1);
-            } else {
+                draw.setColour(Color.BLACK);
+                draw.setFont(new Font("Impact", Font.PLAIN, 30));
+                draw.drawString(gameClient.getData().getUsername(), 90, 330);
+            } else if(gameClient.getData().getClientID() == 1) {
 
-                draw.drawButton(unReady1);
+                draw.setColour(Color.BLACK);
+                draw.setFont(new Font("Impact", Font.PLAIN, 30));
+                draw.drawString(gameClient.getData().getUsername(), 360, 660);
             }
 
-            if(!readyPlayer2) {
 
-                draw.drawButton(ready2);
-            } else {
-
-                draw.drawButton(unReady2);
-            }
 
             /*draw.drawImage(kickButton1, 333 , 317 ,70, 26);
             draw.drawImage(kickButton2, 270 , 653 ,70, 26);
@@ -143,39 +142,6 @@ import java.awt.image.BufferedImage;
 
         @Override
         public void update(double dt) {
-
-            if(ready1 != null) {
-
-                if(!gameClient.getData().isSpectator() && gameClient.getData().getClientID() == 0) {
-
-                    if(ready1.isClicked())
-                        gameClient.setReady(!readyPlayer1, 0);
-                }
-            }
-
-            if(unReady1 != null) {
-
-                if(!gameClient.getData().isSpectator() && gameClient.getData().getClientID() == 1) {
-
-                    if(unReady2.isClicked())
-                        gameClient.setReady(!readyPlayer1, 0);
-                }
-            }
-        }
-
-
-        public void setReadyButton(int client, boolean ready) {
-
-            System.out.println("test");
-                if(ready) {
-
-                    if(client == 0) {
-
-                        display.getActivePanel().drawObjectOnPanel(unReady1);
-                        display.getActivePanel().removeObjectFromPanel(ready1);
-                        this.readyPlayer1 = ready;
-                    }
-                }
 
 
         }
