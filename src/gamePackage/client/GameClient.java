@@ -68,6 +68,7 @@ import java.util.HashMap;
 
                 ClientData data = new ClientData(username, true, host, spectatorID);
                 connectedSpectators.put(spectatorID, data);
+                lobby.createSpectatorSlot(spectatorID, username);
             }
 
                 //Format - JoinedPlayer <username> <clientID> <host>

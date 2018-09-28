@@ -9,6 +9,7 @@ import toolBox.ImageHelper;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
     public class Lobby extends Menu {
 
@@ -21,6 +22,8 @@ import java.awt.image.BufferedImage;
             private GameClient gameClient;
             private BufferedImage playerLaser1;
             private BufferedImage playerLaser2;
+
+            private ArrayList<SpectatorSlot> slots;
 
             private Button playerClickToJoin1;
             private Button playerClickToJoin2;
@@ -43,6 +46,8 @@ import java.awt.image.BufferedImage;
 
         @Override
         public void init() {
+
+            slots = new ArrayList<>();
 
                 //background
             background = ImageHelper.getImage("res/images/lobby/lobby-menu.png");
@@ -67,13 +72,8 @@ import java.awt.image.BufferedImage;
             display.getActivePanel().drawObjectOnPanel(kick1);
             display.getActivePanel().drawObjectOnPanel(kick2);
 
-
             //playerClickToJoin1 = new Button(162, 285, 161, 61, "res/images/lobby/click-play-button", true);
             //playerClickToJoin2 = new Button(348, 622, 161, 61, "res/images/lobby/click-play-button", true);
-
-
-
-
 
 
             /*clickSpectateButton =  ImageHelper.getImage("res/images/lobby/click-spectate-button.png");
@@ -131,6 +131,14 @@ import java.awt.image.BufferedImage;
                 draw.drawString("Du hast keine Berechtigung um diesen Client zu kicken!", 10, 100);
             }
 
+            for (int i = 0; i < slots.size(); i++) {
+
+                draw.setFont(new Font("Impact", Font.PLAIN, 18));
+                draw.drawImage(slots.get(i).getSlot(), slots.get(i).getX(), slots.get(i).getY(), slots.get(i).getWidth(), slots.get(i).getHeight());
+                draw.drawString(slots.get(i).getName(), slots.get(i).getX() + 22, slots.get(i).getY() + 30);
+                draw.drawButton(slots.get(i).getKick());
+            }
+
             /*draw.drawImage(kickButton1, 333 , 317 ,70, 26);
             draw.drawImage(kickButton2, 270 , 653 ,70, 26);
             draw.drawImage(spectator1, 675 , 130,260, 60);
@@ -182,5 +190,91 @@ import java.awt.image.BufferedImage;
         @Override
         public void mouseReleased(MouseEvent event) {
 
+        }
+
+        public void createSpectatorSlot(int spectatorID, String name) {
+
+            SpectatorSlot slot = new SpectatorSlot(678 , 140 + 115 * spectatorID, 250, 50, spectatorID, name);
+            slots.add(slot);
+            display.getActivePanel().drawObjectOnPanel(slot.getKick());
+        }
+
+        public void removeSpectatorSlot(int spectatorID) {
+
+            for (int i = 0; i < slots.size(); i++) {
+
+                if(slots.get(i).getSpectatorID() == spectatorID) {
+
+                    display.getActivePanel().removeObjectFromPanel(slots.get(i).getKick());
+                    slots.remove(i);
+                }
+            }
+        }
+
+        private class SpectatorSlot {
+
+                    //Attribute
+                private int x;
+                private int y;
+                private int width;
+                private int height;
+                private String name;
+                private int spectatorID;
+
+                    //Referenzen
+                private Button kick;
+                private BufferedImage slot;
+
+            public SpectatorSlot(int x, int y, int width, int height, int spectatorID, String name) {
+
+                this.x = x;
+                this.y = y;
+                this.name = name;
+                this.width = width;
+                this.height = height;
+                this.spectatorID = spectatorID;
+                this.kick = new Button(x + 170, y + 7 + 115 * spectatorID, 70, 33, "res/images/lobby/kick-button", true);
+                this.slot  = ImageHelper.getImage("res/images/lobby/spectator-tab.png");
+            }
+
+            public int getX() {
+
+                return x;
+            }
+
+            public int getY() {
+
+                return y;
+            }
+
+            public int getWidth() {
+
+                return width;
+            }
+
+            public int getHeight() {
+
+                return height;
+            }
+
+            public BufferedImage getSlot() {
+
+                return slot;
+            }
+
+            public int getSpectatorID() {
+
+                return spectatorID;
+            }
+
+            public String getName() {
+
+                return name;
+            }
+
+            public Button getKick() {
+
+                return kick;
+            }
         }
     }
