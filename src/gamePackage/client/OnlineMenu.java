@@ -15,9 +15,9 @@ import java.awt.image.BufferedImage;
 
                 //Attribute
             /**
-             * 0 = stein,
-             * 1 = papier,
-             * 2 = schere
+             * 1 = stein,
+             * 2 = papier,
+             * 3 = schere
              */
             private int active;
             private boolean change;
@@ -73,13 +73,13 @@ import java.awt.image.BufferedImage;
 
             if(!gameClient.getData().isSpectator()) {
 
-                if(active == 0) draw.drawImage(selectedstone, 430, 300, 128, 128);
+                if(active == 1) draw.drawImage(selectedstone, 430, 300, 128, 128);
                 else draw.drawImage(stone, 430, 300, 128, 128);
 
-                if(active == 1) draw.drawImage(selectedPaper, 560, 300, 128, 128);
+                if(active == 2) draw.drawImage(selectedPaper, 560, 300, 128, 128);
                 else draw.drawImage(paper, 560, 300, 128, 128);
 
-                if(active == 2) draw.drawImage(selectedSissors, 300, 300, 128, 128);
+                if(active == 3) draw.drawImage(selectedSissors, 300, 300, 128, 128);
                 else draw.drawImage(sissors, 300, 300, 128, 128);
 
                 draw.drawButton(submit);
@@ -99,33 +99,33 @@ import java.awt.image.BufferedImage;
         @Override
         public void update(double delta) {
 
-            //0 = stein
-            //1 = papier
-            //2 = schere
-            if((opponent == 0 || opponent == 1 || opponent == 2) && (myChoose == 0 || myChoose == 1 || myChoose == 2)) {
+            //1 = stein
+            //2 = papier
+            //3 = schere
+            if((opponent == 1 || opponent == 2 || opponent == 3) && (myChoose == 1 || myChoose == 2 || myChoose == 3)) {
 
                 switch (myChoose) {
 
-                    case 0:
+                    case 1:
                         left = new Animation("res/images/animations/Stein.png", 0.04, 22, 0, false);
                         break;
-                    case 1:
+                    case 2:
                         left = new Animation("res/images/animations/Papier.png", 0.04, 22, 0, false);
                         break;
-                    case 2:
+                    case 3:
                         left = new Animation("res/images/animations/Schere.png", 0.04, 22, 0, false);
                         break;
                 }
 
                 switch (opponent) {
 
-                    case 0:
+                    case 1:
                         right = new Animation("res/images/animations/Stein-rechts.png", 0.04, 22, 0, false);
                         break;
-                    case 1:
+                    case 2:
                         right = new Animation("res/images/animations/Papier-rechts.png", 0.04, 22, 0, false);
                         break;
-                    case 2:
+                    case 3:
                         right = new Animation("res/images/animations/Schere-rechts.png", 0.04, 22, 0, false);
                         break;
                 }
@@ -135,7 +135,7 @@ import java.awt.image.BufferedImage;
 
             if(submit.isClicked()) {
 
-                if(active == 0 || active == 1 || active == 2) {
+                if(active == 1 || active == 2 || active == 3) {
 
                     change = false;
                 }
@@ -171,6 +171,8 @@ import java.awt.image.BufferedImage;
         }
 
         public void setChoose(int clientID, int choose) {
+
+            System.out.println(clientID + " - " + choose);
 
             if(clientID == gameClient.getData().getClientID()) {
 
