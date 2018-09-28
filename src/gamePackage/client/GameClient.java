@@ -122,8 +122,9 @@ import java.util.HashMap;
                     }
                 } else if(pMessage.startsWith("KickSpectator: ")) {
 
+                    System.out.println("test1");
                     if(clientID == data.getSpectatorID()) {
-
+                        System.out.println("test2");
                         lobby.remove();
                         close();
                         KickedMenu menu = new KickedMenu(display);

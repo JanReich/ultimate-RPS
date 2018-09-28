@@ -192,7 +192,7 @@ import java.util.ArrayList;
 
                     if(gameClient.getData().isHost()) {
 
-                        if(gameClient.getConnectedSpectators().get(i) != null) {
+                        if(gameClient.getConnectedSpectators().get(slots.get(i).spectatorID) != null) {
 
                             gameClient.kickSpectator(slots.get(i).getSpectatorID());
                         }
