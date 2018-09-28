@@ -58,6 +58,7 @@ import java.util.HashMap;
                 //Format - JoinedSpectator <username> <spectatorID> <host>
             if(pMessage.startsWith("JoinedSpectator: ")) {
 
+                System.out.println(pMessage);
                 String[] messages = pMessage.split(": ");
 
                 String username = messages[1];
@@ -67,7 +68,6 @@ import java.util.HashMap;
                 ClientData data = new ClientData(username, true, host, spectatorID);
                 connectedSpectators.put(spectatorID, data);
                 lobby.createSpectatorSlot(spectatorID, username);
-                System.out.println(spectatorID);
             }
 
                 //Format - JoinedPlayer <username> <clientID> <host>
