@@ -77,7 +77,8 @@ import java.util.Map;
                                         if(spectatorCount < maxSpectators) {
 
                                             names.add(username);
-                                            int spectatorID = generateSpectatorID();
+                                            spectatorCount++;
+                                            int spectatorID = generateSpectatorID(pClientIP);
                                             clients.put(pClientIP, new ClientData(pClientIP, pClientPort, username, spectator, host));
                                             System.out.println("[Server] Client \"" + username + "\" hat sich mit dem Server als Spectator verbunden!");
                                             send(pClientIP, pClientPort, "RegisterSuccessful: " + spectatorID);
@@ -91,7 +92,7 @@ import java.util.Map;
 
                                             playerCount++;
                                             names.add(username);
-                                            int userClientID = generateClientID();
+                                            int userClientID = generateClientID(pClientIP);
                                             clients.put(pClientIP, new ClientData(pClientIP, pClientPort, host, username, userClientID));
                                             System.out.println("[Server] Client \"" + username + "\" hat sich mit dem Server als Spieler verbunden!");
                                             send(pClientIP, pClientPort, "RegisterSuccessful: " + userClientID);
@@ -125,24 +126,26 @@ import java.util.Map;
             }
         }
 
-        public int generateClientID() {
+        public int generateClientID(String clientIP) {
 
             for (int i = 0; i < clientIDs.length; i++) {
 
                 if(clientIDs[i] == null) {
 
+                    clientIDs[i] = clientIP;
                     return i;
                 } else continue;
             }
             return -1;
         }
 
-        public int generateSpectatorID() {
+        public int generateSpectatorID(String spectatorID) {
 
             for (int i = 0; i < spectatorIDs.length; i++) {
 
                 if(spectatorIDs[i] == null) {
 
+                    spectatorIDs[i] = spectatorID;
                     return i;
                 } else continue;
             }
