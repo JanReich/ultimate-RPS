@@ -19,6 +19,12 @@ import java.awt.image.BufferedImage;
             private Button playerClickToJoin1;
             private Button playerClickToJoin2;
 
+            private BufferedImage clickSpectateButton;
+            private BufferedImage clickSpectateButtonHover;
+            private BufferedImage kickButton1;
+            private BufferedImage kickButton2;
+            private BufferedImage kickButtonHover;
+
         public Lobby(Display display) {
 
             super(display);
@@ -40,6 +46,12 @@ import java.awt.image.BufferedImage;
             display.getActivePanel().drawObjectOnPanel(playerClickToJoin2);
 
             background = ImageHelper.getImage("res/images/lobby/lobby-menu.png");
+
+            clickSpectateButton =  ImageHelper.getImage("res/images/lobby/click-spectate-button.png");
+            clickSpectateButtonHover = ImageHelper.getImage("res/images/lobby/click-spectate-button-hover.png");
+            kickButton1 = ImageHelper.getImage("res/images/lobby/kick-button.png");
+            kickButton2 = ImageHelper.getImage("res/images/lobby/kick-button.png");
+            kickButtonHover = ImageHelper.getImage("res/images/lobby/kick-button-hover.png");
         }
 
         @Override
@@ -59,6 +71,8 @@ import java.awt.image.BufferedImage;
 
             draw.drawImage(playerLaser1, 49, 265, 278, 109);
             draw.drawImage(playerLaser2, 348, 600, 278, 109);
+            draw.drawImage(kickButton1, 333 , 317 ,70, 26);
+            draw.drawImage(kickButton2, 270 , 653 ,70, 26);
 
             //draw.drawButton(playerClickToJoin1);
             //draw.drawButton(playerClickToJoin2);
