@@ -121,16 +121,9 @@ import java.util.Map;
 
                 String[] messages = pMessage.split(": ");
                 int clientID = Integer.parseInt(messages[1]);
+                clients.get(pClientIP).setReady(true);
 
                 sendToAll("PlayerReady: " + clientID);
-            }
-
-            else if(pMessage.startsWith("Unready")) {
-
-                String[] messages = pMessage.split(": ");
-                int clientID = Integer.parseInt(messages[1]);
-
-                sendToAll("PlayerUnReady: "  + clientID);
 
                 int players = 0;
                 int readyPlayers = 0;
@@ -152,9 +145,20 @@ import java.util.Map;
                     if(players == readyPlayers) {
 
                         started = true;
+                        System.out.println("test");
                         sendToAll("StartGame: ");
                     }
                 }
+            }
+
+            else if(pMessage.startsWith("Unready")) {
+
+                String[] messages = pMessage.split(": ");
+                int clientID = Integer.parseInt(messages[1]);
+                clients.get(pClientIP).setReady(false);
+
+
+                sendToAll("PlayerUnReady: "  + clientID);
             }
 
             else if(pMessage.startsWith("KickPlayer: ") || pMessage.startsWith("KickSpectator: ")) {

@@ -156,8 +156,11 @@ import java.util.HashMap;
 
                     lobby.remove();
                     lobby.removeSpectatorSlot(connectedPlayers.get(i).getSpectatorID());
+                }
 
+                for (int i = 0; i < connectedPlayers.size(); i++) {
 
+                    lobby.remove();
                 }
             }
 
