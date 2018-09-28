@@ -23,7 +23,17 @@ import java.awt.image.BufferedImage;
             private BufferedImage clickSpectateButtonHover;
             private BufferedImage kickButton1;
             private BufferedImage kickButton2;
+            private BufferedImage kickButton3;
+            private BufferedImage kickButton4;
             private BufferedImage kickButtonHover;
+            private BufferedImage lobbymenu;
+            private BufferedImage notready1;
+            private BufferedImage notready2;
+            private BufferedImage ready;
+            private BufferedImage ready2;
+            private BufferedImage spectator1;
+            private BufferedImage spectator2;
+            private BufferedImage spectator3;
 
         public Lobby(Display display) {
 
@@ -51,7 +61,17 @@ import java.awt.image.BufferedImage;
             clickSpectateButtonHover = ImageHelper.getImage("res/images/lobby/click-spectate-button-hover.png");
             kickButton1 = ImageHelper.getImage("res/images/lobby/kick-button.png");
             kickButton2 = ImageHelper.getImage("res/images/lobby/kick-button.png");
+            kickButton3 = ImageHelper.getImage("res/images/lobby/kick-button.png");
+            kickButton4 = ImageHelper.getImage("res/images/lobby/kick-button.png");
             kickButtonHover = ImageHelper.getImage("res/images/lobby/kick-button-hover.png");
+            notready1 = ImageHelper.getImage("res/images/lobby/notready-button1.png");
+            notready2 = ImageHelper.getImage("res/images/lobby/notready-button2.png");
+            ready = ImageHelper.getImage("res/images/lobby/ready-button.png");
+            ready2 = ImageHelper.getImage("res/images/lobby/ready-button-hover.png");
+            spectator1 = ImageHelper.getImage("res/images/lobby/spectator-tab.png");
+            spectator2 = ImageHelper.getImage("res/images/lobby/spectator-tab.png");
+            spectator3 = ImageHelper.getImage("res/images/lobby/spectator-tab.png");
+
         }
 
         @Override
@@ -73,6 +93,17 @@ import java.awt.image.BufferedImage;
             draw.drawImage(playerLaser2, 348, 600, 278, 109);
             draw.drawImage(kickButton1, 333 , 317 ,70, 26);
             draw.drawImage(kickButton2, 270 , 653 ,70, 26);
+            draw.drawImage(notready1, 330 , 289 ,79, 26);
+            draw.drawImage(notready2, 270 , 625 ,70, 26);
+            draw.drawImage(ready, 330 , 289 ,79, 26);
+            draw.drawImage(ready2, 270 , 625 ,70, 26);
+            draw.drawImage(spectator1, 675 , 130,260, 60);
+            draw.drawImage(spectator2, 675 , 200,260, 60);
+            draw.drawImage(spectator3, 675 , 270,260, 60);
+            draw.drawImage(kickButton3, 853 , 140 ,70, 33);
+            draw.drawImage(kickButton4, 853 , 210 ,70, 33);
+            //Abstand von y immer +70
+
 
             //draw.drawButton(playerClickToJoin1);
             //draw.drawButton(playerClickToJoin2);
