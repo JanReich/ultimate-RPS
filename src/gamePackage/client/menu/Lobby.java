@@ -185,6 +185,20 @@ import java.util.ArrayList;
                     }
                 } else errorTime = 3;
             }
+
+            for (int i = 0; i < slots.size(); i++) {
+
+                if(slots.get(i).getKick().isClicked()) {
+
+                    if(gameClient.getData().isHost()) {
+
+                        if(gameClient.getConnectedSpectators().get(i) != null) {
+
+                            gameClient.kickSpectator(slots.get(i).getSpectatorID());
+                        }
+                    } else errorTime = 3;
+                }
+            }
         }
 
         @Override

@@ -132,7 +132,7 @@ import java.util.Map;
                 sendToAll("PlayerUnReady: "  + clientID);
             }
 
-            else if(pMessage.startsWith("KickPlayer: ")) {
+            else if(pMessage.startsWith("KickPlayer: ") || pMessage.startsWith("KickSpectator: ")) {
 
                 sendToAll(pMessage);
             }

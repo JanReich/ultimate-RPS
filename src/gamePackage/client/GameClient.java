@@ -106,17 +106,29 @@ import java.util.HashMap;
                 }
             }
 
-            if(pMessage.startsWith("KickPlayer: ")) {
+            if(pMessage.startsWith("KickPlayer: ") || pMessage.startsWith("KickSpectator: ")) {
 
                 String[] messages = pMessage.split(": ");
                 int clientID = Integer.parseInt(messages[1]);
 
-                if(clientID == data.getClientID()) {
+                if(pMessage.startsWith("KickPlayer: ")) {
 
-                    lobby.remove();
-                    close();
-                    KickedMenu menu = new KickedMenu(display);
-                    display.getActivePanel().drawObjectOnPanel(menu);
+                    if (clientID == data.getClientID()) {
+
+                        lobby.remove();
+                        close();
+                        KickedMenu menu = new KickedMenu(display);
+                        display.getActivePanel().drawObjectOnPanel(menu);
+                    }
+                } else if(pMessage.startsWith("KickSpectator: ")) {
+
+                    if(clientID == data.getSpectatorID()) {
+
+                        lobby.remove();
+                        close();
+                        KickedMenu menu = new KickedMenu(display);
+                        display.getActivePanel().drawObjectOnPanel(menu);
+                    }
                 }
             }
 
@@ -177,5 +189,10 @@ import java.util.HashMap;
         public void kickPlayer(int clientID) {
 
             send("KickPlayer: " + clientID);
+        }
+
+        public void kickSpectator(int spectatorID) {
+
+            send("KickSpectator: " + spectatorID);
         }
     }
