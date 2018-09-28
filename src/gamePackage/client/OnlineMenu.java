@@ -2,6 +2,7 @@ package gamePackage.client;
 
 import graphics.Display;
 import graphics.interfaces.BasicInteractableObject;
+import toolBox.Animation;
 import toolBox.DrawHelper;
 import toolBox.ImageHelper;
 
@@ -12,6 +13,7 @@ import java.awt.image.BufferedImage;
     public class OnlineMenu implements BasicInteractableObject {
 
                 //Attribute
+            private boolean playAnimation;
 
                 //Referenzen
             private Display display;
@@ -26,6 +28,9 @@ import java.awt.image.BufferedImage;
             private BufferedImage selectedPaper;
             private BufferedImage selectedSissors;
 
+            private Animation left;
+            private Animation right;
+
         public OnlineMenu(Display display, GameClient gameClient) {
 
             this.display = display;
@@ -38,6 +43,9 @@ import java.awt.image.BufferedImage;
             this.selectedPaper = ImageHelper.getImage("res/images/Singleplayer/scissor-chosen.png");
             this.selectedstone = ImageHelper.getImage("res/images/Singleplayer/stone-chosen.png");
             this.selectedSissors = ImageHelper.getImage("res/images/Singleplayer/scissor-chosen.png");
+
+            left = new Animation("res/images/Singleplayer/stone-ani-left.png", 0.04, 22, 0, false);
+            right = new Animation("res/images/Singleplayer/stone-ani-right.png", 0.04, 22, 0, false);
         }
 
         @Override
@@ -50,6 +58,12 @@ import java.awt.image.BufferedImage;
                 draw.drawImage(stone, 430, 300, 128, 128);
                 draw.drawImage(sissors, 300, 300, 128, 128);
                 draw.drawImage(paper, 560, 300, 128, 128);
+            }
+
+            if(!playAnimation) {
+
+                draw.drawImage(left.getFirstSprite(), 0,400,350,350);
+                draw.drawImage(right.getFirstSprite(), 615, 400, 350, 350);
             }
         }
 
