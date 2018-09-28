@@ -103,7 +103,6 @@ import java.util.Map;
                                         //Den Clients übermitteln, welche Spieler und Spectaors bereits gejoint sind
                                     for(Map.Entry<String, ClientData> entry : clients.entrySet()) {
 
-                                        System.out.println("test");
                                         if(!entry.getKey().equalsIgnoreCase(pClientIP)) {
 
                                             if(entry.getValue().isSpectator()) send(pClientIP, pClientPort, "JoinedSpectator: " + entry.getValue().getUsername() + ": " + entry.getValue().getSpectatorID() + ": " + entry.getValue().isHost());
