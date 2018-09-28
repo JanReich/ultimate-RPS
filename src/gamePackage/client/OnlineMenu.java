@@ -21,6 +21,7 @@ import java.awt.image.BufferedImage;
              */
             private int active;
             private boolean change;
+            private boolean played;
             private boolean playAnimation;
 
             private int opponent;
@@ -102,7 +103,7 @@ import java.awt.image.BufferedImage;
             //1 = stein
             //2 = papier
             //3 = schere
-            if((opponent == 1 || opponent == 2 || opponent == 3) && (myChoose == 1 || myChoose == 2 || myChoose == 3)) {
+            if((opponent == 1 || opponent == 2 || opponent == 3) && (myChoose == 1 || myChoose == 2 || myChoose == 3) && !played) {
 
                 switch (myChoose) {
 
@@ -130,6 +131,7 @@ import java.awt.image.BufferedImage;
                         break;
                 }
 
+                played = true;
                 display.getActivePanel().drawObjectOnPanel(left);
                 display.getActivePanel().drawObjectOnPanel(right);
                 playAnimation = true;
