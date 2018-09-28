@@ -152,6 +152,7 @@ import java.util.ArrayList;
 
                 //Erstellen des ClickToPlay Buttons, falls es möglich ist
             addButton();
+            removeButton();
 
             if(playerClickToJoin1 != null)
                 if(playerClickToJoin1.isClicked() && gameClient.getData().isSpectator()) {
