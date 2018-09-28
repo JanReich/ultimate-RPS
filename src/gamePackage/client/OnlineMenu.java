@@ -44,8 +44,8 @@ import java.awt.image.BufferedImage;
             this.selectedstone = ImageHelper.getImage("res/images/Singleplayer/stone-chosen.png");
             this.selectedSissors = ImageHelper.getImage("res/images/Singleplayer/scissor-chosen.png");
 
-            left = new Animation("res/images/Singleplayer/stone-ani-left.png", 0.04, 22, 0, false);
-            right = new Animation("res/images/Singleplayer/stone-ani-right.png", 0.04, 22, 0, false);
+            left = new Animation("res/images/animations/Stein.png", 0.04, 22, 0, false);
+            right = new Animation("res/images/animations/Stein-rechts.png", 0.04, 22, 0, false);
         }
 
         @Override
