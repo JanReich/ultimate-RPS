@@ -58,7 +58,7 @@ import java.util.ArrayList;
             ready1 = new Button(330 , 289 ,79, 26, "res/images/lobby/ready-button", true);
             ready2 = new Button(270 , 625 ,70, 26, "res/images/lobby/ready-button", true);
                 //UnReadyButton
-            unReady1 = new Button(270 , 625 ,70, 26, "res/images/lobby/unReady-button", true);
+            unReady1 = new Button(330 , 289 ,79, 26, "res/images/lobby/unReady-button", true);
             unReady2 = new Button(270 , 625 ,70, 26, "res/images/lobby/unReady-button", true);
                 //KickButton
             kick1 = new Button(333 , 317 ,70, 26, "res/images/lobby/kick-button", true);
@@ -93,17 +93,21 @@ import java.util.ArrayList;
             draw.drawButton(kick2);
 
             if(readyPlayer1) {
+                display.getActivePanel().removeObjectFromPanel(ready1);
                 if(!display.getActivePanel().contains(unReady1)) display.getActivePanel().drawObjectOnPanel(unReady1);
                 draw.drawButton(unReady1);
             } else {
                 draw.drawButton(ready1);
+                display.getActivePanel().removeObjectFromPanel(unReady1);
                 if(!display.getActivePanel().contains(ready1)) display.getActivePanel().drawObjectOnPanel(ready1);
             }
 
             if(readyPlayer2) {
+                display.getActivePanel().removeObjectFromPanel(ready2);
                 if(!display.getActivePanel().contains(unReady2)) display.getActivePanel().drawObjectOnPanel(unReady2);
                 draw.drawButton(unReady2);
             } else {
+                display.getActivePanel().removeObjectFromPanel(unReady2);
                 if(!display.getActivePanel().contains(ready2)) display.getActivePanel().drawObjectOnPanel(ready2);
                 draw.drawButton(ready2);
             }
