@@ -72,22 +72,8 @@ import java.util.ArrayList;
             display.getActivePanel().drawObjectOnPanel(kick1);
             display.getActivePanel().drawObjectOnPanel(kick2);
 
-            //playerClickToJoin1 = new Button(162, 285, 161, 61, "res/images/lobby/click-play-button", true);
-            //playerClickToJoin2 = new Button(348, 622, 161, 61, "res/images/lobby/click-play-button", true);
-
-
-            /*clickSpectateButton =  ImageHelper.getImage("res/images/lobby/click-spectate-button.png");
-            clickSpectateButtonHover = ImageHelper.getImage("res/images/lobby/click-spectate-button-hover.png");
-            kickButton1 = ImageHelper.getImage("res/images/lobby/kick-button.png");
-            kickButton2 = ImageHelper.getImage("res/images/lobby/kick-button.png");
-            kickButton3 = ImageHelper.getImage("res/images/lobby/kick-button.png");
-            kickButton4 = ImageHelper.getImage("res/images/lobby/kick-button.png");
-            kickButtonHover = ImageHelper.getImage("res/images/lobby/kick-button-hover.png");
-
-            spectator1 = ImageHelper.getImage("res/images/lobby/spectator-tab.png");
-            spectator2 = ImageHelper.getImage("res/images/lobby/spectator-tab.png");
-            spectator3 = ImageHelper.getImage("res/images/lobby/spectator-tab.png");*/
-
+            playerClickToJoin1 = new Button(162, 285, 161, 61, "res/images/lobby/click-play-button", true);
+            playerClickToJoin2 = new Button(348, 622, 161, 61, "res/images/lobby/click-play-button", true);
         }
 
         @Override
@@ -106,12 +92,20 @@ import java.util.ArrayList;
 
                 //draw background
             draw.drawImage(background, 0, 0, display.getWidth(), display.getHeight());
-                //draw PlayerLaser
-            draw.drawImage(playerLaser1, 49, 265, 278, 109);
-            draw.drawImage(playerLaser2, 348, 600, 278, 109);
                 //draw KickButton's
             draw.drawButton(kick1);
             draw.drawButton(kick2);
+
+            if(gameClient.getData().isSpectator()) {
+
+                if(gameClient.getConnectedPlayers().get(0) == null) draw.drawButton(playerClickToJoin1);
+                if(gameClient.getConnectedPlayers().get(1) == null) draw.drawButton(playerClickToJoin2);
+            } else {
+
+                    //draw PlayerLaser
+                draw.drawImage(playerLaser1, 49, 265, 278, 109);
+                draw.drawImage(playerLaser2, 348, 600, 278, 109);
+            }
 
 
                 //draw ReadyButton's
@@ -138,25 +132,32 @@ import java.util.ArrayList;
                 draw.drawString(slots.get(i).getName(), slots.get(i).getX() + 22, slots.get(i).getY() + 30);
                 draw.drawButton(slots.get(i).getKick());
             }
-
-            /*draw.drawImage(kickButton1, 333 , 317 ,70, 26);
-            draw.drawImage(kickButton2, 270 , 653 ,70, 26);
-            draw.drawImage(spectator1, 675 , 130,260, 60);
-            draw.drawImage(spectator2, 675 , 200,260, 60);
-            draw.drawImage(spectator3, 675 , 270,260, 60);
-            draw.drawImage(kickButton3, 853 , 140 ,70, 33);
-            draw.drawImage(kickButton4, 853 , 210 ,70, 33);*/
-            //Abstand von y immer +70
-
-
-            //draw.drawButton(playerClickToJoin1);
-            //draw.drawButton(playerClickToJoin2);
         }
 
         @Override
         public void update(double dt) {
 
             if(errorTime > 0) errorTime -= dt;
+
+            if(gameClient.getConnectedPlayers().get(0) == null && playerClickToJoin1 == null) {
+
+                playerClickToJoin1 = new Button(162, 285, 161, 61, "res/images/lobby/click-play-button", true);
+                display.getActivePanel().drawObjectOnPanel(playerClickToJoin1);
+            } else if(gameClient.getConnectedPlayers().get(0) != null && playerClickToJoin1 != null) {
+
+                display.getActivePanel().removeObjectFromPanel(playerClickToJoin1);
+                playerClickToJoin1 = null;
+            }
+
+            if(gameClient.getConnectedPlayers().get(0) == null && playerClickToJoin1 == null) {
+
+                playerClickToJoin2 = new Button(348, 622, 161, 61, "res/images/lobby/click-play-button", true);
+                display.getActivePanel().drawObjectOnPanel(playerClickToJoin2);
+            } else if(gameClient.getConnectedPlayers().get(0) != null && playerClickToJoin2 != null) {
+
+                display.getActivePanel().removeObjectFromPanel(playerClickToJoin2);
+                playerClickToJoin2 = null;
+            }
 
             if(kick1.isClicked()) {
 
