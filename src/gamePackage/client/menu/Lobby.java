@@ -99,16 +99,15 @@ import java.util.ArrayList;
             if(gameClient.getData().isSpectator()) {
 
                 if(gameClient.getConnectedPlayers().get(0) == null) draw.drawButton(playerClickToJoin1);
+                else draw.drawImage(playerLaser1, 49, 265, 278, 109);
                 if(gameClient.getConnectedPlayers().get(1) == null) draw.drawButton(playerClickToJoin2);
+                else draw.drawImage(playerLaser2, 348, 600, 278, 109);
             } else {
 
                     //draw PlayerLaser
                 draw.drawImage(playerLaser1, 49, 265, 278, 109);
                 draw.drawImage(playerLaser2, 348, 600, 278, 109);
             }
-
-
-                //draw ReadyButton's
 
             if(gameClient != null) {
 
@@ -127,6 +126,7 @@ import java.util.ArrayList;
 
             for (int i = 0; i < slots.size(); i++) {
 
+                draw.setColour(Color.BLACK);
                 draw.setFont(new Font("Impact", Font.PLAIN, 18));
                 draw.drawImage(slots.get(i).getSlot(), slots.get(i).getX(), slots.get(i).getY(), slots.get(i).getWidth(), slots.get(i).getHeight());
                 draw.drawString(slots.get(i).getName(), slots.get(i).getX() + 22, slots.get(i).getY() + 30);
@@ -139,7 +139,8 @@ import java.util.ArrayList;
 
             if(errorTime > 0) errorTime -= dt;
 
-            if(gameClient.getConnectedPlayers().get(0) == null && playerClickToJoin1 == null) {
+                //Erstellen des ClickToPlay Buttons, falls es möglich ist
+            if(gameClient.getConnectedPlayers().get(0) == null && playerClickToJoin1 == null && gameClient.getData().isSpectator()) {
 
                 playerClickToJoin1 = new Button(162, 285, 161, 61, "res/images/lobby/click-play-button", true);
                 display.getActivePanel().drawObjectOnPanel(playerClickToJoin1);
@@ -149,15 +150,22 @@ import java.util.ArrayList;
                 playerClickToJoin1 = null;
             }
 
-            if(gameClient.getConnectedPlayers().get(0) == null && playerClickToJoin1 == null) {
+                //Erstellen des ClickToPlay Buttons, falls es möglich ist
+            addButton();
+            removeButton();
 
-                playerClickToJoin2 = new Button(348, 622, 161, 61, "res/images/lobby/click-play-button", true);
-                display.getActivePanel().drawObjectOnPanel(playerClickToJoin2);
-            } else if(gameClient.getConnectedPlayers().get(0) != null && playerClickToJoin2 != null) {
+            if(playerClickToJoin1 != null)
+                if(playerClickToJoin1.isClicked() && gameClient.getData().isSpectator()) {
 
-                display.getActivePanel().removeObjectFromPanel(playerClickToJoin2);
-                playerClickToJoin2 = null;
-            }
+                    gameClient.spectatorToPlayer(gameClient.getData().getSpectatorID(), 0);
+                }
+
+            if(playerClickToJoin2 != null)
+                if(playerClickToJoin2.isClicked() && gameClient.getData().isSpectator()) {
+
+                    gameClient.spectatorToPlayer(gameClient.getData().getSpectatorID(), 1);
+                }
+
 
             if(kick1.isClicked()) {
 
@@ -202,8 +210,26 @@ import java.util.ArrayList;
             }
         }
 
+        private void addButton() {
+
+            if(gameClient.getConnectedPlayers().get(1) == null && playerClickToJoin1 == null && gameClient.getData().isSpectator()) {
+
+                playerClickToJoin2 = new Button(348, 622, 161, 61, "res/images/lobby/click-play-button", true);
+                display.getActivePanel().drawObjectOnPanel(playerClickToJoin2);
+            }
+        }
+
+        private void removeButton() {
+
+            if(gameClient.getConnectedPlayers().get(1) != null && playerClickToJoin2 != null) {
+
+                display.getActivePanel().removeObjectFromPanel(playerClickToJoin2);
+                playerClickToJoin2 = null;
+            }
+        }
+
         @Override
-        public void mouseReleased(MouseEvent event) {
+        public void mouseReleased(MouseEvent e) {
 
         }
 
@@ -248,7 +274,7 @@ import java.util.ArrayList;
                 this.width = width;
                 this.height = height;
                 this.spectatorID = spectatorID;
-                this.kick = new Button(x + 170, y + 7 + 115 * spectatorID, 70, 33, "res/images/lobby/kick-button", true);
+                this.kick = new Button(x + 170, y + 7, 70, 33, "res/images/lobby/kick-button", true);
                 this.slot  = ImageHelper.getImage("res/images/lobby/spectator-tab.png");
             }
 

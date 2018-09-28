@@ -148,6 +148,17 @@ import java.util.HashMap;
                 connectedSpectators.remove(spectatorID);
             }
 
+            if(pMessage.startsWith("ToPlayer: ")) {
+
+                String[] messages = pMessage.split(": ");
+                int specID = Integer.parseInt(messages[1]);
+                int clientID = Integer.parseInt(messages[2]);
+
+                ClientData data = new ClientData(connectedSpectators.get(specID).getUsername(), connectedSpectators.get(specID).isHost(), false, clientID, false);
+                connectedSpectators.remove(specID);
+                connectedPlayers.put(clientID, data);
+            }
+
             if(pMessage.startsWith("Disconnect: ")) {
 
                 System.err.println(pMessage);
@@ -198,5 +209,10 @@ import java.util.HashMap;
         public void kickSpectator(int spectatorID) {
 
             send("KickSpectator: " + spectatorID);
+        }
+
+        public void spectatorToPlayer(int spectatorID, int playerID) {
+
+            send("ToPlayer: " + spectatorID + ": " + playerID);
         }
     }

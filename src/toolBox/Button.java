@@ -98,4 +98,36 @@ import java.awt.image.BufferedImage;
             clicked = false;
             return temp;
         }
+
+        public double getX() {
+            return x;
+        }
+
+        public double getY() {
+            return y;
+        }
+
+        public double getWidth() {
+            return width;
+        }
+
+        public double getHeight() {
+            return height;
+        }
+
+        public boolean isHover() {
+            return hover;
+        }
+
+        public boolean isInside() {
+            return inside;
+        }
+
+        public BufferedImage getNormal() {
+            return normal;
+        }
+
+        public BufferedImage getHoverImg() {
+            return hoverImg;
+        }
     }
