@@ -23,9 +23,9 @@ import java.awt.event.MouseEvent;
         @Override
         public void init() {
 
-            back = new Button(100, 100, 100, 80, "res/images/menu/buttons/kicked-back", true);
+            back = new Button(100, 100, 100, 80, "res/images/menu/buttons/res/images/menu/buttons/back-to-menu", true);
             display.getActivePanel().drawObjectOnPanel(back);
-            animation = new Animation("res/images/menu/kicked-screen.png", 0.04, 22, 0, true);
+            animation = new Animation("res/images/menu/kicked-screen.png", 0.04, 21, 0, true);
             display.getActivePanel().drawObjectOnPanel(animation);
         }
 

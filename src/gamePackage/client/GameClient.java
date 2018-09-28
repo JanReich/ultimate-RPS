@@ -1,6 +1,7 @@
 package gamePackage.client;
 
 import abitur.netz.Client;
+import gamePackage.client.menu.KickedMenu;
 import gamePackage.client.menu.Lobby;
 import gamePackage.server.ClientData;
 import graphics.Display;
@@ -103,6 +104,19 @@ import java.util.HashMap;
 
                 }
             }
+
+            if(pMessage.startsWith("KickPlayer: ")) {
+
+                String[] messages = pMessage.split(": ");
+                int clientID = Integer.parseInt(messages[1]);
+
+                if(clientID == data.getClientID()) {
+
+                    lobby.remove();
+                    KickedMenu menu = new KickedMenu(display);
+                    display.getActivePanel().drawObjectOnPanel(menu);
+                }
+            }
         }
 
         /**
@@ -139,5 +153,10 @@ import java.util.HashMap;
         public HashMap<Integer, ClientData> getConnectedSpectators() {
 
             return connectedSpectators;
+        }
+
+        public void kickPlayer(int clientID) {
+
+            send("KickPlayer: " + clientID);
         }
     }

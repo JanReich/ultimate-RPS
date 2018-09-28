@@ -131,6 +131,11 @@ import java.util.Map;
 
                 sendToAll("PlayerUnReady: "  + clientID);
             }
+
+            else if(pMessage.startsWith("KickPlayer: ")) {
+
+                sendToAll(pMessage);
+            }
         }
 
         public int generateClientID(String clientIP) {

@@ -97,6 +97,8 @@ import java.awt.image.BufferedImage;
             display.getActivePanel().removeObjectFromPanel(kick2);
             display.getActivePanel().removeObjectFromPanel(unReady1);
             display.getActivePanel().removeObjectFromPanel(unReady2);
+
+            display.getActivePanel().removeObjectFromPanel(this);
         }
 
         @Override
@@ -154,10 +156,7 @@ import java.awt.image.BufferedImage;
 
                     if(!gameClient.getConnectedPlayers().get(0).isHost()) {
 
-                        remove();
-                        display.getActivePanel().removeObjectFromPanel(this);
-                        KickedMenu menu = new KickedMenu(display);
-                        display.getActivePanel().drawObjectOnPanel(menu);
+
                     }
                 } else errorTime = 3;
             }
@@ -168,10 +167,6 @@ import java.awt.image.BufferedImage;
 
                     if(!gameClient.getConnectedPlayers().get(1).isHost()) {
 
-                        remove();
-                        display.getActivePanel().removeObjectFromPanel(this);
-                        KickedMenu menu = new KickedMenu(display);
-                        display.getActivePanel().drawObjectOnPanel(menu);
                     }
                 } else errorTime = 3;
             }
