@@ -151,15 +151,7 @@ import java.util.ArrayList;
             }
 
                 //Erstellen des ClickToPlay Buttons, falls es möglich ist
-            if(gameClient.getConnectedPlayers().get(1) == null && playerClickToJoin1 == null && gameClient.getData().isSpectator()) {
-
-                playerClickToJoin2 = new Button(348, 622, 161, 61, "res/images/lobby/click-play-button", true);
-                display.getActivePanel().drawObjectOnPanel(playerClickToJoin2);
-            } else if(gameClient.getConnectedPlayers().get(1) != null && playerClickToJoin2 != null) {
-
-                display.getActivePanel().removeObjectFromPanel(playerClickToJoin2);
-                playerClickToJoin2 = null;
-            }
+            addButton();
 
             if(playerClickToJoin1 != null)
                 if(playerClickToJoin1.isClicked() && gameClient.getData().isSpectator()) {
@@ -217,16 +209,27 @@ import java.util.ArrayList;
             }
         }
 
+        private void addButton() {
+
+            if(gameClient.getConnectedPlayers().get(1) == null && playerClickToJoin1 == null && gameClient.getData().isSpectator()) {
+
+                playerClickToJoin2 = new Button(348, 622, 161, 61, "res/images/lobby/click-play-button", true);
+                display.getActivePanel().drawObjectOnPanel(playerClickToJoin2);
+            }
+        }
+
+        private void removeButton() {
+
+            if(gameClient.getConnectedPlayers().get(1) != null && playerClickToJoin2 != null) {
+
+                display.getActivePanel().removeObjectFromPanel(playerClickToJoin2);
+                playerClickToJoin2 = null;
+            }
+        }
+
         @Override
         public void mouseReleased(MouseEvent e) {
 
-            if(playerClickToJoin2 != null) {
-
-                if(e.getX() > playerClickToJoin2.getX() && e.getX() < playerClickToJoin2.getX() + playerClickToJoin2.getWidth() && e.getY() > playerClickToJoin2.getY() && e.getY() < playerClickToJoin2.getY() + playerClickToJoin2.getHeight()) {
-
-                    System.out.println("test");
-                }
-            }
         }
 
         public void createSpectatorSlot(int spectatorID, String name) {
