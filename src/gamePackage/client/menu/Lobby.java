@@ -154,9 +154,12 @@ import java.awt.image.BufferedImage;
 
                 if(gameClient.getData().isHost()) {
 
-                    if(!gameClient.getConnectedPlayers().get(0).isHost()) {
+                    if(gameClient.getConnectedPlayers().get(1) != null) {
 
-                        gameClient.kickPlayer(0);
+                        if(!gameClient.getConnectedPlayers().get(0).isHost()) {
+
+                            gameClient.kickPlayer(0);
+                        }
                     }
                 } else errorTime = 3;
             }
@@ -165,9 +168,12 @@ import java.awt.image.BufferedImage;
 
                 if(gameClient.getData().isHost()) {
 
-                    if(!gameClient.getConnectedPlayers().get(1).isHost()) {
+                    if(gameClient.getConnectedPlayers().get(1) != null) {
 
-                        gameClient.kickPlayer(1);
+                        if(!gameClient.getConnectedPlayers().get(1).isHost()) {
+
+                            gameClient.kickPlayer(1);
+                        }
                     }
                 } else errorTime = 3;
             }

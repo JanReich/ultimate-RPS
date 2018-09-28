@@ -112,8 +112,6 @@ import java.util.HashMap;
 
                 if(clientID == data.getClientID()) {
 
-                    System.out.println("test");
-
                     lobby.remove();
                     KickedMenu menu = new KickedMenu(display);
                     display.getActivePanel().drawObjectOnPanel(menu);

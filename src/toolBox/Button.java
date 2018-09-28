@@ -94,6 +94,8 @@ import java.awt.image.BufferedImage;
 
         public boolean isClicked() {
 
-            return clicked;
+            boolean temp = clicked;
+            clicked = false;
+            return temp;
         }
     }
