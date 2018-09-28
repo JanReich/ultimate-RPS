@@ -112,16 +112,11 @@ import java.awt.image.BufferedImage;
 
 
                 //draw ReadyButton's
-            if(gameClient.getData().getClientID() == 0) {
 
                 draw.setColour(Color.BLACK);
                 draw.setFont(new Font("Impact", Font.PLAIN, 30));
-                draw.drawString(gameClient.getData().getUsername(), 90, 330);
-            } else if(gameClient.getData().getClientID() == 1) {
-
-                draw.setColour(Color.BLACK);
-                draw.setFont(new Font("Impact", Font.PLAIN, 30));
-                draw.drawString(gameClient.getData().getUsername(), 360, 660);
+                draw.drawString(gameClient.getConnectedPlayers().get(0).getUsername(), 90, 330);
+                draw.drawString(gameClient.getConnectedPlayers().get(1).getUsername(), 365, 665);
             }
 
 

@@ -130,4 +130,14 @@ import java.util.HashMap;
 
             return data;
         }
+
+        public HashMap<Integer, ClientData> getConnectedPlayers() {
+
+            return connectedPlayers;
+        }
+
+        public HashMap<Integer, ClientData> getConnectedSpectators() {
+
+            return connectedSpectators;
+        }
     }
