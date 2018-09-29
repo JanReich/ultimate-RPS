@@ -50,10 +50,16 @@ import java.awt.image.BufferedImage;
 
         public OnlineMenu(Display display, GameClient gameClient) {
 
-            this.active = -1;
+
             this.change = true;
             this.display = display;
             this.gameClient = gameClient;
+            init();
+            loadUsername();
+        }
+
+        private void init() {
+
             this.background = ImageHelper.getImage("res/images/Singleplayer/background.png");
 
             this.stone = ImageHelper.getImage("res/images/Singleplayer/stone.png");
@@ -63,11 +69,36 @@ import java.awt.image.BufferedImage;
             this.selectedstone = ImageHelper.getImage("res/images/Singleplayer/stone-chosen.png");
             this.selectedSissors = ImageHelper.getImage("res/images/Singleplayer/scissor-chosen.png");
 
-            this.submit = new Button(420, 450, 150, 80, "res/images/menu/buttons/submit", true);
-            display.getActivePanel().drawObjectOnPanel(submit);
-
+            submit = new Button(420, 450, 150, 80, "res/images/menu/buttons/submit", true);
             left = new Animation("res/images/animations/Stein.png", 0.04, 22, 0, false);
             right = new Animation("res/images/animations/Stein-rechts.png", 0.04, 22, 0, false);
+            display.getActivePanel().drawObjectOnPanel(submit);
+        }
+
+        private void loadUsername() {
+
+            //Username für die Player setzen
+            if(!gameClient.getData().isSpectator()) {
+
+                usernameLeft = gameClient.getData().getUsername();
+
+                if(gameClient.getConnectedPlayers().get(0).getClientID() != gameClient.getData().getClientID()) {
+
+                    usernameRight = gameClient.getConnectedPlayers().get(0).getUsername();
+                } else {
+
+                    usernameRight = gameClient.getConnectedPlayers().get(1).getUsername();
+                }
+            }
+            //Username für die Spectator festlegen
+            else {
+
+                if(gameClient.getConnectedPlayers().get(0) != null && gameClient.getConnectedPlayers().get(1) != null) {
+
+                    usernameLeft = gameClient.getConnectedPlayers().get(0).getUsername();
+                    usernameRight = gameClient.getConnectedPlayers().get(1).getUsername();
+                }
+            }
         }
 
         @Override
@@ -98,6 +129,10 @@ import java.awt.image.BufferedImage;
                 draw.drawImage(left.getAnimation(), 0,400,350,350);
                 draw.drawImage(right.getAnimation(), 615, 400, 350, 350);
             }
+
+            draw.setColour(Color.BLACK);
+            draw.setFont(new Font("Impact", Font.BOLD, 70));
+            draw.drawString(usernameLeft, 20, 600);
 
                 //Button's ausgrauen
             if(!change) {
@@ -198,18 +233,9 @@ import java.awt.image.BufferedImage;
                 if(gameClient.getData().getClientID() == clientID) {
 
                     choosePlayerLeft = choose;
-                    usernameLeft = gameClient.getData().getUsername();
                 } else {
 
                     choosePlayerRight = choose;
-
-                    for (int i = 0; i < gameClient.getConnectedPlayers().size(); i++) {
-
-                        if(gameClient.getConnectedPlayers().get(i).getClientID() == clientID) {
-
-                            usernameRight = gameClient.getConnectedPlayers().get(i).getUsername();
-                        }
-                    }
                 }
             }
 
@@ -219,16 +245,11 @@ import java.awt.image.BufferedImage;
                 if(clientID == gameClient.getConnectedPlayers().get(0).getClientID()) {
 
                     choosePlayerLeft = choose;
-                    usernameLeft = gameClient.getConnectedPlayers().get(0).getUsername();
                 } else if(clientID == gameClient.getConnectedPlayers().get(1).getClientID()) {
 
                     choosePlayerRight = choose;
-                    usernameLeft = gameClient.getConnectedPlayers().get(1).getUsername();
                 }
             }
-
-            System.out.println(usernameLeft);
-            System.out.println(usernameRight);
         }
 
         private boolean isInside(MouseEvent e, int x, int y, int width, int height) {
