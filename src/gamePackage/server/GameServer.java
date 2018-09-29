@@ -132,7 +132,7 @@ import java.util.Map;
 
                 for(Map.Entry<String, ClientData> entry : clients.entrySet()) {
 
-                    if(entry != null) {
+                    if(entry.getValue() != null) {
 
                         if(!entry.getValue().isSpectator()) {
 
@@ -175,6 +175,9 @@ import java.util.Map;
 
                 String[] messages = pMessage.split(": ");
                 int clientID = Integer.parseInt(messages[2]);
+                int specID = Integer.parseInt(messages[1]);
+
+                spectatorIDs[specID] = null;
 
                 playerCount++;
                 clientIDs[clientID] = pClientIP;

@@ -120,14 +120,18 @@ import java.awt.image.BufferedImage;
                 if(canChoose) draw.drawButton(submit);
             }
 
-            if(!playAnimation) {
+            if(right.isFinished() || left.isFinished()) {
 
-                draw.drawImage(left.getFirstSprite(), 0,400,350,350);
-                draw.drawImage(right.getFirstSprite(), 615, 400, 350, 350);
+                draw.drawImage(left.getAnimation(), 0,400,350,350);
+                draw.drawImage(right.getAnimation(), 615, 400, 350, 350);
             } else if(playAnimation) {
 
                 draw.drawImage(left.getAnimation(), 0,400,350,350);
                 draw.drawImage(right.getAnimation(), 615, 400, 350, 350);
+            } else if(!playAnimation) {
+
+                draw.drawImage(left.getFirstSprite(), 0,400,350,350);
+                draw.drawImage(right.getFirstSprite(), 615, 400, 350, 350);
             }
 
             draw.setColour(Color.BLACK);
@@ -135,8 +139,8 @@ import java.awt.image.BufferedImage;
             draw.drawString(usernameLeft, 10, 730);
             draw.drawString(usernameRight, 765, 730);
 
-            draw.drawString("Score: ", 450, 50);
-            draw.drawString(scoreLeft + " : " + scoreRight, 400, 50);
+            draw.drawString("Score: ", 450, 10);
+            draw.drawString(scoreLeft + " : " + scoreRight, 400, 60);
 
                 //Button's ausgrauen
             if(!canChoose) {
@@ -223,19 +227,19 @@ import java.awt.image.BufferedImage;
                 //playerLeft Scores
             else if((choosePlayerLeft == 1 && choosePlayerRight == 3) || (choosePlayerLeft == 2 && choosePlayerRight == 1) || (choosePlayerLeft == 3 && choosePlayerRight == 2)) {
 
-
+                scoreLeft ++;
             }
 
                 //playerRight Scores
             else if((choosePlayerRight == 1 && choosePlayerLeft == 3) || (choosePlayerRight == 2 && choosePlayerLeft == 1) || (choosePlayerRight == 3 && choosePlayerLeft == 2)) {
 
-
+                scoreRight ++;
             }
 
-            canChoose = true;
             currentChoose = 0;
             choosePlayerLeft = 0;
             choosePlayerRight = 0;
+            canChoose = true;
         }
 
         @Override
