@@ -12,7 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-    public class OnlineMenu implements BasicInteractableObject {
+    public class Userinterface implements BasicInteractableObject {
 
                 //Attribute
             /**
@@ -57,7 +57,7 @@ import java.awt.image.BufferedImage;
             private Animation left;
             private Animation right;
 
-        public OnlineMenu(Display display, GameClient gameClient) {
+        public Userinterface(Display display, GameClient gameClient) {
 
 
             this.canChoose = true;
@@ -65,6 +65,15 @@ import java.awt.image.BufferedImage;
             this.gameClient = gameClient;
             init();
             loadUsername();
+        }
+
+        public void remove() {
+
+            display.getActivePanel().removeObjectFromPanel(left);
+            left = null;
+            display.getActivePanel().removeObjectFromPanel(right);
+            right = null;
+            if(display.getActivePanel().contains(submit)) display.getActivePanel().removeObjectFromPanel(submit);
         }
 
         private void init() {
@@ -128,38 +137,39 @@ import java.awt.image.BufferedImage;
                 if(currentChoose == 3) draw.drawImage(selectedScissors, 300, 300, 128, 128);
                 else draw.drawImage(scissors, 300, 300, 128, 128);
 
-                if(canChoose && winstateRight != 1 || winstateRight != 2)  draw.drawButton(submit);
+                if(canChoose && (winstateRight != 1 || winstateRight != 2))  draw.drawButton(submit);
             }
 
             if(winstateLeft == 1) {
 
-                draw.drawImage(lose, 150, 250, 350);
+                draw.drawImage(lose, 35, 120, 350);
             } else if(winstateLeft == 2) {
 
-                draw.drawImage(win, 150, 250, 350);
+                draw.drawImage(win, 35, 120, 350);
             }
 
             if(winstateRight == 1) {
 
-                draw.drawImage(lose, 650, 250, 350);
+                draw.drawImage(lose, 680, 120, 350);
             } else if(winstateRight == 2) {
 
-                draw.drawImage(win, 650, 250, 350);
+                draw.drawImage(win, 680, 120, 350);
             }
 
-            if(right.isFinished() || left.isFinished()) {
+            if(right != null && left != null)
+                if(right.isFinished() || left.isFinished()) {
 
-                draw.drawImage(left.getAnimation(), 0,400,350,350);
-                draw.drawImage(right.getAnimation(), 615, 400, 350, 350);
-            } else if(playAnimation) {
+                    draw.drawImage(left.getAnimation(), 0,400,350,350);
+                    draw.drawImage(right.getAnimation(), 615, 400, 350, 350);
+                } else if(playAnimation) {
 
-                draw.drawImage(left.getAnimation(), 0,400,350,350);
-                draw.drawImage(right.getAnimation(), 615, 400, 350, 350);
-            } else if(!playAnimation) {
+                    draw.drawImage(left.getAnimation(), 0,400,350,350);
+                    draw.drawImage(right.getAnimation(), 615, 400, 350, 350);
+                } else if(!playAnimation) {
 
-                draw.drawImage(left.getFirstSprite(), 0,400,350,350);
-                draw.drawImage(right.getFirstSprite(), 615, 400, 350, 350);
-            }
+                    draw.drawImage(left.getFirstSprite(), 0,400,350,350);
+                    draw.drawImage(right.getFirstSprite(), 615, 400, 350, 350);
+                }
 
             draw.setColour(Color.BLACK);
             draw.setFont(new Font("Impact", Font.BOLD, 30));
@@ -189,10 +199,11 @@ import java.awt.image.BufferedImage;
                 playAnimation = true;
             }
 
-            if(left.isFinished() && right.isFinished() && playAnimation) {
+            if(left != null && right != null)
+                if(left.isFinished() && right.isFinished() && playAnimation) {
 
-                chooseWinner();
-            }
+                    chooseWinner();
+                }
 
             if(submit.isClicked()) {
 
@@ -273,11 +284,12 @@ import java.awt.image.BufferedImage;
                 winstateRight = 2;
             } else {
 
-                currentChoose = 0;
-                choosePlayerLeft = 0;
-                choosePlayerRight = 0;
                 canChoose = true;
             }
+
+            currentChoose = 0;
+            choosePlayerLeft = 0;
+            choosePlayerRight = 0;
         }
 
         @Override

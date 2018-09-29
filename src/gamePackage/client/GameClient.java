@@ -7,6 +7,7 @@ import gamePackage.server.ClientData;
 import graphics.Display;
 
 import java.util.HashMap;
+import java.util.Map;
 
     public class GameClient extends Client {
 
@@ -15,7 +16,7 @@ import java.util.HashMap;
                 //Referenzen
             private Lobby lobby;
             private ClientData data;
-            private OnlineMenu onlineMenu;
+            private Userinterface userInterface;
             private HashMap<Integer, ClientData> connectedPlayers;
             private HashMap<Integer, ClientData> connectedSpectators;
 
@@ -37,10 +38,11 @@ import java.util.HashMap;
         @Override
         public void processMessage(String pMessage) {
 
-                //Format - RegisterSuccessful: <ClientID> oder <SpectatorID>
+                //Format - RegisterSuccessful: <ClientID> oder <SpectatorID> <started>
             if(pMessage.startsWith("RegisterSuccessful: ")) {
 
                 String[] messages = pMessage.split(": ");
+                boolean started = Boolean.parseBoolean(messages[2]);
 
                 if(data.isSpectator()) {
 
@@ -52,8 +54,15 @@ import java.util.HashMap;
                     data.setClientID(Integer.parseInt(messages[1]));
                 }
 
-                lobby = new Lobby(display, this);
-                display.getActivePanel().drawObjectOnPanel(lobby);
+                if(!started) {
+
+                    lobby = new Lobby(display, this);
+                    display.getActivePanel().drawObjectOnPanel(lobby);
+                } else {
+
+                    userInterface = new Userinterface(display, this);
+                    display.getActivePanel().drawObjectOnPanel(userInterface);
+                }
             }
 
                 //Format - JoinedSpectator <username> <spectatorID> <host>
@@ -141,6 +150,25 @@ import java.util.HashMap;
                 connectedPlayers.remove(clientID);
             }
 
+            if(pMessage.startsWith("BackToMenu: ")) {
+
+                data.setReady(false);
+
+                if(userInterface != null) {
+
+                    userInterface.remove();
+                    display.getActivePanel().removeObjectFromPanel(userInterface);
+                    userInterface = null;
+
+                    lobby = new Lobby(display, this);
+                    display.getActivePanel().drawObjectOnPanel(lobby);
+
+                    for (Map.Entry<Integer, ClientData> entry : connectedSpectators.entrySet()) {
+
+                        lobby.createSpectatorSlot(entry.getValue().getSpectatorID(), entry.getValue().getUsername());
+                    }
+                }
+            }
 
             if(pMessage.startsWith("SpectatorDisconnect: ")) {
 
@@ -159,8 +187,8 @@ import java.util.HashMap;
                     lobby.removeSpectatorSlot(connectedPlayers.get(i).getSpectatorID());
                 }
 
-                onlineMenu = new OnlineMenu(display, this);
-                display.getActivePanel().drawObjectOnPanel(onlineMenu);
+                userInterface = new Userinterface(display, this);
+                display.getActivePanel().drawObjectOnPanel(userInterface);
             }
 
             if(pMessage.startsWith("ToPlayer: ")) {
@@ -194,7 +222,7 @@ import java.util.HashMap;
                 int clientID = Integer.parseInt(messages[1]);
                 int choose = Integer.parseInt(messages[2]);
 
-                onlineMenu.setChoose(clientID, choose);
+                userInterface.setChoose(clientID, choose);
             }
 
             if(pMessage.startsWith("Disconnect: ")) {
