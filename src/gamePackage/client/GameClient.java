@@ -63,6 +63,17 @@ import java.util.Map;
                     userInterface = new Userinterface(display, this);
                     display.getActivePanel().drawObjectOnPanel(userInterface);
                 }
+
+                send("GetAvailableSpectatorID: ");
+            }
+
+                //Format - AvailableSpectatorID: <specID>
+            if(pMessage.startsWith("AvailableSpectatorID: ")) {
+
+                String[] messages = pMessage.split(": ");
+                int specID = Integer.parseInt(messages[1]);
+
+                lobby.createToSpectator(specID);
             }
 
                 //Format - JoinedSpectator <username> <spectatorID> <host>
@@ -187,6 +198,7 @@ import java.util.Map;
                 int spectatorID = Integer.parseInt(messages[1]);
 
                 lobby.removeSpectatorSlot(spectatorID);
+                lobby.setMaxSpec(false);
                 connectedSpectators.remove(spectatorID);
             }
 
@@ -203,6 +215,7 @@ import java.util.Map;
                 display.getActivePanel().drawObjectOnPanel(userInterface);
             }
 
+                //Format - ToPlayer: <SpecID> <ClientID>
             if(pMessage.startsWith("ToPlayer: ")) {
 
                 String[] messages = pMessage.split(": ");
@@ -221,9 +234,47 @@ import java.util.Map;
 
                     if(connectedSpectators.get(i).getSpectatorID() == specID) {
 
+                        if(specID == data.getSpectatorID()) {
+
+                            data.setReady(false);
+                            data.setSpectatorID(-1);
+                            data.setSpectator(false);
+                            data.setClientID(clientID);
+                        }
+
                         ClientData cData = new ClientData(connectedSpectators.get(i).getUsername(), false, connectedSpectators.get(i).isHost(), clientID, false);
-                        connectedSpectators.remove(specID);
+                        connectedSpectators.remove(i);
                         connectedPlayers.put(clientID, cData);
+                    }
+                }
+            }
+
+                //Format - ToSpectator: <ClientID> <SpecID>
+            if(pMessage.startsWith("ToSpectator: ")) {
+
+                String[] messages = pMessage.split(": ");
+                int specID = Integer.parseInt(messages[2]);
+                int clientID = Integer.parseInt(messages[1]);
+
+                for (int i = 0; i < connectedPlayers.size(); i++) {
+
+                    if(connectedPlayers.get(i) != null) {
+
+                        if(connectedPlayers.get(i).getSpectatorID() == clientID) {
+
+                            if(clientID == data.getClientID()) {
+
+                                data.setReady(false);
+                                data.setClientID(-1);
+                                data.setSpectator(true);
+                                data.setSpectatorID(specID);
+                            }
+
+                            lobby.createSpectatorSlot(specID, connectedPlayers.get(i).getUsername());
+                            ClientData cData = new ClientData(connectedPlayers.get(i).getUsername(), true, connectedPlayers.get(i).isHost(), specID);
+                            connectedPlayers.remove(i);
+                            connectedSpectators.put(specID, cData);
+                        }
                     }
                 }
             }
@@ -256,6 +307,11 @@ import java.util.Map;
         public void choose(int clientID, int choose) {
 
             send("Choose: " + clientID + ": " + choose);
+        }
+
+        public void playerToSpectator(int clientID, int specID) {
+
+            send("ToSpectator: " + clientID + ": " + specID);
         }
 
         public void setReady(boolean ready, int clientID) {

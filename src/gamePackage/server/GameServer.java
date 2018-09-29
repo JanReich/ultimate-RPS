@@ -184,6 +184,11 @@ import java.util.Map;
                 sendToAll(pMessage);
             }
 
+            else if(pMessage.startsWith("GetAvailableSpectatorID: ")) {
+
+                send(pClientIP, pClientPort, "AvailableSpectatorID: " + getAvailableSpectatorID());
+            }
+
                 //Format - ToPlayer: <SpecID> <ClientID>
             else if(pMessage.startsWith("ToPlayer: ")) {
 
@@ -194,10 +199,30 @@ import java.util.Map;
                 spectatorIDs[specID] = null;
 
                 playerCount++;
+                spectatorCount--;
                 clientIDs[clientID] = pClientIP;
                 clients.get(pClientIP).setSpectator(false);
                 clients.get(pClientIP).setSpectatorID(-1);
                 clients.get(pClientIP).setClientID(clientID);
+
+                sendToAll(pMessage);
+            }
+
+                //Format - ToSpecTator: <ClientID> <SpecID>
+            else if(pMessage.startsWith("ToSpectator: ")) {
+
+
+                String[] messages = pMessage.split(": ");
+                int clientID = Integer.parseInt(messages[1]);
+                int specID = Integer.parseInt(messages[2]);
+
+                playerCount--;
+                spectatorCount++;
+                clientIDs[clientID] = null;
+
+                clients.get(pClientIP).setSpectator(true);
+                clients.get(pClientIP).setSpectatorID(specID);
+                clients.get(pClientIP).setClientID(-1);
 
                 sendToAll(pMessage);
             }
@@ -208,7 +233,7 @@ import java.util.Map;
             }
         }
 
-        public int generateClientID(String clientIP) {
+        private int generateClientID(String clientIP) {
 
             for (int i = 0; i < clientIDs.length; i++) {
 
@@ -221,7 +246,19 @@ import java.util.Map;
             return -1;
         }
 
-        public int generateSpectatorID(String spectatorID) {
+        private int getAvailableSpectatorID() {
+
+            for (int i = 0; i < spectatorIDs.length; i++) {
+
+                if(spectatorIDs[i] == null) {
+
+                    return i;
+                } else continue;
+            }
+            return -1;
+        }
+
+        private int generateSpectatorID(String spectatorID) {
 
             for (int i = 0; i < spectatorIDs.length; i++) {
 

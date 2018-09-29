@@ -14,6 +14,7 @@ import java.util.ArrayList;
     public class Lobby extends Menu {
 
                 //Attribute
+            private boolean maxSpec;
             private double countdown;
             private double errorTime;
             private boolean readyPlayer1;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 
                 //Referenzen
             private GameClient gameClient;
+            private ToSpecSlot toSpecSlot;
             private BufferedImage playerLaser1;
             private BufferedImage playerLaser2;
 
@@ -104,6 +106,7 @@ import java.util.ArrayList;
             draw.drawButton(kick1);
             draw.drawButton(kick2);
             draw.drawButton(disconnect);
+            if(toSpecSlot != null) draw.drawButton(toSpecSlot.getClickToSpectate());
 
             if(readyPlayer1) {
                 display.getActivePanel().removeObjectFromPanel(ready1);
@@ -203,6 +206,14 @@ import java.util.ArrayList;
                 if(!gameClient.getData().isSpectator()) {
 
                     gameClient.countdownOver();
+                }
+            }
+
+            if(toSpecSlot != null) {
+
+                if(toSpecSlot.getClickToSpectate().isClicked() && !maxSpec) {
+
+                    gameClient.playerToSpectator(gameClient.getData().getClientID(), toSpecSlot.getSpecID());
                 }
             }
 
@@ -322,6 +333,63 @@ import java.util.ArrayList;
         public void setCountdown(int countdown) {
 
             this.countdown = countdown;
+        }
+
+        public void createToSpectator(int specID) {
+
+            if(specID != -1) {
+
+                if(toSpecSlot != null) {
+
+                    if(display.getActivePanel().contains(toSpecSlot.getClickToSpectate())) {
+
+                        display.getActivePanel().removeObjectFromPanel(toSpecSlot.getClickToSpectate());
+                    }
+                }
+                toSpecSlot = new ToSpecSlot(specID);
+                display.getActivePanel().drawObjectOnPanel(toSpecSlot.getClickToSpectate());
+            } else {
+
+                if(toSpecSlot != null) {
+
+                    if(display.getActivePanel().contains(toSpecSlot.getClickToSpectate())) {
+
+                        display.getActivePanel().removeObjectFromPanel(toSpecSlot.getClickToSpectate());
+                    }
+                }
+                toSpecSlot = null;
+                maxSpec = true;
+            }
+        }
+
+        public void setMaxSpec(boolean spec) {
+
+            maxSpec = spec;
+        }
+
+        private class ToSpecSlot {
+
+                    //Attribute
+                private int specID;
+
+                    //Referenzen
+                private Button clickToSpectate;
+
+            public ToSpecSlot(int specID) {
+
+                this.specID = specID;
+                clickToSpectate = new Button(678 , 140 + 115 * specID, 250, 50, "res/images/lobby/click-spectate-button", true);
+            }
+
+            public Button getClickToSpectate() {
+
+                return clickToSpectate;
+            }
+
+            public int getSpecID() {
+
+                return specID;
+            }
         }
 
         private class SpectatorSlot {
