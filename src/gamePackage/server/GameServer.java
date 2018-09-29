@@ -169,6 +169,15 @@ import java.util.Map;
                 }
             }
 
+            if(pMessage.startsWith("newRound: ")) {
+
+                if(started) {
+
+                    started = false;
+                    sendToAll("SpecBackToLobby: ");
+                }
+            }
+
             else if(pMessage.startsWith("Unready: ")) {
 
                 countdown = false;

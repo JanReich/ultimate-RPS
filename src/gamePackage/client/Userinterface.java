@@ -20,9 +20,11 @@ import java.awt.image.BufferedImage;
              * 2 = papier,
              * 3 = schere
              */
+            private boolean temp;
             private int currentChoose;
             private boolean canChoose;
             private boolean playAnimation;
+            private double timeToNextRound;
 
             /**
              * 1 = Lose
@@ -44,6 +46,7 @@ import java.awt.image.BufferedImage;
             private BufferedImage background;
 
                 //Buttons
+            private Button back;
             private Button submit;
             private BufferedImage win;
             private BufferedImage lose;
@@ -89,6 +92,7 @@ import java.awt.image.BufferedImage;
             this.selectedStone = ImageHelper.getImage("res/images/Singleplayer/stone-chosen.png");
             this.selectedScissors = ImageHelper.getImage("res/images/Singleplayer/scissor-chosen.png");
 
+            back = new Button(390, 600, 200, 80, "res/images/menu/buttons/back-to-menu", true);
             submit = new Button(390, 450, 200, 80, "res/images/menu/buttons/submit", true);
             left = new Animation("res/images/animations/Stein.png", 0.04, 22, 0, false);
             right = new Animation("res/images/animations/Stein-rechts.png", 0.04, 22, 0, false);
@@ -97,7 +101,7 @@ import java.awt.image.BufferedImage;
 
         private void loadUsername() {
 
-            //Username für die Player setzen
+                //Username für die Player setzen
             if(!gameClient.getData().isSpectator()) {
 
                 usernameLeft = gameClient.getData().getUsername();
@@ -125,6 +129,11 @@ import java.awt.image.BufferedImage;
         public void draw(DrawHelper draw) {
 
             draw.drawImage(background, 0, 0, display.getWidth(), display.getHeight());
+
+            if(!gameClient.getData().isSpectator()) {
+
+                draw.drawButton(back);
+            }
 
             if(!gameClient.getData().isSpectator()) {
 
@@ -213,6 +222,14 @@ import java.awt.image.BufferedImage;
                     gameClient.choose(gameClient.getData().getClientID(), currentChoose);
                 }
             }
+
+            if(timeToNextRound > 0) timeToNextRound -= delta;
+
+            if(timeToNextRound < 0 && !temp) {
+
+                temp = true;
+                gameClient.send("newRound: ");
+            }
         }
 
         private void createAnimation() {
@@ -278,10 +295,14 @@ import java.awt.image.BufferedImage;
 
                 winstateLeft = 2;
                 winstateRight = 1;
+                timeToNextRound = 3;
+                display.getActivePanel().drawObjectOnPanel(back);
             } else if(scoreRight == 3) {
 
                 winstateLeft = 1;
                 winstateRight = 2;
+                timeToNextRound = 3;
+                display.getActivePanel().drawObjectOnPanel(back);
             } else {
 
                 canChoose = true;

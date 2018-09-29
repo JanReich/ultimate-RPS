@@ -182,20 +182,7 @@ import java.util.Map;
 
             if(pMessage.startsWith("BackToMenu: ")) {
 
-                if(userInterface != null) {
-
-                    userInterface.remove();
-                    display.getActivePanel().removeObjectFromPanel(userInterface);
-                    userInterface = null;
-
-                    lobby = new Lobby(display, this);
-                    display.getActivePanel().drawObjectOnPanel(lobby);
-
-                    for (Map.Entry<Integer, ClientData> entry : connectedSpectators.entrySet()) {
-
-                        lobby.createSpectatorSlot(entry.getValue().getSpectatorID(), entry.getValue().getUsername());
-                    }
-                }
+                backToLobby();
             }
 
             if(pMessage.startsWith("SpectatorDisconnect: ")) {
@@ -293,6 +280,14 @@ import java.util.Map;
                 }
             }
 
+            if(pMessage.startsWith("SpecBackToLobby: ")) {
+
+                if(data.isSpectator()) {
+
+                    backToLobby();
+                }
+            }
+
             if(pMessage.startsWith("Choose: ")) {
 
                 String[] messages = pMessage.split(": ");
@@ -380,6 +375,24 @@ import java.util.Map;
                 display.getActivePanel().removeObjectFromPanel(userInterface);
             }
             close();
+        }
+
+        private void backToLobby() {
+
+            if(userInterface != null) {
+
+                userInterface.remove();
+                display.getActivePanel().removeObjectFromPanel(userInterface);
+                userInterface = null;
+
+                lobby = new Lobby(display, this);
+                display.getActivePanel().drawObjectOnPanel(lobby);
+
+                for (Map.Entry<Integer, ClientData> entry : connectedSpectators.entrySet()) {
+
+                    lobby.createSpectatorSlot(entry.getValue().getSpectatorID(), entry.getValue().getUsername());
+                }
+            }
         }
 
         public void closeServer() {
