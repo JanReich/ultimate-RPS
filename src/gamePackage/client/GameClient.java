@@ -85,7 +85,6 @@ import java.util.Map;
                 int spectatorID = Integer.parseInt(messages[2]);
                 boolean host = Boolean.parseBoolean(messages[3]);
 
-                System.out.println(spectatorID);
                 ClientData data = new ClientData(username, true, host, spectatorID);
                 connectedSpectators.put(spectatorID, data);
                 if(lobby != null)
@@ -147,13 +146,15 @@ import java.util.Map;
                     }
                 } else if(pMessage.startsWith("KickSpectator: ")) {
 
-                    System.out.println(clientID + " " + data.getSpectatorID());
-                    if(clientID == data.getSpectatorID()) {
+                    if(data.isSpectator()) {
 
-                        lobby.remove();
-                        close();
-                        KickedMenu menu = new KickedMenu(display);
-                        display.getActivePanel().drawObjectOnPanel(menu);
+                        if(clientID == data.getSpectatorID()) {
+
+                            lobby.remove();
+                            close();
+                            KickedMenu menu = new KickedMenu(display);
+                            display.getActivePanel().drawObjectOnPanel(menu);
+                        }
                     }
                 }
             }
@@ -240,7 +241,7 @@ import java.util.Map;
                             connectedPlayers.put(clientID, cData);
                             connectedSpectators.remove(specID);
 
-                            if (specID == data.getSpectatorID()) {
+                            if (specID == data.getSpectatorID() && !data.isSpectator()) {
 
                                 data.setReady(false);
                                 data.setSpectatorID(-1);
@@ -272,7 +273,7 @@ import java.util.Map;
                             connectedPlayers.remove(clientID);
                             connectedSpectators.put(specID, cData);
 
-                            if(clientID == data.getClientID()) {
+                            if(clientID == data.getClientID() && data.isSpectator()) {
 
                                 data.setReady(false);
                                 data.setClientID(-1);
