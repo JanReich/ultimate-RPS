@@ -144,7 +144,7 @@ public class Singleplayer implements BasicInteractableObject {
         if(canPlay) {
             //Stein entspricht der Nummer 3
             if (event.getX() >= 430 && event.getX() <= 430+128 && event.getY() >= 300 && event.getY() <= 300+128) {
-                System.out.println("Stein");
+
                 choice = 1;
                 kiChoice = (int)(Math.random()*3+1);
                 canPlay = false;
@@ -152,7 +152,7 @@ public class Singleplayer implements BasicInteractableObject {
 
             //Papier entspricht der Nummer 1
             if (event.getX() >= 560 && event.getX() <= 560+128 && event.getY() >= 300 && event.getY() <= 300+128) {
-                System.out.println("Papier");
+
                 choice = 2;
                 kiChoice = (int)(Math.random()*3+1);
                 canPlay = false;
@@ -161,7 +161,7 @@ public class Singleplayer implements BasicInteractableObject {
 
             //Schere entspricht der Nummer 2
             if (event.getX() >= 300 && event.getX() <= 300+128 && event.getY() >= 300 && event.getY() <= 300+128) {
-                System.out.println("Schere");
+
                 choice = 3;
                 kiChoice = (int)(Math.random()*3+1);
                 canPlay = false;

@@ -20,24 +20,24 @@ import java.awt.image.BufferedImage;
              * 2 = papier,
              * 3 = schere
              */
-            private int active;
-            private boolean change;
+            private int currentChoose;
+            private boolean canChoose;
             private boolean playAnimation;
 
-            private int choosePlayerLeft;
-            private int choosePlayerRight;
-
+            private int scoreLeft;
+            private int scoreRight;
             private String usernameLeft;
             private String usernameRight;
+            private int choosePlayerLeft;
+            private int choosePlayerRight;
 
                 //Referenzen
             private Display display;
             private GameClient gameClient;
             private BufferedImage background;
 
-            private Button submit;
-
                 //Buttons
+            private Button submit;
             private BufferedImage stone;
             private BufferedImage paper;
             private BufferedImage sissors;
@@ -51,7 +51,7 @@ import java.awt.image.BufferedImage;
         public OnlineMenu(Display display, GameClient gameClient) {
 
 
-            this.change = true;
+            this.canChoose = true;
             this.display = display;
             this.gameClient = gameClient;
             init();
@@ -108,16 +108,16 @@ import java.awt.image.BufferedImage;
 
             if(!gameClient.getData().isSpectator()) {
 
-                if(active == 1) draw.drawImage(selectedstone, 430, 300, 128, 128);
+                if(currentChoose == 1) draw.drawImage(selectedstone, 430, 300, 128, 128);
                 else draw.drawImage(stone, 430, 300, 128, 128);
 
-                if(active == 2) draw.drawImage(selectedPaper, 560, 300, 128, 128);
+                if(currentChoose == 2) draw.drawImage(selectedPaper, 560, 300, 128, 128);
                 else draw.drawImage(paper, 560, 300, 128, 128);
 
-                if(active == 3) draw.drawImage(selectedSissors, 300, 300, 128, 128);
+                if(currentChoose == 3) draw.drawImage(selectedSissors, 300, 300, 128, 128);
                 else draw.drawImage(sissors, 300, 300, 128, 128);
 
-                if(change) draw.drawButton(submit);
+                if(canChoose) draw.drawButton(submit);
             }
 
             if(!playAnimation) {
@@ -135,8 +135,11 @@ import java.awt.image.BufferedImage;
             draw.drawString(usernameLeft, 10, 730);
             draw.drawString(usernameRight, 765, 730);
 
+            draw.drawString("Score: ", 450, 50);
+            draw.drawString(scoreLeft + " : " + scoreRight, 400, 50);
+
                 //Button's ausgrauen
-            if(!change) {
+            if(!canChoose) {
                 draw.setColour(new Color(0, 0, 0, 100));
                 draw.fillRec(300, 300, 388, 128);
             }
@@ -146,21 +149,26 @@ import java.awt.image.BufferedImage;
         @Override
         public void update(double delta) {
 
-            //1 = stein
-            //2 = papier
-            //3 = schere
+                //1 = stein
+                //2 = papier
+                //3 = schere
             if((choosePlayerLeft == 1 || choosePlayerLeft == 2 || choosePlayerLeft == 3) && (choosePlayerRight == 1 || choosePlayerRight == 2 || choosePlayerRight == 3) && !playAnimation) {
 
                 createAnimation();
                 playAnimation = true;
             }
 
+            if(left.isFinished() && right.isFinished() && playAnimation) {
+
+                chooseWinner();
+            }
+
             if(submit.isClicked()) {
 
-                if(active == 1 || active == 2 || active == 3) {
+                if(currentChoose == 1 || currentChoose == 2 || currentChoose == 3) {
 
-                    change = false;
-                    gameClient.choose(gameClient.getData().getClientID(), active);
+                    canChoose = false;
+                    gameClient.choose(gameClient.getData().getClientID(), currentChoose);
                 }
             }
         }
@@ -198,6 +206,38 @@ import java.awt.image.BufferedImage;
             playAnimation = true;
         }
 
+        private void chooseWinner() {
+
+            playAnimation = false;
+
+                //1 = stein
+                //2 = papier
+                //3 = schere
+
+                //unentschieden
+            if(choosePlayerLeft == choosePlayerRight) {
+
+
+            }
+
+                //playerLeft Scores
+            else if((choosePlayerLeft == 1 && choosePlayerRight == 3) || (choosePlayerLeft == 2 && choosePlayerRight == 1) || (choosePlayerLeft == 3 && choosePlayerRight == 2)) {
+
+
+            }
+
+                //playerRight Scores
+            else if((choosePlayerRight == 1 && choosePlayerLeft == 3) || (choosePlayerRight == 2 && choosePlayerLeft == 1) || (choosePlayerRight == 3 && choosePlayerLeft == 2)) {
+
+
+            }
+
+            canChoose = true;
+            currentChoose = 0;
+            choosePlayerLeft = 0;
+            choosePlayerRight = 0;
+        }
+
         @Override
         public void keyPressed(KeyEvent event) {
 
@@ -211,17 +251,17 @@ import java.awt.image.BufferedImage;
         @Override
         public void mouseReleased(MouseEvent event) {
 
-            if(this.change) {
+            if(this.canChoose) {
 
                 if (isInside(event, 430, 300, 128, 128)) {
 
-                    active = 1;
+                    currentChoose = 1;
                 } else if (isInside(event, 300, 300, 128, 128)) {
 
-                    active = 3;
+                    currentChoose = 3;
                 } else if (isInside(event, 560, 300, 128, 128)) {
 
-                    active = 2;
+                    currentChoose = 2;
                 }
             }
         }
