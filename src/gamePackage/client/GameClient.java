@@ -223,24 +223,16 @@ import java.util.Map;
                 int clientID = Integer.parseInt(messages[2]);
                 lobby.removeSpectatorSlot(specID);
 
-                if(data.getSpectatorID() == specID) {
+                for(Map.Entry<Integer, ClientData> entry : connectedSpectators.entrySet()) {
 
-                    data.setClientID(clientID);
-                    data.setSpectatorID(-1);
-                    data.setSpectator(false);
-                }
+                    if(entry.getValue() != null) {
 
-                System.out.println("test");
+                        System.out.println("test1");
+                        if(entry.getValue().getSpectatorID() == specID) {
 
-                for (int i = 0; i < connectedSpectators.size(); i++) {
-
-                    if(connectedSpectators.get(i) != null) {
-
-                        if (connectedSpectators.get(i).getSpectatorID() == specID) {
-
-                            ClientData cData = new ClientData(connectedSpectators.get(i).getUsername(), false, connectedSpectators.get(i).isHost(), clientID, false);
-                            connectedSpectators.remove(i);
-                            connectedPlayers.put(i, cData);
+                            ClientData cData = new ClientData(entry.getValue().getUsername(), false, entry.getValue().isHost(), clientID, false);
+                            connectedPlayers.put(clientID, cData);
+                            connectedSpectators.remove(specID);
                         }
                     }
                 }
@@ -261,19 +253,17 @@ import java.util.Map;
                 int specID = Integer.parseInt(messages[2]);
                 int clientID = Integer.parseInt(messages[1]);
 
-                for (int i = 0; i < connectedPlayers.size(); i++) {
+                for(Map.Entry<Integer, ClientData> entry : connectedPlayers.entrySet()) {
 
-                    if(connectedPlayers.get(i) != null) {
+                    if(entry.getValue() != null) {
 
-                        if(connectedPlayers.get(i).getClientID() == clientID) {
+                        if(entry.getValue().getClientID() == clientID) {
 
-                            connectedPlayers.get(i).setReady(false);
-                            lobby.createSpectatorSlot(specID, connectedPlayers.get(i).getUsername());
-                            ClientData cData = new ClientData(connectedPlayers.get(i).getUsername(), true, connectedPlayers.get(i).isHost(), specID);
-                            connectedPlayers.remove(i);
-                            connectedSpectators.put(i, cData);
-
-                            System.out.println("ToSpec:" + i);
+                            entry.getValue().setReady(false);
+                            lobby.createSpectatorSlot(specID, entry.getValue().getUsername());
+                            ClientData cData = new ClientData(entry.getValue().getUsername(), true, entry.getValue().isHost(), specID);
+                            connectedPlayers.remove(clientID);
+                            connectedSpectators.put(specID, cData);
                         }
                     }
                 }
