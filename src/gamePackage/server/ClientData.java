@@ -15,7 +15,9 @@ package gamePackage.server;
 
         public ClientData(String username, boolean spectator, boolean host) {
 
+            clientID = -1;
             this.host = host;
+            spectatorID = - 1;
             this.username = username;
             this.spectator = spectator;
         }
@@ -24,6 +26,7 @@ package gamePackage.server;
         public ClientData(String username, boolean spectator, boolean host, int clientID, boolean ready) {
 
             this.host = host;
+            spectatorID = - 1;
             this.clientID = clientID;
             this.username = username;
             this.spectator = spectator;
@@ -35,6 +38,7 @@ package gamePackage.server;
             //Register Spectator
         public ClientData(String username, boolean spectator, boolean host, int spectatorID) {
 
+            clientID = -1;
             this.host = host;
             this.username = username;
             this.spectator = spectator;
@@ -43,8 +47,10 @@ package gamePackage.server;
 
         public ClientData(String clientIP, int port, String username, boolean spectator, boolean host) {
 
+            clientID = -1;
             this.port = port;
             this.host = host;
+            spectatorID = - 1;
             this.clientIP = clientIP;
 
             this.username = username;
@@ -55,6 +61,7 @@ package gamePackage.server;
 
             this.port = port;
             this.host = host;
+            spectatorID = - 1;
             this.clientIP = clientIP;
 
             this.clientID = clientID;

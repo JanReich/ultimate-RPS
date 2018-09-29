@@ -232,20 +232,23 @@ import java.util.Map;
 
                 for (int i = 0; i < connectedSpectators.size(); i++) {
 
-                    if(connectedSpectators.get(i).getSpectatorID() == specID) {
+                    if(connectedSpectators.get(i) != null) {
 
-                        if(specID == data.getSpectatorID()) {
+                        if (connectedSpectators.get(i).getSpectatorID() == specID) {
 
-                            data.setReady(false);
-                            data.setSpectatorID(-1);
-                            data.setSpectator(false);
-                            data.setClientID(clientID);
+                            ClientData cData = new ClientData(connectedSpectators.get(i).getUsername(), false, connectedSpectators.get(i).isHost(), clientID, false);
+                            connectedSpectators.remove(i);
+                            connectedPlayers.put(i, cData);
                         }
-
-                        ClientData cData = new ClientData(connectedSpectators.get(i).getUsername(), false, connectedSpectators.get(i).isHost(), clientID, false);
-                        connectedSpectators.remove(i);
-                        connectedPlayers.put(clientID, cData);
                     }
+                }
+
+                if (specID == data.getSpectatorID()) {
+
+                    data.setReady(false);
+                    data.setSpectatorID(-1);
+                    data.setSpectator(false);
+                    data.setClientID(clientID);
                 }
             }
 
@@ -262,14 +265,6 @@ import java.util.Map;
 
                         if(connectedPlayers.get(i).getClientID() == clientID) {
 
-                            if(clientID == data.getClientID()) {
-
-                                data.setReady(false);
-                                data.setClientID(-1);
-                                data.setSpectator(true);
-                                data.setSpectatorID(specID);
-                            }
-
                             connectedPlayers.get(i).setReady(false);
                             lobby.createSpectatorSlot(specID, connectedPlayers.get(i).getUsername());
                             ClientData cData = new ClientData(connectedPlayers.get(i).getUsername(), true, connectedPlayers.get(i).isHost(), specID);
@@ -277,6 +272,14 @@ import java.util.Map;
                             connectedSpectators.put(specID, cData);
                         }
                     }
+                }
+
+                if(clientID == data.getClientID()) {
+
+                    data.setReady(false);
+                    data.setClientID(-1);
+                    data.setSpectator(true);
+                    data.setSpectatorID(specID);
                 }
             }
 
