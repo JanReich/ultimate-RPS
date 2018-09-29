@@ -49,6 +49,7 @@ import java.util.ArrayList;
         public void init() {
 
             slots = new ArrayList<>();
+            countdown = -1;
 
                 //background
             background = ImageHelper.getImage("res/images/lobby/lobby-menu.png");

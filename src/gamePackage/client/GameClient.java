@@ -145,7 +145,7 @@ import java.util.Map;
 
             if(pMessage.startsWith("StartCountdown: ")) {
 
-
+                lobby.setCountdown(5);
             }
 
             if(pMessage.startsWith("PlayerDisconnect: ")) {
