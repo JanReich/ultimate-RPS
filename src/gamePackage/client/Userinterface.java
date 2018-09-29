@@ -210,7 +210,7 @@ import java.awt.image.BufferedImage;
 
             if(back.isClicked() && temp) {
 
-                gameClient.send("BackToMenu");
+                gameClient.send("BackToMenu: ");
             }
 
             if(left != null && right != null)
