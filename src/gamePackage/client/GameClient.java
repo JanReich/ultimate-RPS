@@ -377,7 +377,7 @@ import java.util.Map;
             close();
         }
 
-        private void backToLobby() {
+        public void backToLobby() {
 
             if(userInterface != null) {
 
