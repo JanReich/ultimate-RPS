@@ -128,23 +128,23 @@ import java.awt.image.BufferedImage;
                 if(currentChoose == 3) draw.drawImage(selectedScissors, 300, 300, 128, 128);
                 else draw.drawImage(scissors, 300, 300, 128, 128);
 
-                if(canChoose) draw.drawButton(submit);
+                if(canChoose && winstateRight != 1 || winstateRight != 2)  draw.drawButton(submit);
             }
 
             if(winstateLeft == 1) {
 
-                draw.drawImage(lose, 200, 200, 200);
+                draw.drawImage(lose, 150, 250, 350);
             } else if(winstateLeft == 2) {
 
-                draw.drawImage(win, 200, 200, 200);
+                draw.drawImage(win, 150, 250, 350);
             }
 
             if(winstateRight == 1) {
 
-                draw.drawImage(lose, 200, 200, 200);
+                draw.drawImage(lose, 650, 250, 350);
             } else if(winstateRight == 2) {
 
-                draw.drawImage(win, 200, 200, 200);
+                draw.drawImage(win, 650, 250, 350);
             }
 
             if(right.isFinished() || left.isFinished()) {
@@ -293,7 +293,7 @@ import java.awt.image.BufferedImage;
         @Override
         public void mouseReleased(MouseEvent event) {
 
-            if(this.canChoose) {
+            if(this.canChoose && winstateRight != 1 || winstateRight != 2) {
 
                 if (isInside(event, 430, 300, 128, 128)) {
 
