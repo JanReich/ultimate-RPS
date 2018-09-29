@@ -39,10 +39,19 @@ import java.util.ArrayList;
             private Button kick1;
             private Button kick2;
 
+            private Button disconnect;
+
         public Lobby(Display display, GameClient gameClient) {
 
             super(display);
             this.gameClient = gameClient;
+
+            //DisconnectButton
+            if(gameClient.getData().isHost())
+                disconnect = new Button(683, 810, 240, 60, "res/images/menu/buttons/duell-button", true);
+            else
+                disconnect = new Button(683, 810, 240, 60, "res/images/menu/buttons/sing-button", true);
+            display.getActivePanel().drawObjectOnPanel(disconnect);
         }
 
         @Override
@@ -81,6 +90,7 @@ import java.util.ArrayList;
             display.getActivePanel().removeObjectFromPanel(kick2);
             display.getActivePanel().removeObjectFromPanel(unReady1);
             display.getActivePanel().removeObjectFromPanel(unReady2);
+            display.getActivePanel().removeObjectFromPanel(disconnect);
 
             display.getActivePanel().removeObjectFromPanel(this);
         }
@@ -93,6 +103,7 @@ import java.util.ArrayList;
                 //draw KickButton's
             draw.drawButton(kick1);
             draw.drawButton(kick2);
+            draw.drawButton(disconnect);
 
             if(readyPlayer1) {
                 display.getActivePanel().removeObjectFromPanel(ready1);
@@ -193,6 +204,12 @@ import java.util.ArrayList;
 
                     gameClient.countdownOver();
                 }
+            }
+
+            if(disconnect.isClicked()) {
+
+                if(gameClient.getData().isHost()) gameClient.closeServer();
+                else gameClient.disconnect();
             }
 
             if(readyPlayer1) {

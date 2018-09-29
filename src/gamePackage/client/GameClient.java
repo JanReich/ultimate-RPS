@@ -150,6 +150,11 @@ import java.util.Map;
                 lobby.setCountdown(5);
             }
 
+            if(pMessage.startsWith("CloseServer: ")) {
+
+                disconnect();
+            }
+
             if(pMessage.startsWith("PlayerDisconnect: ")) {
 
                 String[] messages = pMessage.split(": ");
@@ -159,8 +164,6 @@ import java.util.Map;
             }
 
             if(pMessage.startsWith("BackToMenu: ")) {
-
-                data.setReady(false);
 
                 if(userInterface != null) {
 
@@ -299,5 +302,35 @@ import java.util.Map;
         public void countdownOver() {
 
             send("CountdownOver: ");
+
+            data.setReady(false);
+            for(Map.Entry<Integer, ClientData> entry : connectedPlayers.entrySet()) {
+
+                if(entry.getValue() != null) {
+
+                    entry.getValue().setReady(false);
+                }
+            }
+        }
+
+        public void disconnect() {
+
+            if(lobby != null) {
+
+                lobby.remove();
+                display.getActivePanel().removeObjectFromPanel(lobby);
+            } else {
+
+                userInterface.remove();
+                display.getActivePanel().removeObjectFromPanel(userInterface);
+            }
+            close();
+
+                //TODO: Connection Lost Screen
+        }
+
+        public void closeServer() {
+
+            send("CloseServer: ");
         }
     }

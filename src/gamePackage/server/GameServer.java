@@ -202,7 +202,7 @@ import java.util.Map;
                 sendToAll(pMessage);
             }
 
-            else if(pMessage.startsWith("Choose: ")) {
+            else if(pMessage.startsWith("Choose: ") || pMessage.startsWith("CloseServer: ")) {
 
                 sendToAll(pMessage);
             }
