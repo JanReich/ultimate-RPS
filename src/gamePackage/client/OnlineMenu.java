@@ -133,18 +133,18 @@ import java.awt.image.BufferedImage;
 
             if(winstateLeft == 1) {
 
-                draw.drawImage(lose, 150, 250, 350);
+                draw.drawImage(lose, 50, 150, 350);
             } else if(winstateLeft == 2) {
 
-                draw.drawImage(win, 150, 250, 350);
+                draw.drawImage(win, 50, 150, 350);
             }
 
             if(winstateRight == 1) {
 
-                draw.drawImage(lose, 650, 250, 350);
+                draw.drawImage(lose, 550, 150, 350);
             } else if(winstateRight == 2) {
 
-                draw.drawImage(win, 650, 250, 350);
+                draw.drawImage(win, 550, 150, 350);
             }
 
             if(right.isFinished() || left.isFinished()) {
@@ -273,11 +273,12 @@ import java.awt.image.BufferedImage;
                 winstateRight = 2;
             } else {
 
-                currentChoose = 0;
-                choosePlayerLeft = 0;
-                choosePlayerRight = 0;
                 canChoose = true;
             }
+
+            currentChoose = 0;
+            choosePlayerLeft = 0;
+            choosePlayerRight = 0;
         }
 
         @Override
