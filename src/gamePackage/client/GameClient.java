@@ -85,6 +85,7 @@ import java.util.Map;
                 int spectatorID = Integer.parseInt(messages[2]);
                 boolean host = Boolean.parseBoolean(messages[3]);
 
+                System.out.println(spectatorID);
                 ClientData data = new ClientData(username, true, host, spectatorID);
                 connectedSpectators.put(spectatorID, data);
                 if(lobby != null)
@@ -146,6 +147,7 @@ import java.util.Map;
                     }
                 } else if(pMessage.startsWith("KickSpectator: ")) {
 
+                    System.out.println(clientID + " " + data.getSpectatorID());
                     if(clientID == data.getSpectatorID()) {
 
                         lobby.remove();
@@ -314,11 +316,6 @@ import java.util.Map;
             send("Choose: " + clientID + ": " + choose);
         }
 
-        public void playerToSpectator(int clientID, int specID) {
-
-            send("ToSpectator: " + clientID + ": " + specID);
-        }
-
         public void setReady(boolean ready, int clientID) {
 
             if(ready) {
@@ -330,21 +327,6 @@ import java.util.Map;
             }
         }
 
-        public ClientData getData() {
-
-            return data;
-        }
-
-        public HashMap<Integer, ClientData> getConnectedPlayers() {
-
-            return connectedPlayers;
-        }
-
-        public HashMap<Integer, ClientData> getConnectedSpectators() {
-
-            return connectedSpectators;
-        }
-
         public void kickPlayer(int clientID) {
 
             send("KickPlayer: " + clientID);
@@ -353,11 +335,6 @@ import java.util.Map;
         public void kickSpectator(int spectatorID) {
 
             send("KickSpectator: " + spectatorID);
-        }
-
-        public void spectatorToPlayer(int spectatorID, int playerID) {
-
-            send("ToPlayer: " + spectatorID + ": " + playerID);
         }
 
         public void countdownOver() {
@@ -374,6 +351,16 @@ import java.util.Map;
             }
         }
 
+        public void playerToSpectator(int clientID, int specID) {
+
+            send("ToSpectator: " + clientID + ": " + specID);
+        }
+
+        public void spectatorToPlayer(int spectatorID, int playerID) {
+
+            send("ToPlayer: " + spectatorID + ": " + playerID);
+        }
+
         public void disconnect() {
 
             if(lobby != null) {
@@ -386,12 +373,26 @@ import java.util.Map;
                 display.getActivePanel().removeObjectFromPanel(userInterface);
             }
             close();
-
-                //TODO: Connection Lost Screen
         }
 
         public void closeServer() {
 
             send("CloseServer: ");
+        }
+
+            //GETTER
+        public ClientData getData() {
+
+            return data;
+        }
+
+        public HashMap<Integer, ClientData> getConnectedPlayers() {
+
+            return connectedPlayers;
+        }
+
+        public HashMap<Integer, ClientData> getConnectedSpectators() {
+
+            return connectedSpectators;
         }
     }

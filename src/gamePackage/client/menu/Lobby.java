@@ -50,9 +50,9 @@ import java.util.ArrayList;
 
             //DisconnectButton
             if(gameClient.getData().isHost())
-                disconnect = new Button(683, 810, 240, 60, "res/images/menu/buttons/duell-button", true);
+                disconnect = new Button(683, 810, 240, 60, "res/images/menu/buttons/disconect", true);
             else
-                disconnect = new Button(683, 810, 240, 60, "res/images/menu/buttons/sing-button", true);
+                disconnect = new Button(683, 810, 240, 60, "res/images/menu/buttons/disconect", true);
             display.getActivePanel().drawObjectOnPanel(disconnect);
         }
 

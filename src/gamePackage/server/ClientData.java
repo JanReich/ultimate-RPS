@@ -88,11 +88,6 @@ package gamePackage.server;
             return username;
         }
 
-        public String getClientIP() {
-
-            return clientIP;
-        }
-
         public boolean isSpectator() {
 
             return spectator;
