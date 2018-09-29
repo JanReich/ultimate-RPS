@@ -12,7 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-    public class OnlineMenu implements BasicInteractableObject {
+    public class Userinterface implements BasicInteractableObject {
 
                 //Attribute
             /**
@@ -57,7 +57,7 @@ import java.awt.image.BufferedImage;
             private Animation left;
             private Animation right;
 
-        public OnlineMenu(Display display, GameClient gameClient) {
+        public Userinterface(Display display, GameClient gameClient) {
 
 
             this.canChoose = true;
@@ -199,10 +199,11 @@ import java.awt.image.BufferedImage;
                 playAnimation = true;
             }
 
-            if(left.isFinished() && right.isFinished() && playAnimation) {
+            if(left != null && right != null)
+                if(left.isFinished() && right.isFinished() && playAnimation) {
 
-                chooseWinner();
-            }
+                    chooseWinner();
+                }
 
             if(submit.isClicked()) {
 
