@@ -196,7 +196,7 @@ import java.util.Map;
                 int clientID = Integer.parseInt(messages[2]);
                 int specID = Integer.parseInt(messages[1]);
 
-                spectatorIDs[specID] = null;
+                if(specID != -1) spectatorIDs[specID] = null;
 
                 playerCount++;
                 spectatorCount--;
