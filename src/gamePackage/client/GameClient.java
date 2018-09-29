@@ -206,9 +206,12 @@ import java.util.Map;
 
                 lobby.remove();
                 data.setReady(false);
-                for (int i = 0; i < connectedSpectators.size(); i++) {
+                for(Map.Entry<Integer, ClientData> entry : connectedSpectators.entrySet()) {
 
-                    lobby.removeSpectatorSlot(connectedPlayers.get(i).getSpectatorID());
+                    if(entry.getValue() != null) {
+
+                        lobby.removeSpectatorSlot(entry.getValue().getSpectatorID());
+                    }
                 }
 
                 userInterface = new Userinterface(display, this);
@@ -227,7 +230,6 @@ import java.util.Map;
 
                     if(entry.getValue() != null) {
 
-                        System.out.println("test1");
                         if(entry.getValue().getSpectatorID() == specID) {
 
                             ClientData cData = new ClientData(entry.getValue().getUsername(), false, entry.getValue().isHost(), clientID, false);
@@ -259,6 +261,7 @@ import java.util.Map;
 
                         if(entry.getValue().getClientID() == clientID) {
 
+                            lobby.setCountdown(-1);
                             entry.getValue().setReady(false);
                             lobby.createSpectatorSlot(specID, entry.getValue().getUsername());
                             ClientData cData = new ClientData(entry.getValue().getUsername(), true, entry.getValue().isHost(), specID);
