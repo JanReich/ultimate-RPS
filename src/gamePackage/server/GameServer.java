@@ -100,7 +100,7 @@ import java.util.Map;
                                             clients.put(pClientIP, new ClientData(pClientIP, pClientPort, host, username, userClientID));
                                             System.out.println("[Server] Client \"" + username + "\" hat sich mit dem Server als Spieler verbunden!");
                                             send(pClientIP, pClientPort, "RegisterSuccessful: " + userClientID + ": " + started);
-                                            sendToAll("JoinedPlayer: " + username + ": " + userClientID + ": " + host);
+                                            sendToAll("JoinedPlayer: " + username + ": " + userClientID + ": " + host + ": " + false);
                                         }
                                     }
 
