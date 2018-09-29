@@ -269,7 +269,7 @@ import java.util.Map;
                             lobby.createSpectatorSlot(specID, connectedPlayers.get(i).getUsername());
                             ClientData cData = new ClientData(connectedPlayers.get(i).getUsername(), true, connectedPlayers.get(i).isHost(), specID);
                             connectedPlayers.remove(i);
-                            connectedSpectators.put(specID, cData);
+                            connectedSpectators.put(i, cData);
                         }
                     }
                 }
