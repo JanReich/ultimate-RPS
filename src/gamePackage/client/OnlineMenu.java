@@ -67,6 +67,15 @@ import java.awt.image.BufferedImage;
             loadUsername();
         }
 
+        public void remove() {
+
+            display.getActivePanel().removeObjectFromPanel(left);
+            left = null;
+            display.getActivePanel().removeObjectFromPanel(right);
+            right = null;
+            if(display.getActivePanel().contains(submit)) display.getActivePanel().removeObjectFromPanel(submit);
+        }
+
         private void init() {
 
             this.background = ImageHelper.getImage("res/images/Singleplayer/background.png");

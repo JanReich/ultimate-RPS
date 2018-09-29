@@ -7,8 +7,9 @@ import gamePackage.server.ClientData;
 import graphics.Display;
 
 import java.util.HashMap;
+import java.util.Map;
 
-    public class GameClient extends Client {
+public class GameClient extends Client {
 
                 //Attribute
 
@@ -141,6 +142,20 @@ import java.util.HashMap;
                 connectedPlayers.remove(clientID);
             }
 
+            if(pMessage.startsWith("BackToMenu: ")) {
+
+                onlineMenu.remove();
+                display.getActivePanel().removeObjectFromPanel(onlineMenu);
+                onlineMenu = null;
+
+                lobby = new Lobby(display, this);
+                display.getActivePanel().drawObjectOnPanel(lobby);
+
+                for(Map.Entry<Integer, ClientData> entry : connectedSpectators.entrySet()) {
+
+                    lobby.createSpectatorSlot(entry.getValue().getSpectatorID(), entry.getValue().getUsername());
+                }
+            }
 
             if(pMessage.startsWith("SpectatorDisconnect: ")) {
 
