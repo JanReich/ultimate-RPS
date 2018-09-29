@@ -92,7 +92,7 @@ import java.awt.image.BufferedImage;
             this.selectedStone = ImageHelper.getImage("res/images/Singleplayer/stone-chosen.png");
             this.selectedScissors = ImageHelper.getImage("res/images/Singleplayer/scissor-chosen.png");
 
-            back = new Button(390, 600, 200, 80, "res/images/menu/buttons/back-to-menu", true);
+            back = new Button(390, 800, 200, 80, "res/images/menu/buttons/back-to-menu", true);
             submit = new Button(390, 450, 200, 80, "res/images/menu/buttons/submit", true);
             left = new Animation("res/images/animations/Stein.png", 0.04, 22, 0, false);
             right = new Animation("res/images/animations/Stein-rechts.png", 0.04, 22, 0, false);
@@ -130,7 +130,7 @@ import java.awt.image.BufferedImage;
 
             draw.drawImage(background, 0, 0, display.getWidth(), display.getHeight());
 
-            if(!gameClient.getData().isSpectator()) {
+            if(!gameClient.getData().isSpectator() && temp) {
 
                 draw.drawButton(back);
             }
@@ -206,6 +206,11 @@ import java.awt.image.BufferedImage;
 
                 createAnimation();
                 playAnimation = true;
+            }
+
+            if(back.isClicked() && temp) {
+
+                gameClient.send("BackToMenu");
             }
 
             if(left != null && right != null)
