@@ -239,6 +239,9 @@ import java.util.Map;
                             ClientData cData = new ClientData(connectedSpectators.get(i).getUsername(), false, connectedSpectators.get(i).isHost(), clientID, false);
                             connectedSpectators.remove(i);
                             connectedPlayers.put(i, cData);
+
+                            System.out.println("ToPlayer:" + i);
+
                         }
                     }
                 }
@@ -270,6 +273,8 @@ import java.util.Map;
                             ClientData cData = new ClientData(connectedPlayers.get(i).getUsername(), true, connectedPlayers.get(i).isHost(), specID);
                             connectedPlayers.remove(i);
                             connectedSpectators.put(i, cData);
+
+                            System.out.println("ToSpec:" + i);
                         }
                     }
                 }
