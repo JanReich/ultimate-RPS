@@ -182,8 +182,8 @@ import java.awt.image.BufferedImage;
 
             draw.setColour(Color.BLACK);
             draw.setFont(new Font("Impact", Font.BOLD, 30));
-            draw.drawString(usernameLeft, 10, 730);
-            draw.drawString(usernameRight, 765, 730);
+            if(usernameLeft != null) draw.drawString(usernameLeft, 10, 730);
+            if(usernameRight != null) draw.drawString(usernameRight, 765, 730);
 
             draw.drawString("Score: ", 425, 40);
             draw.drawString(scoreLeft + " : " + scoreRight, 440, 80);
@@ -212,6 +212,8 @@ import java.awt.image.BufferedImage;
 
                 gameClient.backToLobby();
             }
+
+            if(usernameRight == null || usernameLeft == null) loadUsername();
 
             if(left != null && right != null)
                 if(left.isFinished() && right.isFinished() && playAnimation) {
