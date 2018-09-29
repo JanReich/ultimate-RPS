@@ -200,6 +200,8 @@ import java.util.Map;
                 lobby.removeSpectatorSlot(spectatorID);
                 lobby.setMaxSpec(false);
                 connectedSpectators.remove(spectatorID);
+
+                send("GetAvailableSpectatorID: ");
             }
 
             if(pMessage.startsWith("StartGame: ")) {
@@ -235,16 +237,16 @@ import java.util.Map;
                             ClientData cData = new ClientData(entry.getValue().getUsername(), false, entry.getValue().isHost(), clientID, false);
                             connectedPlayers.put(clientID, cData);
                             connectedSpectators.remove(specID);
+
+                            if (specID == data.getSpectatorID()) {
+
+                                data.setReady(false);
+                                data.setSpectatorID(-1);
+                                data.setSpectator(false);
+                                data.setClientID(clientID);
+                            }
                         }
                     }
-                }
-
-                if (specID == data.getSpectatorID()) {
-
-                    data.setReady(false);
-                    data.setSpectatorID(-1);
-                    data.setSpectator(false);
-                    data.setClientID(clientID);
                 }
             }
 
@@ -261,8 +263,6 @@ import java.util.Map;
 
                         if(entry.getValue().getClientID() == clientID) {
 
-                            System.out.println("test");
-
                             lobby.setCountdown(-1);
                             entry.getValue().setReady(false);
                             lobby.createSpectatorSlot(specID, entry.getValue().getUsername());
@@ -277,6 +277,8 @@ import java.util.Map;
                                 data.setSpectator(true);
                                 data.setSpectatorID(specID);
                             }
+
+                            send("GetAvailableSpectatorID: ");
                         }
                     }
                 }
