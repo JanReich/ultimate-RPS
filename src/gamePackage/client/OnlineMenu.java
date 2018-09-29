@@ -132,7 +132,7 @@ import java.awt.image.BufferedImage;
 
             draw.setColour(Color.BLACK);
             draw.setFont(new Font("Impact", Font.BOLD, 45));
-            draw.drawString(usernameLeft, 20, 700);
+            draw.drawString(usernameLeft, 15, 750);
 
                 //Button's ausgrauen
             if(!change) {
