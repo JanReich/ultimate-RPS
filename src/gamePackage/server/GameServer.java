@@ -165,7 +165,6 @@ import java.util.Map;
                 int clientID = Integer.parseInt(messages[1]);
                 clients.get(pClientIP).setReady(false);
 
-
                 sendToAll("PlayerUnReady: "  + clientID);
             }
 

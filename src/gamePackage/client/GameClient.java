@@ -113,6 +113,7 @@ import java.util.Map;
 
                 if(connectedPlayers.containsKey(clientID)) {
 
+                    lobby.setCountdown(-1);
                     connectedPlayers.get(clientID).setReady(false);
                 }
             }
