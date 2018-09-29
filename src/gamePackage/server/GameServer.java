@@ -236,7 +236,7 @@ import java.util.Map;
                 sendToAll(pMessage);
             }
 
-            else if(pMessage.startsWith("Choose: ") || pMessage.startsWith("CloseServer: ")) {
+            else if(pMessage.startsWith("Choose: ") || pMessage.startsWith("CloseServer: ") || pMessage.startsWith("BackToMenu: ")) {
 
                 sendToAll(pMessage);
             }
