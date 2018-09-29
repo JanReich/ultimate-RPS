@@ -273,6 +273,7 @@ import java.util.Map;
 
                 if(clientID == data.getClientID()) {
 
+                    System.out.println("test");
                     data.setReady(false);
                     data.setClientID(-1);
                     data.setSpectator(true);
