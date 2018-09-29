@@ -14,6 +14,7 @@ import java.util.ArrayList;
     public class Lobby extends Menu {
 
                 //Attribute
+            private boolean kickspec;
             private boolean maxSpec;
             private double countdown;
             private double errorTime;
@@ -288,6 +289,7 @@ import java.util.ArrayList;
 
                         if(!gameClient.getConnectedPlayers().get(1).isHost()) {
 
+                            kickspec = true;
                             gameClient.kickPlayer(1);
                         }
                     }
@@ -300,8 +302,9 @@ import java.util.ArrayList;
 
                     if(gameClient.getData().isHost()) {
 
-                        if(gameClient.getConnectedSpectators().get(slots.get(i).spectatorID) != null) {
+                        if(gameClient.getConnectedSpectators().get(slots.get(i).spectatorID) != null && !kickspec) {
 
+                            kickspec = false;
                             gameClient.kickSpectator(slots.get(i).getSpectatorID());
                         }
                     } else errorTime = 3;

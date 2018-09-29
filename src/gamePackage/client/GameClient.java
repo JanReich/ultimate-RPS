@@ -241,7 +241,7 @@ import java.util.Map;
                             connectedPlayers.put(clientID, cData);
                             connectedSpectators.remove(specID);
 
-                            if (specID == data.getSpectatorID() && !data.isSpectator()) {
+                            if (specID == data.getSpectatorID()) {
 
                                 data.setReady(false);
                                 data.setSpectatorID(-1);
@@ -273,7 +273,7 @@ import java.util.Map;
                             connectedPlayers.remove(clientID);
                             connectedSpectators.put(specID, cData);
 
-                            if(clientID == data.getClientID() && data.isSpectator()) {
+                            if(clientID == data.getClientID()) {
 
                                 data.setReady(false);
                                 data.setClientID(-1);
