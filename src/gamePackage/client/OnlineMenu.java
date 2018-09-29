@@ -156,19 +156,20 @@ import java.awt.image.BufferedImage;
                 draw.drawImage(win, 680, 120, 350);
             }
 
-            if(right.isFinished() || left.isFinished()) {
+            if(right != null && left != null)
+                if(right.isFinished() || left.isFinished()) {
 
-                draw.drawImage(left.getAnimation(), 0,400,350,350);
-                draw.drawImage(right.getAnimation(), 615, 400, 350, 350);
-            } else if(playAnimation) {
+                    draw.drawImage(left.getAnimation(), 0,400,350,350);
+                    draw.drawImage(right.getAnimation(), 615, 400, 350, 350);
+                } else if(playAnimation) {
 
-                draw.drawImage(left.getAnimation(), 0,400,350,350);
-                draw.drawImage(right.getAnimation(), 615, 400, 350, 350);
-            } else if(!playAnimation) {
+                    draw.drawImage(left.getAnimation(), 0,400,350,350);
+                    draw.drawImage(right.getAnimation(), 615, 400, 350, 350);
+                } else if(!playAnimation) {
 
-                draw.drawImage(left.getFirstSprite(), 0,400,350,350);
-                draw.drawImage(right.getFirstSprite(), 615, 400, 350, 350);
-            }
+                    draw.drawImage(left.getFirstSprite(), 0,400,350,350);
+                    draw.drawImage(right.getFirstSprite(), 615, 400, 350, 350);
+                }
 
             draw.setColour(Color.BLACK);
             draw.setFont(new Font("Impact", Font.BOLD, 30));

@@ -144,6 +144,8 @@ public class GameClient extends Client {
 
             if(pMessage.startsWith("BackToMenu: ")) {
 
+                data.setReady(false);
+
                 onlineMenu.remove();
                 display.getActivePanel().removeObjectFromPanel(onlineMenu);
                 onlineMenu = null;
