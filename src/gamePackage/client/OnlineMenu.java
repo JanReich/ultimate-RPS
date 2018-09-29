@@ -131,8 +131,9 @@ import java.awt.image.BufferedImage;
             }
 
             draw.setColour(Color.BLACK);
-            draw.setFont(new Font("Impact", Font.BOLD, 45));
-            draw.drawString(usernameLeft, 15, 750);
+            draw.setFont(new Font("Impact", Font.BOLD, 30));
+            draw.drawString(usernameLeft, 10, 730);
+            draw.drawString(usernameRight, 765, 730);
 
                 //Button's ausgrauen
             if(!change) {
