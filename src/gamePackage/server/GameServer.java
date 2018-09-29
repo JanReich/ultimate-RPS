@@ -159,8 +159,19 @@ import java.util.Map;
                 }
             }
 
-            else if(pMessage.startsWith("Unready")) {
+            if(pMessage.startsWith("CountdownOver: ")) {
 
+                if(countdown && !started)  {
+
+                    started = true;
+                    countdown = false;
+                    sendToAll("StartGame: ");
+                }
+            }
+
+            else if(pMessage.startsWith("Unready: ")) {
+
+                countdown = false;
                 String[] messages = pMessage.split(": ");
                 int clientID = Integer.parseInt(messages[1]);
                 clients.get(pClientIP).setReady(false);

@@ -293,4 +293,9 @@ import java.util.Map;
 
             send("ToPlayer: " + spectatorID + ": " + playerID);
         }
+
+        public void countdownOver() {
+
+            send("CountdownOver: ");
+        }
     }

@@ -187,6 +187,14 @@ import java.util.ArrayList;
             if(errorTime > 0) errorTime -= dt;
             if(countdown > 0) countdown -= dt;
 
+            if(countdown <= 0 && countdown != -1) {
+
+                if(!gameClient.getData().isSpectator()) {
+
+                    gameClient.countdownOver();
+                }
+            }
+
             if(readyPlayer1) {
 
                 if(unReady1.isClicked() && gameClient.getData().getClientID() == 0) {
