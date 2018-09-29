@@ -27,6 +27,9 @@ import java.awt.image.BufferedImage;
             private int choosePlayerLeft;
             private int choosePlayerRight;
 
+            private String usernameLeft;
+            private String usernameRight;
+
                 //Referenzen
             private Display display;
             private GameClient gameClient;
@@ -195,9 +198,18 @@ import java.awt.image.BufferedImage;
                 if(gameClient.getData().getClientID() == clientID) {
 
                     choosePlayerLeft = choose;
+                    usernameLeft = gameClient.getData().getUsername();
                 } else {
 
                     choosePlayerRight = choose;
+
+                    for (int i = 0; i < gameClient.getConnectedPlayers().size(); i++) {
+
+                        if(gameClient.getConnectedPlayers().get(i).getClientID() == clientID) {
+
+                            usernameRight = gameClient.getConnectedPlayers().get(i).getUsername();
+                        }
+                    }
                 }
             }
 
@@ -207,11 +219,16 @@ import java.awt.image.BufferedImage;
                 if(clientID == gameClient.getConnectedPlayers().get(0).getClientID()) {
 
                     choosePlayerLeft = choose;
+                    usernameLeft = gameClient.getConnectedPlayers().get(0).getUsername();
                 } else if(clientID == gameClient.getConnectedPlayers().get(1).getClientID()) {
 
                     choosePlayerRight = choose;
+                    usernameLeft = gameClient.getConnectedPlayers().get(1).getUsername();
                 }
             }
+
+            System.out.println(usernameLeft);
+            System.out.println(usernameRight);
         }
 
         private boolean isInside(MouseEvent e, int x, int y, int width, int height) {
