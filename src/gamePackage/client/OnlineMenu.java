@@ -80,7 +80,7 @@ import java.awt.image.BufferedImage;
             this.selectedStone = ImageHelper.getImage("res/images/Singleplayer/stone-chosen.png");
             this.selectedScissors = ImageHelper.getImage("res/images/Singleplayer/scissor-chosen.png");
 
-            submit = new Button(420, 450, 150, 80, "res/images/menu/buttons/submit", true);
+            submit = new Button(390, 450, 200, 80, "res/images/menu/buttons/submit", true);
             left = new Animation("res/images/animations/Stein.png", 0.04, 22, 0, false);
             right = new Animation("res/images/animations/Stein-rechts.png", 0.04, 22, 0, false);
             display.getActivePanel().drawObjectOnPanel(submit);
@@ -166,7 +166,7 @@ import java.awt.image.BufferedImage;
             draw.drawString(usernameLeft, 10, 730);
             draw.drawString(usernameRight, 765, 730);
 
-            draw.drawString("Score: ", 430, 35);
+            draw.drawString("Score: ", 425, 40);
             draw.drawString(scoreLeft + " : " + scoreRight, 440, 80);
 
                 //Button's ausgrauen
