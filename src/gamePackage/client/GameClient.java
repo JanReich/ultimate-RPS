@@ -261,23 +261,24 @@ import java.util.Map;
 
                         if(entry.getValue().getClientID() == clientID) {
 
+                            System.out.println("test");
+
                             lobby.setCountdown(-1);
                             entry.getValue().setReady(false);
                             lobby.createSpectatorSlot(specID, entry.getValue().getUsername());
                             ClientData cData = new ClientData(entry.getValue().getUsername(), true, entry.getValue().isHost(), specID);
                             connectedPlayers.remove(clientID);
                             connectedSpectators.put(specID, cData);
+
+                            if(clientID == data.getClientID()) {
+
+                                data.setReady(false);
+                                data.setClientID(-1);
+                                data.setSpectator(true);
+                                data.setSpectatorID(specID);
+                            }
                         }
                     }
-                }
-
-                if(clientID == data.getClientID()) {
-
-                    System.out.println("test");
-                    data.setReady(false);
-                    data.setClientID(-1);
-                    data.setSpectator(true);
-                    data.setSpectatorID(specID);
                 }
             }
 
