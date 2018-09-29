@@ -12,6 +12,7 @@ import java.util.Map;
     public class GameClient extends Client {
 
                 //Attribute
+            private boolean temp;
 
                 //Referenzen
             private Lobby lobby;
@@ -73,7 +74,21 @@ import java.util.Map;
                 String[] messages = pMessage.split(": ");
                 int specID = Integer.parseInt(messages[1]);
 
-                lobby.createToSpectator(specID);
+                temp = false;
+
+                for(Map.Entry<Integer, ClientData> entry : connectedSpectators.entrySet()) {
+
+                    if(entry.getValue() != null) {
+
+                        if(entry.getValue().getSpectatorID() == specID) {
+
+                            temp = true;
+                        }
+                    }
+                }
+
+                if(!temp) lobby.createToSpectator(specID);
+                else send("GetAvailableSpectatorID: ");
             }
 
                 //Format - JoinedSpectator <username> <spectatorID> <host>
@@ -263,6 +278,7 @@ import java.util.Map;
                 int clientID = Integer.parseInt(messages[1]);
 
                 lobby.removeSpectatorSlot(specID);
+
 
                 for(Map.Entry<Integer, ClientData> entry : connectedPlayers.entrySet()) {
 
