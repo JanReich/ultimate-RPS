@@ -86,7 +86,7 @@ import java.util.Map;
                 int spectatorID = Integer.parseInt(messages[2]);
                 boolean host = Boolean.parseBoolean(messages[3]);
 
-                lobby.removeSpectatorSlot(spectatorID);
+                if(lobby != null) lobby.removeSpectatorSlot(spectatorID);
 
                 ClientData data = new ClientData(username, true, host, spectatorID);
                 connectedSpectators.put(spectatorID, data);
