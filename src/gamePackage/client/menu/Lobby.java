@@ -169,8 +169,9 @@ import java.util.ArrayList;
 
                 draw.setColour(Color.RED);
                 draw.setFont(new Font("Verdana", Font.BOLD, 400));
-                if(countdown != 0) draw.drawString((int) countdown + "", 200, 620);
-                else {
+                if(countdown > 1) {
+                    draw.drawString((int) countdown + "", 200, 620);
+                } else {
                     draw.setFont(new Font("Verdana", Font.BOLD, 100));
                     draw.drawString("Start", 200, 200);
                 }
