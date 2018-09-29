@@ -166,7 +166,7 @@ import java.awt.image.BufferedImage;
             draw.drawString(usernameLeft, 10, 730);
             draw.drawString(usernameRight, 765, 730);
 
-            draw.drawString("Score: ", 435, 10);
+            draw.drawString("Score: ", 430, 35);
             draw.drawString(scoreLeft + " : " + scoreRight, 440, 80);
 
                 //Button's ausgrauen
