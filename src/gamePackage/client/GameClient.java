@@ -74,21 +74,7 @@ import java.util.Map;
                 String[] messages = pMessage.split(": ");
                 int specID = Integer.parseInt(messages[1]);
 
-                temp = false;
-
-                for(Map.Entry<Integer, ClientData> entry : connectedSpectators.entrySet()) {
-
-                    if(entry.getValue() != null) {
-
-                        if(entry.getValue().getSpectatorID() == specID) {
-
-                            temp = true;
-                        }
-                    }
-                }
-
-                if(!temp) lobby.createToSpectator(specID);
-                else send("GetAvailableSpectatorID: ");
+                lobby.createToSpectator(specID);
             }
 
                 //Format - JoinedSpectator <username> <spectatorID> <host>

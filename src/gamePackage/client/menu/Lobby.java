@@ -1,6 +1,7 @@
 package gamePackage.client.menu;
 
 import gamePackage.client.GameClient;
+import gamePackage.server.ClientData;
 import graphics.Display;
 import toolBox.Button;
 import toolBox.DrawHelper;
@@ -10,8 +11,9 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Map;
 
-    public class Lobby extends Menu {
+public class Lobby extends Menu {
 
                 //Attribute
             private boolean maxSpec;
@@ -215,7 +217,17 @@ import java.util.ArrayList;
 
                     if(!gameClient.getData().isSpectator()) {
 
-                       gameClient.playerToSpectator(gameClient.getData().getClientID(), toSpecSlot.getSpecID());
+                        boolean temp = true;
+
+                        for(Map.Entry<Integer, ClientData> entry : gameClient.getConnectedSpectators().entrySet()) {
+
+                            if(entry.getValue().getSpectatorID() == toSpecSlot.getSpecID()) {
+
+                                temp = false;
+                            }
+                        }
+
+                        if(temp) gameClient.playerToSpectator(gameClient.getData().getClientID(), toSpecSlot.getSpecID());
                     }
                 }
             }
