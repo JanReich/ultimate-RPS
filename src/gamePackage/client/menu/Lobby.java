@@ -213,7 +213,6 @@ import java.util.ArrayList;
 
                 if(toSpecSlot.getClickToSpectate().isClicked() && !maxSpec) {
 
-                    System.out.println("test1");
                     gameClient.playerToSpectator(gameClient.getData().getClientID(), toSpecSlot.getSpecID());
                 }
             }

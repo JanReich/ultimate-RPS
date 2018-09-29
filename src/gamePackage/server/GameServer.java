@@ -211,7 +211,6 @@ import java.util.Map;
                 //Format - ToSpecTator: <ClientID> <SpecID>
             else if(pMessage.startsWith("ToSpectator: ")) {
 
-
                 String[] messages = pMessage.split(": ");
                 int clientID = Integer.parseInt(messages[1]);
                 int specID = Integer.parseInt(messages[2]);
@@ -220,6 +219,7 @@ import java.util.Map;
                 spectatorCount++;
                 clientIDs[clientID] = null;
 
+                clients.get(pClientIP).setReady(false);
                 clients.get(pClientIP).setSpectator(true);
                 clients.get(pClientIP).setSpectatorID(specID);
                 clients.get(pClientIP).setClientID(-1);

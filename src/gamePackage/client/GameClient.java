@@ -260,7 +260,7 @@ import java.util.Map;
 
                     if(connectedPlayers.get(i) != null) {
 
-                        if(connectedPlayers.get(i).getSpectatorID() == clientID) {
+                        if(connectedPlayers.get(i).getClientID() == clientID) {
 
                             if(clientID == data.getClientID()) {
 
@@ -270,6 +270,7 @@ import java.util.Map;
                                 data.setSpectatorID(specID);
                             }
 
+                            connectedPlayers.get(i).setReady(false);
                             lobby.createSpectatorSlot(specID, connectedPlayers.get(i).getUsername());
                             ClientData cData = new ClientData(connectedPlayers.get(i).getUsername(), true, connectedPlayers.get(i).isHost(), specID);
                             connectedPlayers.remove(i);
