@@ -142,18 +142,18 @@ import java.awt.image.BufferedImage;
 
             if(winstateLeft == 1) {
 
-                draw.drawImage(lose, 35, 120, 350);
+                draw.drawImage(lose, 0, 0, 350);
             } else if(winstateLeft == 2) {
 
-                draw.drawImage(win, 35, 120, 350);
+                draw.drawImage(win, 0, 0, 350);
             }
 
             if(winstateRight == 1) {
 
-                draw.drawImage(lose, 680, 120, 350);
+                draw.drawImage(lose, 600, 0, 350);
             } else if(winstateRight == 2) {
 
-                draw.drawImage(win, 680, 120, 350);
+                draw.drawImage(win, 600, 0, 350);
             }
 
             if(right != null && left != null)
