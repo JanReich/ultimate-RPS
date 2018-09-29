@@ -14,7 +14,6 @@ import java.util.ArrayList;
     public class Lobby extends Menu {
 
                 //Attribute
-            private boolean kickspec;
             private boolean maxSpec;
             private double countdown;
             private double errorTime;
@@ -216,7 +215,7 @@ import java.util.ArrayList;
 
                     if(!gameClient.getData().isSpectator()) {
 
-                        gameClient.playerToSpectator(gameClient.getData().getClientID(), toSpecSlot.getSpecID());
+                       gameClient.playerToSpectator(gameClient.getData().getClientID(), toSpecSlot.getSpecID());
                     }
                 }
             }
@@ -289,7 +288,6 @@ import java.util.ArrayList;
 
                         if(!gameClient.getConnectedPlayers().get(1).isHost()) {
 
-                            kickspec = true;
                             gameClient.kickPlayer(1);
                         }
                     }
@@ -302,9 +300,8 @@ import java.util.ArrayList;
 
                     if(gameClient.getData().isHost()) {
 
-                        if(gameClient.getConnectedSpectators().get(slots.get(i).spectatorID) != null && !kickspec) {
+                        if(gameClient.getConnectedSpectators().get(slots.get(i).spectatorID) != null) {
 
-                            kickspec = false;
                             gameClient.kickSpectator(slots.get(i).getSpectatorID());
                         }
                     } else errorTime = 3;
@@ -339,6 +336,17 @@ import java.util.ArrayList;
         public void setCountdown(int countdown) {
 
             this.countdown = countdown;
+        }
+
+        public void removeToSpectator(int specID) {
+
+            if(toSpecSlot != null) {
+
+                if(toSpecSlot.getSpecID() == specID) {
+
+                    display.getActivePanel().removeObjectFromPanel(toSpecSlot.getClickToSpectate());
+                }
+            }
         }
 
         public void createToSpectator(int specID) {

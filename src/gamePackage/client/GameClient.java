@@ -85,10 +85,14 @@ import java.util.Map;
                 int spectatorID = Integer.parseInt(messages[2]);
                 boolean host = Boolean.parseBoolean(messages[3]);
 
+                lobby.removeSpectatorSlot(spectatorID);
+
                 ClientData data = new ClientData(username, true, host, spectatorID);
                 connectedSpectators.put(spectatorID, data);
                 if(lobby != null)
                     lobby.createSpectatorSlot(spectatorID, username);
+
+                send("GetAvailableSpectatorID: ");
             }
 
                 //Format - JoinedPlayer <username> <clientID> <host> <ready>
@@ -146,15 +150,13 @@ import java.util.Map;
                     }
                 } else if(pMessage.startsWith("KickSpectator: ")) {
 
-                    if(data.isSpectator()) {
 
-                        if(clientID == data.getSpectatorID()) {
+                    if(clientID == data.getSpectatorID()) {
 
-                            lobby.remove();
-                            close();
-                            KickedMenu menu = new KickedMenu(display);
-                            display.getActivePanel().drawObjectOnPanel(menu);
-                        }
+                        lobby.remove();
+                        close();
+                        KickedMenu menu = new KickedMenu(display);
+                        display.getActivePanel().drawObjectOnPanel(menu);
                     }
                 }
             }
@@ -259,6 +261,8 @@ import java.util.Map;
                 String[] messages = pMessage.split(": ");
                 int specID = Integer.parseInt(messages[2]);
                 int clientID = Integer.parseInt(messages[1]);
+
+                lobby.removeSpectatorSlot(specID);
 
                 for(Map.Entry<Integer, ClientData> entry : connectedPlayers.entrySet()) {
 
