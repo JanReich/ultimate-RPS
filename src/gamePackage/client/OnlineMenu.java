@@ -7,6 +7,7 @@ import toolBox.Button;
 import toolBox.DrawHelper;
 import toolBox.ImageHelper;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -21,11 +22,10 @@ import java.awt.image.BufferedImage;
              */
             private int active;
             private boolean change;
-            private boolean played;
             private boolean playAnimation;
 
-            private int opponent;
-            private int myChoose;
+            private int choosePlayerLeft;
+            private int choosePlayerRight;
 
                 //Referenzen
             private Display display;
@@ -60,7 +60,7 @@ import java.awt.image.BufferedImage;
             this.selectedstone = ImageHelper.getImage("res/images/Singleplayer/stone-chosen.png");
             this.selectedSissors = ImageHelper.getImage("res/images/Singleplayer/scissor-chosen.png");
 
-            this.submit = new Button(690, 324, 150, 80, "res/images/menu/buttons/submit", true);
+            this.submit = new Button(420, 450, 150, 80, "res/images/menu/buttons/submit", true);
             display.getActivePanel().drawObjectOnPanel(submit);
 
             left = new Animation("res/images/animations/Stein.png", 0.04, 22, 0, false);
@@ -83,7 +83,7 @@ import java.awt.image.BufferedImage;
                 if(active == 3) draw.drawImage(selectedSissors, 300, 300, 128, 128);
                 else draw.drawImage(sissors, 300, 300, 128, 128);
 
-                draw.drawButton(submit);
+                if(change) draw.drawButton(submit);
             }
 
             if(!playAnimation) {
@@ -95,6 +95,13 @@ import java.awt.image.BufferedImage;
                 draw.drawImage(left.getAnimation(), 0,400,350,350);
                 draw.drawImage(right.getAnimation(), 615, 400, 350, 350);
             }
+
+                //Button's ausgrauen
+            if(!change) {
+                draw.setColour(new Color(0, 0, 0, 100));
+                draw.fillRec(300, 300, 388, 128);
+            }
+
         }
 
         @Override
@@ -103,37 +110,9 @@ import java.awt.image.BufferedImage;
             //1 = stein
             //2 = papier
             //3 = schere
-            if((opponent == 1 || opponent == 2 || opponent == 3) && (myChoose == 1 || myChoose == 2 || myChoose == 3) && !played) {
+            if((choosePlayerLeft == 1 || choosePlayerLeft == 2 || choosePlayerLeft == 3) && (choosePlayerRight == 1 || choosePlayerRight == 2 || choosePlayerRight == 3) && !playAnimation) {
 
-                switch (myChoose) {
-
-                    case 1:
-                        left = new Animation("res/images/animations/Stein.png", 0.04, 22, 0, false);
-                        break;
-                    case 2:
-                        left = new Animation("res/images/animations/Papier.png", 0.04, 22, 0, false);
-                        break;
-                    case 3:
-                        left = new Animation("res/images/animations/Schere.png", 0.04, 22, 0, false);
-                        break;
-                }
-
-                switch (opponent) {
-
-                    case 1:
-                        right = new Animation("res/images/animations/Stein-rechts.png", 0.04, 22, 0, false);
-                        break;
-                    case 2:
-                        right = new Animation("res/images/animations/Papier-rechts.png", 0.04, 22, 0, false);
-                        break;
-                    case 3:
-                        right = new Animation("res/images/animations/Schere-rechts.png", 0.04, 22, 0, false);
-                        break;
-                }
-
-                played = true;
-                display.getActivePanel().drawObjectOnPanel(left);
-                display.getActivePanel().drawObjectOnPanel(right);
+                createAnimation();
                 playAnimation = true;
             }
 
@@ -145,6 +124,39 @@ import java.awt.image.BufferedImage;
                     gameClient.choose(gameClient.getData().getClientID(), active);
                 }
             }
+        }
+
+        private void createAnimation() {
+
+            switch (choosePlayerLeft) {
+
+                case 1:
+                    left = new Animation("res/images/animations/Stein.png", 0.04, 22, 0, false);
+                    break;
+                case 2:
+                    left = new Animation("res/images/animations/Papier.png", 0.04, 22, 0, false);
+                    break;
+                case 3:
+                    left = new Animation("res/images/animations/Schere.png", 0.04, 22, 0, false);
+                    break;
+            }
+            display.getActivePanel().drawObjectOnPanel(left);
+
+            switch (choosePlayerRight) {
+
+                case 1:
+                    right = new Animation("res/images/animations/Stein-rechts.png", 0.04, 22, 0, false);
+                    break;
+                case 2:
+                    right = new Animation("res/images/animations/Papier-rechts.png", 0.04, 22, 0, false);
+                    break;
+                case 3:
+                    right = new Animation("res/images/animations/Schere-rechts.png", 0.04, 22, 0, false);
+                    break;
+            }
+            display.getActivePanel().drawObjectOnPanel(right);
+
+            playAnimation = true;
         }
 
         @Override
@@ -177,14 +189,28 @@ import java.awt.image.BufferedImage;
 
         public void setChoose(int clientID, int choose) {
 
-            System.out.println(clientID + " - " + choose);
+                //Damit man sich selbst immer links sieht
+            if(gameClient.getData().isSpectator()) {
 
-            if(clientID == gameClient.getData().getClientID()) {
+                if(gameClient.getData().getClientID() == clientID) {
 
-                myChoose = choose;
-            } else {
+                    choosePlayerLeft = choose;
+                } else {
 
-                opponent = choose;
+                    choosePlayerRight = choose;
+                }
+            }
+
+                //Damit einen die Spectator sehen können
+            else if(gameClient.getConnectedPlayers().get(0) != null && gameClient.getConnectedPlayers().get(1) != null) {
+
+                if(clientID == gameClient.getConnectedPlayers().get(0).getClientID()) {
+
+                    choosePlayerLeft = choose;
+                } else if(clientID == gameClient.getConnectedPlayers().get(1).getClientID()) {
+
+                    choosePlayerRight = choose;
+                }
             }
         }
 

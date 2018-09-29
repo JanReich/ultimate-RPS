@@ -1,5 +1,7 @@
 package main;
 
+import gamePackage.client.GameClient;
+import gamePackage.client.OnlineMenu;
 import gamePackage.client.menu.MenuController;
 
 import graphics.Display;
