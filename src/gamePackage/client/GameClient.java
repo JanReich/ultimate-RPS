@@ -232,16 +232,15 @@ import java.util.Map;
 
                 for (int i = 0; i < connectedSpectators.size(); i++) {
 
+                    System.out.println(clientID + " - " + specID);
                     if(connectedSpectators.get(i) != null) {
 
+                        System.out.println("tset");
                         if (connectedSpectators.get(i).getSpectatorID() == specID) {
 
                             ClientData cData = new ClientData(connectedSpectators.get(i).getUsername(), false, connectedSpectators.get(i).isHost(), clientID, false);
                             connectedSpectators.remove(i);
                             connectedPlayers.put(i, cData);
-
-                            System.out.println("ToPlayer:" + i);
-
                         }
                     }
                 }
