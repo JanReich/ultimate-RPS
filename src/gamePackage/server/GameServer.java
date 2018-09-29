@@ -112,7 +112,7 @@ import java.util.Map;
                                             if(entry.getValue() != null) {
 
                                                 if (entry.getValue().isSpectator()) send(pClientIP, pClientPort, "JoinedSpectator: " + entry.getValue().getUsername() + ": " + entry.getValue().getSpectatorID() + ": " + entry.getValue().isHost());
-                                                else send(pClientIP, pClientPort, "JoinedPlayer: " + entry.getValue().getUsername() + ": " + entry.getValue().getClientID() + ": " + entry.getValue().isHost());
+                                                else send(pClientIP, pClientPort, "JoinedPlayer: " + entry.getValue().getUsername() + ": " + entry.getValue().getClientID() + ": " + entry.getValue().isHost() + ": " + entry.getValue().isReady());
                                             }
                                         }
                                     }

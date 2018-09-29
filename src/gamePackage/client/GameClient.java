@@ -80,7 +80,7 @@ import java.util.Map;
                     lobby.createSpectatorSlot(spectatorID, username);
             }
 
-                //Format - JoinedPlayer <username> <clientID> <host>
+                //Format - JoinedPlayer <username> <clientID> <host> <ready>
             if(pMessage.startsWith("JoinedPlayer: ")) {
 
                 String[] messages = pMessage.split(": ");
@@ -88,8 +88,9 @@ import java.util.Map;
                 String username = messages[1];
                 int clientID = Integer.parseInt(messages[2]);
                 boolean host = Boolean.parseBoolean(messages[3]);
+                boolean ready = Boolean.parseBoolean(messages[4]);
 
-                ClientData data = new ClientData(username, host, false, clientID, false);
+                ClientData data = new ClientData(username, host, false, clientID, ready);
                 connectedPlayers.put(clientID, data);
             }
 
