@@ -230,12 +230,12 @@ import java.util.Map;
                     data.setSpectator(false);
                 }
 
+                System.out.println("test");
+
                 for (int i = 0; i < connectedSpectators.size(); i++) {
 
-                    System.out.println(clientID + " - " + specID);
                     if(connectedSpectators.get(i) != null) {
 
-                        System.out.println("tset");
                         if (connectedSpectators.get(i).getSpectatorID() == specID) {
 
                             ClientData cData = new ClientData(connectedSpectators.get(i).getUsername(), false, connectedSpectators.get(i).isHost(), clientID, false);
