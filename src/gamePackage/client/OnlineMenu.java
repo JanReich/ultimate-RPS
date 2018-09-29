@@ -24,6 +24,13 @@ import java.awt.image.BufferedImage;
             private boolean canChoose;
             private boolean playAnimation;
 
+            /**
+             * 1 = Lose
+             * 2 = Win
+             */
+            private int winstateLeft;
+            private int winstateRight;
+
             private int scoreLeft;
             private int scoreRight;
             private String usernameLeft;
@@ -38,12 +45,14 @@ import java.awt.image.BufferedImage;
 
                 //Buttons
             private Button submit;
+            private BufferedImage win;
+            private BufferedImage lose;
             private BufferedImage stone;
             private BufferedImage paper;
-            private BufferedImage sissors;
-            private BufferedImage selectedstone;
+            private BufferedImage scissors;
+            private BufferedImage selectedStone;
             private BufferedImage selectedPaper;
-            private BufferedImage selectedSissors;
+            private BufferedImage selectedScissors;
 
             private Animation left;
             private Animation right;
@@ -62,12 +71,14 @@ import java.awt.image.BufferedImage;
 
             this.background = ImageHelper.getImage("res/images/Singleplayer/background.png");
 
+            this.win = ImageHelper.getImage("res/images/Singleplayer/win.png");
+            this.lose = ImageHelper.getImage("res/images/Singleplayer/lost.png");
             this.stone = ImageHelper.getImage("res/images/Singleplayer/stone.png");
             this.paper = ImageHelper.getImage("res/images/Singleplayer/paper.png");
-            this.sissors = ImageHelper.getImage("res/images/Singleplayer/scissor.png");
+            this.scissors = ImageHelper.getImage("res/images/Singleplayer/scissor.png");
             this.selectedPaper = ImageHelper.getImage("res/images/Singleplayer/paper-chosen.png");
-            this.selectedstone = ImageHelper.getImage("res/images/Singleplayer/stone-chosen.png");
-            this.selectedSissors = ImageHelper.getImage("res/images/Singleplayer/scissor-chosen.png");
+            this.selectedStone = ImageHelper.getImage("res/images/Singleplayer/stone-chosen.png");
+            this.selectedScissors = ImageHelper.getImage("res/images/Singleplayer/scissor-chosen.png");
 
             submit = new Button(420, 450, 150, 80, "res/images/menu/buttons/submit", true);
             left = new Animation("res/images/animations/Stein.png", 0.04, 22, 0, false);
@@ -108,16 +119,32 @@ import java.awt.image.BufferedImage;
 
             if(!gameClient.getData().isSpectator()) {
 
-                if(currentChoose == 1) draw.drawImage(selectedstone, 430, 300, 128, 128);
+                if(currentChoose == 1) draw.drawImage(selectedStone, 430, 300, 128, 128);
                 else draw.drawImage(stone, 430, 300, 128, 128);
 
                 if(currentChoose == 2) draw.drawImage(selectedPaper, 560, 300, 128, 128);
                 else draw.drawImage(paper, 560, 300, 128, 128);
 
-                if(currentChoose == 3) draw.drawImage(selectedSissors, 300, 300, 128, 128);
-                else draw.drawImage(sissors, 300, 300, 128, 128);
+                if(currentChoose == 3) draw.drawImage(selectedScissors, 300, 300, 128, 128);
+                else draw.drawImage(scissors, 300, 300, 128, 128);
 
                 if(canChoose) draw.drawButton(submit);
+            }
+
+            if(winstateLeft == 1) {
+
+                draw.drawImage(lose, 200, 200, 200);
+            } else if(winstateLeft == 2) {
+
+                draw.drawImage(win, 200, 200, 200);
+            }
+
+            if(winstateRight == 1) {
+
+                draw.drawImage(lose, 200, 200, 200);
+            } else if(winstateRight == 2) {
+
+                draw.drawImage(win, 200, 200, 200);
             }
 
             if(right.isFinished() || left.isFinished()) {
@@ -139,8 +166,8 @@ import java.awt.image.BufferedImage;
             draw.drawString(usernameLeft, 10, 730);
             draw.drawString(usernameRight, 765, 730);
 
-            draw.drawString("Score: ", 450, 10);
-            draw.drawString(scoreLeft + " : " + scoreRight, 400, 60);
+            draw.drawString("Score: ", 435, 10);
+            draw.drawString(scoreLeft + " : " + scoreRight, 440, 80);
 
                 //Button's ausgrauen
             if(!canChoose) {
@@ -236,10 +263,21 @@ import java.awt.image.BufferedImage;
                 scoreRight ++;
             }
 
-            currentChoose = 0;
-            choosePlayerLeft = 0;
-            choosePlayerRight = 0;
-            canChoose = true;
+            if(scoreLeft == 3) {
+
+                winstateLeft = 2;
+                winstateRight = 1;
+            } else if(scoreRight == 3) {
+
+                winstateLeft = 1;
+                winstateRight = 2;
+            } else {
+
+                currentChoose = 0;
+                choosePlayerLeft = 0;
+                choosePlayerRight = 0;
+                canChoose = true;
+            }
         }
 
         @Override
