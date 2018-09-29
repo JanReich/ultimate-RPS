@@ -14,6 +14,7 @@ import java.util.ArrayList;
     public class Lobby extends Menu {
 
                 //Attribute
+            private double countdown;
             private double errorTime;
             private boolean readyPlayer1;
             private boolean readyPlayer2;
@@ -162,6 +163,17 @@ import java.util.ArrayList;
                 draw.drawString(slots.get(i).getName(), slots.get(i).getX() + 22, slots.get(i).getY() + 30);
                 draw.drawButton(slots.get(i).getKick());
             }
+
+            if(countdown >= 0) {
+
+                draw.setColour(Color.RED);
+                draw.setFont(new Font("Verdana", Font.BOLD, 400));
+                if(countdown != 0) draw.drawString((int) countdown + "", 200, 620);
+                else {
+                    draw.setFont(new Font("Verdana", Font.BOLD, 100));
+                    draw.drawString("Start", 200, 200);
+                }
+            }
         }
 
         @Override
@@ -171,6 +183,7 @@ import java.util.ArrayList;
             if(gameClient.getConnectedPlayers().get(1) != null) readyPlayer2 = gameClient.getConnectedPlayers().get(1).isReady();
 
             if(errorTime > 0) errorTime -= dt;
+            if(countdown > 0) countdown -= dt;
 
             if(readyPlayer1) {
 
@@ -277,6 +290,11 @@ import java.util.ArrayList;
                     slots.remove(i);
                 }
             }
+        }
+
+        public void setCountdown(int countdown) {
+
+            this.countdown = countdown;
         }
 
         private class SpectatorSlot {

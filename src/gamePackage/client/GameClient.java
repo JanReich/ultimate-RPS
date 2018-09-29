@@ -76,7 +76,8 @@ import java.util.Map;
 
                 ClientData data = new ClientData(username, true, host, spectatorID);
                 connectedSpectators.put(spectatorID, data);
-                lobby.createSpectatorSlot(spectatorID, username);
+                if(lobby != null)
+                    lobby.createSpectatorSlot(spectatorID, username);
             }
 
                 //Format - JoinedPlayer <username> <clientID> <host>
@@ -140,6 +141,11 @@ import java.util.Map;
                         display.getActivePanel().drawObjectOnPanel(menu);
                     }
                 }
+            }
+
+            if(pMessage.startsWith("StartCountdown: ")) {
+
+
             }
 
             if(pMessage.startsWith("PlayerDisconnect: ")) {

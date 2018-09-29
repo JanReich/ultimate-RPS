@@ -11,6 +11,7 @@ import java.util.Map;
 
                 //Attribute
             private boolean started;
+            private boolean countdown;
 
             private int playerCount;
             private int spectatorCount;
@@ -84,7 +85,7 @@ import java.util.Map;
                                             clients.put(pClientIP, new ClientData(pClientIP, pClientPort, username, spectator, host));
                                             clients.get(pClientIP).setSpectatorID(spectatorID);
                                             System.out.println("[Server] Client \"" + username + "\" hat sich mit dem Server als Spectator verbunden!");
-                                            send(pClientIP, pClientPort, "RegisterSuccessful: " + spectatorID);
+                                            send(pClientIP, pClientPort, "RegisterSuccessful: " + spectatorID + ": " + started);
                                             sendToAll("JoinedSpectator: " + username + ": " + spectatorID + ": " + host);
                                         } else send(pClientIP, pClientPort, "Disconnect: Server full");
                                     }
@@ -98,7 +99,7 @@ import java.util.Map;
                                             int userClientID = generateClientID(pClientIP);
                                             clients.put(pClientIP, new ClientData(pClientIP, pClientPort, host, username, userClientID));
                                             System.out.println("[Server] Client \"" + username + "\" hat sich mit dem Server als Spieler verbunden!");
-                                            send(pClientIP, pClientPort, "RegisterSuccessful: " + userClientID);
+                                            send(pClientIP, pClientPort, "RegisterSuccessful: " + userClientID + ": " + started);
                                             sendToAll("JoinedPlayer: " + username + ": " + userClientID + ": " + host);
                                         }
                                     }
@@ -108,8 +109,11 @@ import java.util.Map;
 
                                         if(!entry.getKey().equalsIgnoreCase(pClientIP)) {
 
-                                            if(entry.getValue().isSpectator()) send(pClientIP, pClientPort, "JoinedSpectator: " + entry.getValue().getUsername() + ": " + entry.getValue().getSpectatorID() + ": " + entry.getValue().isHost());
-                                            else send(pClientIP, pClientPort, "JoinedPlayer: " + entry.getValue().getUsername() + ": " + entry.getValue().getClientID() + ": " + entry.getValue().isHost());
+                                            if(entry.getValue() != null) {
+
+                                                if (entry.getValue().isSpectator()) send(pClientIP, pClientPort, "JoinedSpectator: " + entry.getValue().getUsername() + ": " + entry.getValue().getSpectatorID() + ": " + entry.getValue().isHost());
+                                                else send(pClientIP, pClientPort, "JoinedPlayer: " + entry.getValue().getUsername() + ": " + entry.getValue().getClientID() + ": " + entry.getValue().isHost());
+                                            }
                                         }
                                     }
                                 } else send(pClientIP, pClientPort, "Disconnect: Game Already started");
@@ -149,8 +153,8 @@ import java.util.Map;
 
                     if(players == readyPlayers) {
 
-                        started = true;
-                        sendToAll("StartGame: ");
+                        countdown = true;
+                        sendToAll("StartCountdown: ");
                     }
                 }
             }
@@ -245,6 +249,7 @@ import java.util.Map;
                                         sendToAll("PlayerDisconnect: " + i);
                                         if(started) {
 
+                                            started = false;
                                             sendToAll("BackToMenu: ");
                                         }
                                     }

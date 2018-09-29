@@ -305,7 +305,7 @@ import java.awt.image.BufferedImage;
         @Override
         public void mouseReleased(MouseEvent event) {
 
-            if(this.canChoose && winstateRight != 1 || winstateRight != 2) {
+            if(this.canChoose && (winstateRight != 1 || winstateRight != 2)) {
 
                 if (isInside(event, 430, 300, 128, 128)) {
 
