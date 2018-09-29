@@ -190,6 +190,7 @@ import java.util.Map;
             if(pMessage.startsWith("StartGame: ")) {
 
                 lobby.remove();
+                data.setReady(false);
                 for (int i = 0; i < connectedSpectators.size(); i++) {
 
                     lobby.removeSpectatorSlot(connectedPlayers.get(i).getSpectatorID());
