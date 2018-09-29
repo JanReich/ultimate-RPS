@@ -74,7 +74,7 @@ import java.util.Map;
                 String[] messages = pMessage.split(": ");
                 int specID = Integer.parseInt(messages[1]);
 
-                lobby.createToSpectator(specID);
+                if(lobby != null) lobby.createToSpectator(specID);
             }
 
                 //Format - JoinedSpectator <username> <spectatorID> <host>
@@ -90,8 +90,7 @@ import java.util.Map;
 
                 ClientData data = new ClientData(username, true, host, spectatorID);
                 connectedSpectators.put(spectatorID, data);
-                if(lobby != null)
-                    lobby.createSpectatorSlot(spectatorID, username);
+                if(lobby != null) lobby.createSpectatorSlot(spectatorID, username);
 
                 send("GetAvailableSpectatorID: ");
             }
@@ -144,7 +143,8 @@ import java.util.Map;
 
                     if (clientID == data.getClientID()) {
 
-                        lobby.remove();
+                        if(lobby != null )lobby.remove();
+                        if(userInterface != null) userInterface.remove();
                         close();
                         KickedMenu menu = new KickedMenu(display);
                         display.getActivePanel().drawObjectOnPanel(menu);
@@ -154,7 +154,7 @@ import java.util.Map;
 
                     if(clientID == data.getSpectatorID()) {
 
-                        lobby.remove();
+                        if(lobby != null )lobby.remove();
                         close();
                         KickedMenu menu = new KickedMenu(display);
                         display.getActivePanel().drawObjectOnPanel(menu);
