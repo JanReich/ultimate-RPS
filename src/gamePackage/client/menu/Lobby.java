@@ -282,7 +282,7 @@ public class Lobby extends Menu {
 
                 if(gameClient.getData().isHost()) {
 
-                    if(gameClient.getConnectedPlayers().get(1) != null) {
+                    if(gameClient.getConnectedPlayers().get(0) != null) {
 
                         if(!gameClient.getConnectedPlayers().get(0).isHost()) {
 
@@ -314,7 +314,10 @@ public class Lobby extends Menu {
 
                         if(gameClient.getConnectedSpectators().get(slots.get(i).spectatorID) != null) {
 
-                            gameClient.kickSpectator(slots.get(i).getSpectatorID());
+                            if(gameClient.getConnectedSpectators().get(slots.get(i).spectatorID).isHost()) {
+
+                                gameClient.kickSpectator(slots.get(i).getSpectatorID());
+                            }
                         }
                     } else errorTime = 3;
                 }
