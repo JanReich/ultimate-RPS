@@ -190,7 +190,7 @@ import java.awt.image.BufferedImage;
         public void setChoose(int clientID, int choose) {
 
                 //Damit man sich selbst immer links sieht
-            if(gameClient.getData().isSpectator()) {
+            if(!gameClient.getData().isSpectator()) {
 
                 if(gameClient.getData().getClientID() == clientID) {
 
