@@ -241,7 +241,12 @@ import java.util.Map;
                                     if (clientIDs[i].equals(pClientIP)) {
 
                                         clientIDs[i] = null;
+
                                         sendToAll("PlayerDisconnect: " + i);
+                                        if(started) {
+
+                                            sendToAll("BackToMenu: ");
+                                        }
                                     }
                                 }
                             }
