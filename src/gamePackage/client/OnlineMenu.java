@@ -128,23 +128,23 @@ import java.awt.image.BufferedImage;
                 if(currentChoose == 3) draw.drawImage(selectedScissors, 300, 300, 128, 128);
                 else draw.drawImage(scissors, 300, 300, 128, 128);
 
-                if(canChoose && winstateRight != 1 || winstateRight != 2)  draw.drawButton(submit);
+                if(canChoose && (winstateRight != 1 || winstateRight != 2))  draw.drawButton(submit);
             }
 
             if(winstateLeft == 1) {
 
-                draw.drawImage(lose, 50, 150, 350);
+                draw.drawImage(lose, 35, 120, 350);
             } else if(winstateLeft == 2) {
 
-                draw.drawImage(win, 50, 150, 350);
+                draw.drawImage(win, 35, 120, 350);
             }
 
             if(winstateRight == 1) {
 
-                draw.drawImage(lose, 550, 150, 350);
+                draw.drawImage(lose, 680, 120, 350);
             } else if(winstateRight == 2) {
 
-                draw.drawImage(win, 550, 150, 350);
+                draw.drawImage(win, 680, 120, 350);
             }
 
             if(right.isFinished() || left.isFinished()) {
