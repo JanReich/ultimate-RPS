@@ -314,10 +314,7 @@ public class Lobby extends Menu {
 
                         if(gameClient.getConnectedSpectators().get(slots.get(i).spectatorID) != null) {
 
-                            if(gameClient.getConnectedSpectators().get(slots.get(i).spectatorID).isHost()) {
-
-                                gameClient.kickSpectator(slots.get(i).getSpectatorID());
-                            }
+                            gameClient.kickSpectator(slots.get(i).getSpectatorID());
                         }
                     } else errorTime = 3;
                 }
