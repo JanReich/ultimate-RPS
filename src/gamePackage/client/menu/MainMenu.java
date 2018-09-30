@@ -32,7 +32,7 @@ import java.awt.event.MouseEvent;
             display.getActivePanel().drawObjectOnPanel(singleplayerButton);
             this.duell = new Button(75, 600, 350, 85,"res/images/menu/buttons/duell-button", true);
             display.getActivePanel().drawObjectOnPanel(duell);
-            this.tournament = new Button(540, 600, 350, 85,"res/images/menu/buttons/tournament-button", true);
+            this.tournament = new Button(540, 600, 350, 85,"res/images/menu/buttons/tournamentw-button", true);
             display.getActivePanel().drawObjectOnPanel(tournament);
         }
 
@@ -79,11 +79,12 @@ import java.awt.event.MouseEvent;
             }
 
                 //Starte Tunier-Menü
-            else if(tournament.isClicked()) {
+            /*else if(tournament.isClicked()) {
 
                 controller.removeMainMenu();
                 controller.createNameMenu("tournament");
             }
+            */
         }
 
         @Override
