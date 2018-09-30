@@ -419,6 +419,8 @@ import java.util.Map;
 
                     lobby.createSpectatorSlot(entry.getValue().getSpectatorID(), entry.getValue().getUsername());
                 }
+
+                send("GetAvailableSpectatorID: ");
             }
         }
 
