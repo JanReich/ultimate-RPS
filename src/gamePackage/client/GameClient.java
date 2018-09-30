@@ -4,6 +4,8 @@ import abitur.netz.Client;
 import gamePackage.client.menu.CannotConnect;
 import gamePackage.client.menu.KickedMenu;
 import gamePackage.client.menu.Lobby;
+import gamePackage.client.menu.MainMenu;
+import gamePackage.client.menu.MenuController;
 import gamePackage.server.ClientData;
 import graphics.Display;
 
@@ -396,15 +398,15 @@ import java.util.Map;
         public void disconnect() {
 
             if(lobby != null) {
-
                 lobby.remove();
                 display.getActivePanel().removeObjectFromPanel(lobby);
             } else {
-
                 userInterface.remove();
                 display.getActivePanel().removeObjectFromPanel(userInterface);
             }
             close();
+            MenuController menu = new MenuController(display);
+            menu.createMainMenu();
         }
 
         public void backToLobby() {
