@@ -99,7 +99,7 @@ import java.util.Map;
                                             System.out.println("[Server] Client \"" + username + "\" hat sich mit dem Server als Spieler verbunden!");
                                             send(pClientIP, pClientPort, "RegisterSuccessful: " + userClientID + ": " + started);
                                             sendToAll("JoinedPlayer: " + username + ": " + userClientID + ": " + host + ": " + false);
-                                        }
+                                        } else send(pClientIP, pClientPort, "Disconnect: Server full");
                                     }
 
                                         //Den Clients übermitteln, welche Spieler und Spectaors bereits gejoint sind

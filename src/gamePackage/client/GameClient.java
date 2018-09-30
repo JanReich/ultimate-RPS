@@ -1,6 +1,7 @@
 package gamePackage.client;
 
 import abitur.netz.Client;
+import gamePackage.client.menu.CannotConnect;
 import gamePackage.client.menu.KickedMenu;
 import gamePackage.client.menu.Lobby;
 import gamePackage.server.ClientData;
@@ -326,6 +327,8 @@ import java.util.Map;
 
             if(pMessage.startsWith("Disconnect: ")) {
 
+                CannotConnect cannotConnect = new CannotConnect(display);
+                display.getActivePanel().drawObjectOnPanel(cannotConnect);
                 System.err.println(pMessage);
             }
         }
