@@ -150,10 +150,9 @@ import java.util.Map;
                     }
                 } else if(pMessage.startsWith("KickSpectator: ")) {
 
-
+                    lobby.removeSpectatorSlot(clientID);
                     if(clientID == data.getSpectatorID()) {
 
-                        lobby.removeSpectatorSlot(clientID);
                         if(lobby != null )lobby.remove();
                         close();
                         KickedMenu menu = new KickedMenu(display);
