@@ -148,7 +148,7 @@ public class Lobby extends Menu {
 
                     if(gameClient.getConnectedPlayers().get(0) == null) draw.drawImage(notPlayerLaser1, 49, 265, 278, 109);
                     else if(gameClient.getConnectedPlayers().get(0).isReady()) draw.drawImage(playerLaser1, 49, 265, 278, 109);
-                    else draw.drawImage(playerLaser1, 49, 265, 278, 109);
+                    else draw.drawImage(notPlayerLaser1, 49, 265, 278, 109);
                 }
                 if(gameClient.getConnectedPlayers().get(1) == null) {
 
@@ -161,7 +161,7 @@ public class Lobby extends Menu {
                 else {
 
                     if(gameClient.getConnectedPlayers().get(1) == null) draw.drawImage(notPlayerLaser2, 348, 600, 278, 109);
-                    else if(gameClient.getConnectedPlayers().get(0).isReady()) draw.drawImage(playerLaser2, 348, 600, 278, 109);
+                    else if(gameClient.getConnectedPlayers().get(1).isReady()) draw.drawImage(playerLaser2, 348, 600, 278, 109);
                     else draw.drawImage(notPlayerLaser2, 348, 600, 278, 109);
                 }
             } else {
@@ -169,10 +169,10 @@ public class Lobby extends Menu {
                     //draw PlayerLaser
                 if(gameClient.getConnectedPlayers().get(0) == null) draw.drawImage(notPlayerLaser1, 49, 265, 278, 109);
                 else if(gameClient.getConnectedPlayers().get(0).isReady()) draw.drawImage(playerLaser1, 49, 265, 278, 109);
-                else draw.drawImage(playerLaser1, 49, 265, 278, 109);
+                else draw.drawImage(notPlayerLaser1, 49, 265, 278, 109);
 
                 if(gameClient.getConnectedPlayers().get(1) == null) draw.drawImage(notPlayerLaser2, 348, 600, 278, 109);
-                else if(gameClient.getConnectedPlayers().get(0).isReady()) draw.drawImage(playerLaser2, 348, 600, 278, 109);
+                else if(gameClient.getConnectedPlayers().get(1).isReady()) draw.drawImage(playerLaser2, 348, 600, 278, 109);
                 else draw.drawImage(notPlayerLaser2, 348, 600, 278, 109);
             }
 
