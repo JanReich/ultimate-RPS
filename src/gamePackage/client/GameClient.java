@@ -12,7 +12,6 @@ import java.util.Map;
     public class GameClient extends Client {
 
                 //Attribute
-            private boolean temp;
 
                 //Referenzen
             private Lobby lobby;
@@ -201,6 +200,15 @@ import java.util.Map;
 
                 lobby.remove();
                 data.setReady(false);
+
+                for(Map.Entry<Integer, ClientData> entry : connectedPlayers.entrySet()) {
+
+                    if(entry.getValue() != null) {
+
+                        entry.getValue().setReady(false);
+                    }
+                }
+
                 for(Map.Entry<Integer, ClientData> entry : connectedSpectators.entrySet()) {
 
                     if(entry.getValue() != null) {
@@ -211,6 +219,27 @@ import java.util.Map;
 
                 userInterface = new Userinterface(display, this);
                 display.getActivePanel().drawObjectOnPanel(userInterface);
+            }
+
+                //Format - isIdAvailable: <type> <boolean> <ID> <currentID>
+            if(pMessage.startsWith("isIdAvailable: ")) {
+
+                String[] messages = pMessage.split(": ");
+                String type = messages[1];
+                boolean available = Boolean.parseBoolean(messages[2]);
+                int id = Integer.parseInt(messages[3]);
+                int currentID = Integer.parseInt(messages[4]);
+
+                if(available) {
+
+                    if(type.equalsIgnoreCase("spec")) {
+
+                        send("ToSpectator: " + currentID + ": " + id);
+                    } else if(type.equalsIgnoreCase("player")) {
+
+                        send("ToPlayer: " + currentID + ": " + id);
+                    }
+                }
             }
 
                 //Format - ToPlayer: <SpecID> <ClientID>
@@ -250,8 +279,7 @@ import java.util.Map;
                 int specID = Integer.parseInt(messages[2]);
                 int clientID = Integer.parseInt(messages[1]);
 
-                lobby.removeSpectatorSlot(specID);
-
+                lobby.removeToSpectator(specID);
 
                 for(Map.Entry<Integer, ClientData> entry : connectedPlayers.entrySet()) {
 
@@ -273,11 +301,10 @@ import java.util.Map;
                                 data.setSpectator(true);
                                 data.setSpectatorID(specID);
                             }
-
-                            send("GetAvailableSpectatorID: ");
                         }
                     }
                 }
+                send("GetAvailableSpectatorID: ");
             }
 
             if(pMessage.startsWith("SpecBackToLobby: ")) {
@@ -355,12 +382,12 @@ import java.util.Map;
 
         public void playerToSpectator(int clientID, int specID) {
 
-            send("ToSpectator: " + clientID + ": " + specID);
+            send("isIdAvailable: spec: " + specID + ": " + clientID);
         }
 
-        public void spectatorToPlayer(int spectatorID, int playerID) {
+        public void spectatorToPlayer(int specID, int clientID) {
 
-            send("ToPlayer: " + spectatorID + ": " + playerID);
+            send("isIdAvailable: player: " + clientID + ": " + specID);
         }
 
         public void disconnect() {

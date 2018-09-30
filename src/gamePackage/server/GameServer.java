@@ -21,7 +21,6 @@ import java.util.Map;
             private final boolean spectatingAllowed;
 
                 //Referenzen
-            private int[] active;
             private String gameType;
             private List<String> names;
             private String[] clientIDs;
@@ -40,7 +39,6 @@ import java.util.Map;
 
             this.names = new ArrayList<>();
             this.clients = new HashMap<>();
-            this.active = new int[maxPlayers];
             this.clientIDs = new String[maxPlayers];
             this.spectatorIDs = new String[maxSpectators];
         }
@@ -191,6 +189,25 @@ import java.util.Map;
             else if(pMessage.startsWith("KickPlayer: ") || pMessage.startsWith("KickSpectator: ")) {
 
                 sendToAll(pMessage);
+            }
+
+
+                //Format - isIdAvailable: <type> <ID> <currentID> || type = spec or player
+            else if(pMessage.startsWith("isIdAvailable: ")) {
+
+                String[] messages = pMessage.split(": ");
+
+                String type = messages[1];
+                int id = Integer.parseInt(messages[2]);
+                int currentID = Integer.parseInt(messages[3]);
+
+                if (type.equalsIgnoreCase("spec") && id != -1) {
+
+                    if (spectatorIDs[id] == null) send(pClientIP, pClientPort, "isIdAvailable: " + type + ": true: " + id + ": " + currentID);
+                } else if (type.equalsIgnoreCase("player") && id != -1) {
+
+                    if (clientIDs[id] == null) send(pClientIP, pClientPort, "isIdAvailable: " + type + ": true: " + id + ": " + currentID);
+                }
             }
 
             else if(pMessage.startsWith("GetAvailableSpectatorID: ")) {
