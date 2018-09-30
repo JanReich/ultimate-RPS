@@ -153,7 +153,7 @@ import java.util.Map;
 
                     if(clientID == data.getSpectatorID()) {
 
-                        if(lobby != null) lobby.removeSpectatorSlot(clientID);
+                        lobby.removeSpectatorSlot(clientID);
                         if(lobby != null )lobby.remove();
                         close();
                         KickedMenu menu = new KickedMenu(display);
