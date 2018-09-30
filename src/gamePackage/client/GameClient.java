@@ -304,6 +304,7 @@ import java.util.Map;
                         }
                     }
                 }
+                send("GetAvailableSpectatorID: ");
             }
 
             if(pMessage.startsWith("SpecBackToLobby: ")) {
