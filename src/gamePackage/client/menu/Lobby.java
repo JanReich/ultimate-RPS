@@ -52,9 +52,9 @@ public class Lobby extends Menu {
 
             //DisconnectButton
             if(gameClient.getData().isHost())
-                disconnect = new Button(683, 810, 240, 60, "res/images/menu/buttons/disconect", true);
+                disconnect = new Button(683, 810, 240, 60, "res/images/menu/buttons/disconnect", true);
             else
-                disconnect = new Button(683, 810, 240, 60, "res/images/menu/buttons/disconect", true);
+                disconnect = new Button(683, 810, 240, 60, "res/images/menu/buttons/close-server", true);
             display.getActivePanel().drawObjectOnPanel(disconnect);
         }
 
