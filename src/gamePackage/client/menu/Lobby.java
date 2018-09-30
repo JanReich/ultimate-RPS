@@ -27,6 +27,8 @@ public class Lobby extends Menu {
             private ToSpecSlot toSpecSlot;
             private BufferedImage playerLaser1;
             private BufferedImage playerLaser2;
+            private BufferedImage notPlayerLaser1;
+            private BufferedImage notPlayerLaser2;
 
             private ArrayList<SpectatorSlot> slots;
 
@@ -69,6 +71,8 @@ public class Lobby extends Menu {
                 //PlayerLaser
             playerLaser1 = ImageHelper.getImage("res/images/lobby/player-laser1.png");
             playerLaser2 = ImageHelper.getImage("res/images/lobby/player-laser2.png");
+            notPlayerLaser1 = ImageHelper.getImage("res/images/lobby/player-notlaser1.png");
+            notPlayerLaser2 = ImageHelper.getImage("res/images/lobby/player-notlaser2.png");
                 //ReadyButton's
             ready1 = new Button(329 , 289 ,79, 26, "res/images/lobby/ready-button", true);
             ready2 = new Button(267 , 625 ,79, 26, "res/images/lobby/ready-button", true);
@@ -140,7 +144,12 @@ public class Lobby extends Menu {
                     }
                     draw.drawButton(playerClickToJoin1);
                 }
-                else draw.drawImage(playerLaser1, 49, 265, 278, 109);
+                else {
+
+                    if(gameClient.getConnectedPlayers().get(0) == null) draw.drawImage(notPlayerLaser1, 49, 265, 278, 109);
+                    else if(gameClient.getConnectedPlayers().get(0).isReady()) draw.drawImage(playerLaser1, 49, 265, 278, 109);
+                    else draw.drawImage(playerLaser1, 49, 265, 278, 109);
+                }
                 if(gameClient.getConnectedPlayers().get(1) == null) {
 
                     if(!display.getActivePanel().contains(playerClickToJoin2)) {
@@ -149,12 +158,22 @@ public class Lobby extends Menu {
                     }
                     draw.drawButton(playerClickToJoin2);
                 }
-                else draw.drawImage(playerLaser2, 348, 600, 278, 109);
+                else {
+
+                    if(gameClient.getConnectedPlayers().get(1) == null) draw.drawImage(notPlayerLaser2, 348, 600, 278, 109);
+                    else if(gameClient.getConnectedPlayers().get(0).isReady()) draw.drawImage(playerLaser2, 348, 600, 278, 109);
+                    else draw.drawImage(notPlayerLaser2, 348, 600, 278, 109);
+                }
             } else {
 
                     //draw PlayerLaser
-                draw.drawImage(playerLaser1, 49, 265, 278, 109);
-                draw.drawImage(playerLaser2, 348, 600, 278, 109);
+                if(gameClient.getConnectedPlayers().get(0) == null) draw.drawImage(notPlayerLaser1, 49, 265, 278, 109);
+                else if(gameClient.getConnectedPlayers().get(0).isReady()) draw.drawImage(playerLaser1, 49, 265, 278, 109);
+                else draw.drawImage(playerLaser1, 49, 265, 278, 109);
+
+                if(gameClient.getConnectedPlayers().get(1) == null) draw.drawImage(notPlayerLaser2, 348, 600, 278, 109);
+                else if(gameClient.getConnectedPlayers().get(0).isReady()) draw.drawImage(playerLaser2, 348, 600, 278, 109);
+                else draw.drawImage(notPlayerLaser2, 348, 600, 278, 109);
             }
 
             if(gameClient != null) {

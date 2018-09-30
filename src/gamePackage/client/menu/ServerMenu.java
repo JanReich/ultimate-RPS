@@ -346,7 +346,7 @@ import java.net.Socket;
                     }
                 }
 
-                if(config.isSlot1()) {
+                if(config.isSlot1() && slot1 != null) {
 
                     if (slot1.getJoin().isClicked()) {
 
@@ -359,13 +359,14 @@ import java.net.Socket;
                         slot1 = null;
                     }
 
-                    if(slot1.getSpectate().isClicked()) {
+                    if(slot1 != null)
+                        if(slot1.getSpectate().isClicked()) {
 
                         connect(config.getServerIP1(), config.getServerPort1(), true);
-                    }
+                        }
                 }
 
-                if(config.isSlot2()) {
+                if(config.isSlot2() && slot2 != null) {
 
                     if (slot2.getJoin().isClicked()) {
 
@@ -378,13 +379,14 @@ import java.net.Socket;
                         slot2 = null;
                     }
 
-                    if(slot2.getSpectate().isClicked()) {
+                    if(slot2 != null)
+                        if(slot2.getSpectate().isClicked()) {
 
                         connect(config.getServerIP2(), config.getServerPort2(), true);
-                    }
+                        }
                 }
 
-                if(config.isSlot3()) {
+                if(config.isSlot3() && slot3 != null) {
 
                     if (slot3.getJoin().isClicked()) {
 
@@ -397,13 +399,14 @@ import java.net.Socket;
                         slot3 = null;
                     }
 
-                    if(slot3.getSpectate().isClicked()) {
+                    if(slot3 != null)
+                        if(slot3.getSpectate().isClicked()) {
 
-                        connect(config.getServerIP3(), config.getServerPort3(), true);
-                    }
+                            connect(config.getServerIP3(), config.getServerPort3(), true);
+                        }
                 }
 
-                if(config.isSlot4()) {
+                if(config.isSlot4() && slot4 != null) {
 
                     if (slot4.getJoin().isClicked()) {
 
@@ -415,11 +418,11 @@ import java.net.Socket;
                         removeServerSlot(slot4, 4);
                         slot4 = null;
                     }
+                    if(slot4 != null)
+                        if(slot4.getSpectate().isClicked()) {
 
-                    if(slot4.getSpectate().isClicked()) {
-
-                        connect(config.getServerIP4(), config.getServerPort4(), true);
-                    }
+                            connect(config.getServerIP4(), config.getServerPort4(), true);
+                        }
                 }
 
                 /**
