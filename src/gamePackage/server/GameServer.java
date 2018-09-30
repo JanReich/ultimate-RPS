@@ -69,7 +69,7 @@ import java.util.Map;
 
                         if(!(!spectatingAllowed && spectator)) {
 
-                            if(!names.contains(userGameType)) {
+                            if(!names.contains(username)) {
 
                                 if(!started || spectator) {
 
