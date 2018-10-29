@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
             messages = new ArrayList<>();
 
-            processNewMessage("Jan", "Dave stinkt");
+
         }
 
         public void processNewMessage(String username, String message) {
