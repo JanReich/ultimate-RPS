@@ -63,20 +63,22 @@ import java.awt.event.MouseEvent;
         @Override
         public void update(double dt) {
 
-            if(singleplayerButton.isClicked()) {
+            if(singleplayerButton != null)
+                if(singleplayerButton.isClicked()) {
 
-                    //Starte den Singleplayer-Modus
-                display.getActivePanel().removeObjectFromPanel(controller);
-                controller.removeMainMenu();
-                controller.createSingleplayer();
-            }
+                        //Starte den Singleplayer-Modus
+                    display.getActivePanel().removeObjectFromPanel(controller);
+                    controller.removeMainMenu();
+                    controller.createSingleplayer();
+                }
 
                 //Starte MultiMenu
-            else if(duell.isClicked()) {
+            if(duell != null)
+                if(duell.isClicked()) {
 
-                controller.removeMainMenu();
-                controller.createNameMenu("duell");
-            }
+                    controller.removeMainMenu();
+                    controller.createNameMenu("duell");
+                }
 
                 //Starte Tunier-Menü
             /*else if(tournament.isClicked()) {

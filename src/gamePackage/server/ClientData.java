@@ -9,6 +9,7 @@ package gamePackage.server;
             private int spectatorID;
             private String username;
             private String clientIP;
+            private String publicKey;
             private boolean spectator;
 
             private boolean ready;
@@ -68,6 +69,16 @@ package gamePackage.server;
             this.username = username;
         }
 
+        public String getPublicKey() {
+
+            return publicKey;
+        }
+
+        public void setPublicKey(String publicKey) {
+
+            this.publicKey = publicKey;
+        }
+
         public int getPort() {
 
             return port;
@@ -116,6 +127,11 @@ package gamePackage.server;
         public boolean isReady() {
 
             return ready;
+        }
+
+        public String getClientIP() {
+
+            return clientIP;
         }
 
         public void setReady(boolean ready) {

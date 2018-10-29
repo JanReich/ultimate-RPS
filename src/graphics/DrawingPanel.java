@@ -5,45 +5,49 @@ import graphics.interfaces.*;
 import toolBox.DrawHelper;
 
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
 public class DrawingPanel extends Panel implements KeyListener, MouseListener, MouseMotionListener {
 
-            //Attribute
-        private int fps;
-        private int frames;
-        private double delta;
+    //Attribute
+    private int fps;
+    private int frames;
+    private double delta;
 
-        private long lastLoop;
-        private long firstFrame;
-        private long elapsedTime;
-        private long currentFrame;
+    private long lastLoop;
+    private long firstFrame;
+    private long elapsedTime;
+    private long currentFrame;
 
-        private boolean requested;
+    private boolean requested;
 
-            //Referenzen
-        private Timer time;
-        private DisplayConfig config;
-        private DrawHelper drawHelper;
+    //Referenzen
+    private Timer time;
+    private DisplayConfig config;
+    private DrawHelper drawHelper;
 
-        private ArrayList<TimeBasedObject> timeBasedObjects;
-        private ArrayList<GraphicalObject> graphicalObjects;
-        private ArrayList<ManagementObject> managementObjects;
+    // Integer = zIndex && BasicInterface == Object
+    private Map<GraphicalObject, Integer> graphicalObjects;
+    private ArrayList<ManagementObject> managementObjects;
 
     public DrawingPanel(DisplayConfig config) {
 
         this.config = config;
-        timeBasedObjects = new ArrayList<>();
-        graphicalObjects = new ArrayList<>();
         managementObjects = new ArrayList<>();
+        this.graphicalObjects = new HashMap<>();
 
         setDoubleBuffered(true);
 
         time = new Timer(10, this);
         time.start();
+    }
+
+    public void addManagement(ManagementObject obj) {
+
+        managementObjects.add(obj);
     }
 
     public void paintComponent(Graphics g) {
@@ -61,17 +65,35 @@ public class DrawingPanel extends Panel implements KeyListener, MouseListener, M
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-            //ANTIALIASING einschalten
+        //ANTIALIASING einschalten
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-            //Graphics setzen oder updaten
+        //Graphics setzen oder updaten
         if(!(drawHelper != null)) drawHelper = new DrawHelper(g2d);
         else drawHelper.updateGraphics(g2d);
 
         drawHelper.setScreenWidth(getWidth());
         drawHelper.setScreenHeight(getHeight());
 
-            //FPS-Settings
+        //Updating Frame
+        if(graphicalObjects != null) {
+
+            for(Map.Entry<GraphicalObject, Integer> entrySet : graphicalObjects.entrySet()) {
+
+                if(entrySet.getValue() != null) {
+
+                    entrySet.getKey().draw(drawHelper);
+                    entrySet.getKey().update(delta / 1000);
+                } else System.err.println("[Error] Es wird versucht ein Objekt == null zuzeichnen");
+            }
+
+            for(ManagementObject obj : managementObjects) {
+
+                obj.update(delta / 1000);
+            }
+        }
+
+        //FPS-Settings
         frames++;
         currentFrame = System.currentTimeMillis();
         if(currentFrame > firstFrame + 1000) {
@@ -87,40 +109,13 @@ public class DrawingPanel extends Panel implements KeyListener, MouseListener, M
             g2d.setFont(new Font("", Font.BOLD, 24));
             g2d.drawString("FPS: " + fps, 5, 24);
         }
-
-            //Updating Frame
-        Iterator<GraphicalObject> iterator = graphicalObjects.iterator();
-        while (iterator.hasNext()) {
-
-            GraphicalObject gObject = iterator.next();
-
-            if(gObject != null) {
-
-                gObject.draw(drawHelper);
-                gObject.update(delta / 1000);
-            } else System.err.println("[Error] Es wird versucht ein Objekt == null zuzeichnen");
-        }
-
-        Iterator<ManagementObject> mIterator = managementObjects.iterator();
-        while (mIterator.hasNext()) {
-
-            ManagementObject mObject = mIterator.next();
-            mObject.update(delta / 1000);
-        }
-
-        Iterator<TimeBasedObject> tIterator = timeBasedObjects.iterator();
-        while (tIterator.hasNext()) {
-
-            TimeBasedObject tObject = tIterator.next();
-            tObject.update(delta / 1000);
-        }
-
     }
 
     public boolean contains(Object o) {
 
-        if(graphicalObjects.contains(o)) return true; return false;
+        if(graphicalObjects.containsKey(o)) return true; return false;
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -132,38 +127,66 @@ public class DrawingPanel extends Panel implements KeyListener, MouseListener, M
         repaint();
     }
 
+    public boolean containsObject(GraphicalObject object) {
 
-
-    public void drawObjectOnPanel(GraphicalObject gObject) {
-
-        SwingUtilities.invokeLater(() -> graphicalObjects.add(gObject));
+        if(graphicalObjects.containsValue(object)) return true; return false;
     }
 
-    public void addManagement(ManagementObject mObject) {
+    public void drawObjectOnPanel(GraphicalObject object) {
 
-        SwingUtilities.invokeLater(() -> managementObjects.add(mObject));
+        drawObjectOnPanel(object, 1);
     }
 
-    public void addTimeBasedObject(TimeBasedObject tObject) {
+    public void drawObjectOnPanel(GraphicalObject object, int zIndex) {
 
-        SwingUtilities.invokeLater(() -> timeBasedObjects.add(tObject));
+        SwingUtilities.invokeLater(() -> graphicalObjects.put(object, zIndex));
+        graphicalObjects = sortHashMap(graphicalObjects);
     }
 
     public void removeObjectFromPanel(Object object) {
 
         if(object != null) {
 
-            if(object instanceof GraphicalObject || object instanceof BasicInteractableObject || object instanceof AdvancedInteractableObject) {
+            if(graphicalObjects.containsKey(object)) {
 
-                if(graphicalObjects.contains(object)) SwingUtilities.invokeLater(() -> graphicalObjects.remove(object));
-            } else if(object instanceof ManagementObject) {
+                if(graphicalObjects.containsKey(object)) SwingUtilities.invokeLater(() -> graphicalObjects.remove(object));
+                graphicalObjects = sortHashMap(graphicalObjects);
+            } else if(managementObjects.contains(object)) {
 
-                if(managementObjects.contains(object)) SwingUtilities.invokeLater(() -> managementObjects.remove(object));
-            } else if(object instanceof TimeBasedObject) {
-
-                if(timeBasedObjects.contains(object)) SwingUtilities.invokeLater(() -> timeBasedObjects.remove(object));
-            } else throw new IllegalArgumentException("Du kannst nur Objekte vom Panel entfernen, die du vorher auch hinzugefügt hast!");
+                SwingUtilities.invokeLater(() -> managementObjects.remove(object));
+            }
         }
+    }
+
+    public int getZIndex(GraphicalObject object) {
+
+        return graphicalObjects.get(object);
+    }
+
+    public void setZIndex(GraphicalObject object, int index) {
+
+        if(graphicalObjects.containsKey(object)) {
+
+            graphicalObjects.put(object, index);
+            graphicalObjects = sortHashMap(graphicalObjects);
+        }
+    }
+
+    public Map<GraphicalObject, Integer> sortHashMap(Map<GraphicalObject, Integer> unsorted) {
+
+        Object[] objects = unsorted.entrySet().toArray();
+        Arrays.sort(objects, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                return ((Map.Entry<GraphicalObject, Integer>) o1).getValue().compareTo(((Map.Entry<GraphicalObject, Integer>) o2).getValue());
+            }
+        });
+
+        Map<GraphicalObject, Integer> map = new HashMap<>();
+        for (Object e : objects) {
+
+            map.put(((Map.Entry<GraphicalObject, Integer>) e).getKey(), ((Map.Entry<GraphicalObject, Integer>) e).getValue());
+        }
+        return map;
     }
 
 
@@ -175,73 +198,63 @@ public class DrawingPanel extends Panel implements KeyListener, MouseListener, M
     @Override
     public void keyPressed(KeyEvent e) {
 
-        Iterator<GraphicalObject> iterator = graphicalObjects.iterator();
-        while (iterator.hasNext()) {
+        for(Map.Entry<GraphicalObject, Integer> entry : graphicalObjects.entrySet()) {
 
-            GraphicalObject obj = iterator.next();
+            GraphicalObject obj = entry.getKey();
             if(obj instanceof BasicInteractableObject) {
 
                 ((BasicInteractableObject) obj).keyPressed(e);
             }
         }
 
-        Iterator<ManagementObject> mIterator = managementObjects.iterator();
-        while (mIterator.hasNext()) {
+        for(ManagementObject entry : managementObjects) {
 
-            ManagementObject obj = mIterator.next();
-            obj.keyPressed(e);
+            entry.keyPressed(e);
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
 
-        Iterator<GraphicalObject> iterator = graphicalObjects.iterator();
-        while (iterator.hasNext()) {
+        for(Map.Entry<GraphicalObject, Integer> entry : graphicalObjects.entrySet()) {
 
-            GraphicalObject obj = iterator.next();
+            GraphicalObject obj = entry.getKey();
             if(obj instanceof BasicInteractableObject) {
 
                 ((BasicInteractableObject) obj).keyReleased(e);
             }
         }
 
-        Iterator<ManagementObject> mIterator = managementObjects.iterator();
-        while (mIterator.hasNext()) {
+        for(ManagementObject entry : managementObjects) {
 
-            ManagementObject obj = mIterator.next();
-            obj.keyReleased(e);
+            entry.keyReleased(e);
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
 
-        Iterator<GraphicalObject> iterator = graphicalObjects.iterator();
-        while (iterator.hasNext()) {
+        for(Map.Entry<GraphicalObject, Integer> entry : graphicalObjects.entrySet()) {
 
-            GraphicalObject obj = iterator.next();
+            GraphicalObject obj = entry.getKey();
             if(obj instanceof BasicInteractableObject) {
 
                 ((BasicInteractableObject) obj).mouseReleased(e);
             }
         }
 
-        Iterator<ManagementObject> mIterator = managementObjects.iterator();
-        while (mIterator.hasNext()) {
+        for(ManagementObject entry : managementObjects) {
 
-            ManagementObject obj = mIterator.next();
-            obj.mouseReleased(e);
+            entry.mouseReleased(e);
         }
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
 
-        Iterator<GraphicalObject> iterator = graphicalObjects.iterator();
-        while (iterator.hasNext()) {
+        for(Map.Entry<GraphicalObject, Integer> entry : graphicalObjects.entrySet()) {
 
-            GraphicalObject obj = iterator.next();
+            GraphicalObject obj = entry.getKey();
             if(obj instanceof AdvancedInteractableObject) {
 
                 ((AdvancedInteractableObject) obj).mouseDragged(e);
@@ -252,10 +265,9 @@ public class DrawingPanel extends Panel implements KeyListener, MouseListener, M
     @Override
     public void mouseMoved(MouseEvent e) {
 
-        Iterator<GraphicalObject> iterator = graphicalObjects.iterator();
-        while (iterator.hasNext()) {
+        for(Map.Entry<GraphicalObject, Integer> entry : graphicalObjects.entrySet()) {
 
-            GraphicalObject obj = iterator.next();
+            GraphicalObject obj = entry.getKey();
             if(obj instanceof AdvancedInteractableObject) {
 
                 ((AdvancedInteractableObject) obj).mouseMoved(e);
@@ -281,10 +293,9 @@ public class DrawingPanel extends Panel implements KeyListener, MouseListener, M
     @Override
     public void mousePressed(MouseEvent e) {
 
-        Iterator<GraphicalObject> iterator = graphicalObjects.iterator();
-        while (iterator.hasNext()) {
+        for(Map.Entry<GraphicalObject, Integer> entry : graphicalObjects.entrySet()) {
 
-            GraphicalObject obj = iterator.next();
+            GraphicalObject obj = entry.getKey();
             if(obj instanceof AdvancedInteractableObject) {
 
                 ((AdvancedInteractableObject) obj).mousePressed(e);

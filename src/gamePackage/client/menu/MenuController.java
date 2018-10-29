@@ -8,7 +8,7 @@ import toolBox.Button;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-        public class MenuController implements ManagementObject {
+    public class MenuController implements ManagementObject {
 
                 //Attribute
             /**
@@ -77,9 +77,12 @@ import java.awt.event.MouseEvent;
 
         public void removeMainMenu() {
 
-            mainMenu.remove();
-            display.getActivePanel().removeObjectFromPanel(mainMenu);
-            mainMenu = null;
+            if(mainMenu != null) {
+
+                mainMenu.remove();
+                display.getActivePanel().removeObjectFromPanel(mainMenu);
+                mainMenu = null;
+            }
         }
 
         //
@@ -129,10 +132,13 @@ import java.awt.event.MouseEvent;
 
         public void removeNameMenu() {
 
-            username = nameMenu.getNameInput().getInputQuerry();
-            nameMenu.remove();
-            display.getActivePanel().removeObjectFromPanel(nameMenu);
-            nameMenu = null;
+            if(nameMenu != null) {
+
+                username = nameMenu.getNameInput().getInputQuerry();
+                nameMenu.remove();
+                display.getActivePanel().removeObjectFromPanel(nameMenu);
+                nameMenu = null;
+            }
         }
 
         public void createSingleplayer(){

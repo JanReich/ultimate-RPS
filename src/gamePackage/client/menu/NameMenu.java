@@ -82,22 +82,23 @@ import java.awt.image.BufferedImage;
         @Override
         public void update(double dt) {
 
-            if(ok.isClicked()) {
+            if(ok != null)
+                if(ok.isClicked()) {
 
-                if(getNameInput().getInputQuerry().length() >= 3) {
+                    if(getNameInput().getInputQuerry().length() >= 3) {
 
-                    if(gameType.equalsIgnoreCase("duell")) {
+                        if(gameType.equalsIgnoreCase("duell")) {
 
-                        controller.removeNameMenu();
-                        controller.createMultiplayerMenu(gameType);
-                    } else if(gameType.equalsIgnoreCase("tournament")) {
+                            controller.removeNameMenu();
+                            controller.createMultiplayerMenu(gameType);
+                        } else if(gameType.equalsIgnoreCase("tournament")) {
 
-                        controller.removeNameMenu();
-                        controller.createMultiplayerMenu(gameType);
-                    }
-                } else
-                    errorID = 1;
-            }
+                            controller.removeNameMenu();
+                            controller.createMultiplayerMenu(gameType);
+                        }
+                    } else
+                        errorID = 1;
+                }
         }
 
         public Inputmanager getNameInput() {

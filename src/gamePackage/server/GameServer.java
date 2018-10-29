@@ -1,6 +1,7 @@
 package gamePackage.server;
 
 import abitur.netz.Server;
+import cryptography.RSA;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ import java.util.Map;
             private final boolean spectatingAllowed;
 
                 //Referenzen
+            private RSA rsa;
             private String gameType;
             private List<String> names;
             private String[] clientIDs;
@@ -31,6 +33,7 @@ import java.util.Map;
 
             super(pPort);
 
+            this.rsa = new RSA();
             this.gameType = gameType;
             this.minPlayers = minPlayers;
             this.maxPlayers = maxPlayers;
@@ -157,6 +160,29 @@ import java.util.Map;
                 }
             }
 
+                //Format - GetPublicKey:
+            if(pMessage.startsWith("GetPublicKey:")) {
+
+                send(pClientIP, pClientPort, rsa.getPublicKey());
+            }
+
+                //Format - Chat: <Name>: <Message>
+            if(pMessage.startsWith("Chat: ")) {
+
+                String[] messages = pMessage.split(": ");
+                String decryptedMessage = rsa.decryptMessage(messages[2], rsa.getPrivateKey());
+
+                for(Map.Entry<String, ClientData> client : clients.entrySet()) {
+
+                    send(client.getValue().getClientIP(), client.getValue().getPort(), "Chat: " + client.getValue().getUsername() + ": " + rsa.encryptMessage(decryptedMessage, client.getValue().getPublicKey()));
+                }
+            }
+
+            if(pMessage.startsWith("PublicKey: ")) {
+
+                clients.get(pClientIP).setPublicKey(pMessage);
+            }
+
             if(pMessage.startsWith("CountdownOver: ")) {
 
                 if(countdown && !started)  {
@@ -256,6 +282,7 @@ import java.util.Map;
             else if(pMessage.startsWith("Choose: ") || pMessage.startsWith("CloseServer: ") || pMessage.startsWith("BackToMenu: ")) {
 
                 sendToAll(pMessage);
+                close();
             }
         }
 

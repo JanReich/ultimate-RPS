@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-public abstract class Menu implements BasicInteractableObject {
+    public abstract class Menu implements BasicInteractableObject {
 
                 //Attribute
 

@@ -1,6 +1,7 @@
 package gamePackage.client;
 
 import abitur.netz.Client;
+import cryptography.RSA;
 import gamePackage.client.menu.CannotConnect;
 import gamePackage.client.menu.KickedMenu;
 import gamePackage.client.menu.Lobby;
@@ -17,6 +18,8 @@ import java.util.Map;
                 //Attribute
 
                 //Referenzen
+            private RSA rsa;
+            private Chat chat;
             private Lobby lobby;
             private ClientData data;
             private Userinterface userInterface;
@@ -24,18 +27,22 @@ import java.util.Map;
             private HashMap<Integer, ClientData> connectedSpectators;
 
             private Display display;
+            private String publicServerKey;
 
         public GameClient(Display display, String pServerIP, int pServerPort, String gameType, String username, boolean spectator, boolean host) {
 
             super(pServerIP, pServerPort);
 
+            rsa = new RSA();
             this.display = display;
             connectedPlayers = new HashMap<>();
             connectedSpectators = new HashMap<>();
 
+            chat = new Chat();
+            display.getActivePanel().drawObjectOnPanel(chat);
+
             data = new ClientData(username, spectator, host);
             registerClient(gameType);
-
         }
 
         @Override
@@ -67,7 +74,29 @@ import java.util.Map;
                     display.getActivePanel().drawObjectOnPanel(userInterface);
                 }
 
+                send(rsa.getPublicKey());
+                send("GetPublicKey: ");
                 send("GetAvailableSpectatorID: ");
+            }
+
+                //Format - Chat: <Name>: <Message>
+            if(pMessage.startsWith("Chat: ")) {
+
+                String[] messages = pMessage.split(": ");
+                rsa.decryptMessage(messages[2], rsa.getPrivateKey());
+            }
+
+                //Format - GetPublicKey:
+            if(pMessage.startsWith("GetPublicKey:")) {
+
+                send(rsa.getPublicKey());
+            }
+
+            if(pMessage.startsWith("PublicKey: ")) {
+
+                publicServerKey = pMessage;
+
+                sendChatMessage("Dave Stinkt");
             }
 
                 //Format - AvailableSpectatorID: <specID>
@@ -427,6 +456,11 @@ import java.util.Map;
 
                 send("GetAvailableSpectatorID: ");
             }
+        }
+
+        public void sendChatMessage(String message) {
+
+            send("Chat: " + data.getUsername() + ": " + rsa.encryptMessage(message, publicServerKey));
         }
 
         public void closeServer() {

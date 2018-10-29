@@ -11,7 +11,6 @@ import java.awt.event.MouseEvent;
     public class MultiPlayerMenu extends Menu {
 
                 //Attribute
-            private boolean crtlPressed;
 
                 //Referenzen
             private Button join;
