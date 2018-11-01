@@ -2,6 +2,8 @@ package cryptography;
 
 import toolBox.Math;
 
+import java.math.BigInteger;
+
 public class KeyExchange {
 
     private long P;
@@ -62,5 +64,7 @@ public class KeyExchange {
         System.out.println("Der zweite SecretKey ist "+ kb);
 
     }
+
+
 
 }
