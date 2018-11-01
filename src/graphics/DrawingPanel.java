@@ -87,6 +87,8 @@ public class DrawingPanel extends Panel implements KeyListener, MouseListener, M
                 } else System.err.println("[Error] Es wird versucht ein Objekt == null zuzeichnen");
             }
 
+            graphicalObjects = sortHashMap(graphicalObjects);
+
             for(ManagementObject obj : managementObjects) {
 
                 obj.update(delta / 1000);

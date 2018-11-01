@@ -174,7 +174,7 @@ import java.util.Map;
 
                 for(Map.Entry<String, ClientData> client : clients.entrySet()) {
 
-                    send(client.getValue().getClientIP(), client.getValue().getPort(), "Chat: " + client.getValue().getUsername() + ": " + rsa.encryptMessage(decryptedMessage, client.getValue().getPublicKey()));
+                    send(client.getValue().getClientIP(), client.getValue().getPort(), "Chat: " + messages [1] + ": " + rsa.encryptMessage(decryptedMessage, client.getValue().getPublicKey()));
                 }
             }
 
