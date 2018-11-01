@@ -1,6 +1,5 @@
 package main;
 
-import cryptography.KeyExchange;
 import gamePackage.client.menu.MenuController;
 
 import graphics.Display;
@@ -29,8 +28,7 @@ public class MainProgram {
                 @Override
                 public void run() {
 
-                    new MainProgram();
-                }
+                    new MainProgram();                }
             });
         }
     }
