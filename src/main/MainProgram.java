@@ -31,7 +31,7 @@ public class MainProgram {
 
                     new MainProgram();
 
-                    new KeyExchange();
+                    new KeyExchange() ;
                 }
             });
         }
