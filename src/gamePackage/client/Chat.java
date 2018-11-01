@@ -51,6 +51,7 @@ import java.util.ArrayList;
             draw.fillRec(50, 725, 550, 120);
             draw.setColour(Color.BLACK);
 
+
             if(messages.size() >= 3) {
 
                 draw.drawString("<" + messages.get(messages.size() - 3).getUsername() + ">: " + messages.get(messages.size() - 3).getMessage(), 75,760);
