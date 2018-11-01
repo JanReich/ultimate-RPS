@@ -1,5 +1,7 @@
 package cryptography;
 
+import toolBox.Math;
+
 public class KeyExchange {
 
     private long P;
@@ -13,13 +15,17 @@ public class KeyExchange {
 
     public KeyExchange(){
 
-        P =(int)(Math.random()*10000000);
+        //Es wird eine Primzahl P und eine natürliche Zahl G bestimmt
 
-        G =(int)(Math.random()*10000000);
+        P = Math.generatePrime((int) (java.lang.Math.random() * 1000));
 
-        a =(int)(Math.random()*10000000);
+        G =(int)(java.lang.Math.random() * 1000);
 
-        b =(int)(Math.random()*10000000);
+        //Es werden zwei private Schlüssel a und b generiert/ausgesucht
+
+        a =(int)(java.lang.Math.random() * 1000);
+
+        b =(int)(java.lang.Math.random() * 1000);
 
         System.out.println("Der erste PublicKey ist "+ P);
 
@@ -36,6 +42,7 @@ public class KeyExchange {
 
     public void generateKeys(){
 
+        //Es wird nach einer Formel die öffentlichen Schlüssel x und y berechnet/generiert
 
         x = G^a % P;
 
@@ -44,6 +51,8 @@ public class KeyExchange {
         System.out.println("Der erste neue PublicKey ist "+ x);
 
         System.out.println("Der zweite neue PublicKey ist "+ y);
+
+        //Es wird nach einer Formel der gemeinsame geheime Schlüssel gefunden
 
         ka = y^a % P;
         kb = x^b % P;
