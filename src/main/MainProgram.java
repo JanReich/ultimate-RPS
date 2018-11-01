@@ -30,8 +30,6 @@ public class MainProgram {
                 public void run() {
 
                     new MainProgram();
-
-                    new KeyExchange();
                 }
             });
         }
