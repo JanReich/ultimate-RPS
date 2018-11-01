@@ -50,9 +50,6 @@ import java.math.BigInteger;
 
             publicKey = "PublicKey: e: " + e + ": n: " + n;
             privateKey = "PrivateKey: d: " + d + ": n: " + n;
-
-            System.out.println(""+ privateKey);
-            System.out.println(""+ publicKey);
         }
 
         public String encryptMessage(String message, String publicKey) {

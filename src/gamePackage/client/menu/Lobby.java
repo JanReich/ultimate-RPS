@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Lobby extends Menu {
+    public class Lobby extends Menu {
 
                 //Attribute
             private boolean maxSpec;
