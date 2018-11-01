@@ -27,9 +27,9 @@ public class KeyExchange {
 
         b =(int)(java.lang.Math.random() * 1000);
 
-        System.out.println("Der erste PublicKey ist "+ P);
+        System.out.println("Die gemeinsame Primzahl ist "+ P);
 
-        System.out.println("Der zweite PublicKey ist "+ G);
+        System.out.println("Der gemeinsame natürliche Zahl ist "+ G);
 
         System.out.println("Der erste PrivateKey ist "+ a);
 
