@@ -30,14 +30,14 @@ public class DrawingPanel extends Panel implements KeyListener, MouseListener, M
     private DrawHelper drawHelper;
 
     // Integer = zIndex && BasicInterface == Object
-    private Map<GraphicalObject, Integer> graphicalObjects;
+    private LinkedHashMap<GraphicalObject, Integer> graphicalObjects;
     private ArrayList<ManagementObject> managementObjects;
 
     public DrawingPanel(DisplayConfig config) {
 
         this.config = config;
         managementObjects = new ArrayList<>();
-        this.graphicalObjects = new HashMap<>();
+        this.graphicalObjects = new LinkedHashMap<>();
 
         setDoubleBuffered(true);
 
@@ -172,7 +172,7 @@ public class DrawingPanel extends Panel implements KeyListener, MouseListener, M
         }
     }
 
-    public Map<GraphicalObject, Integer> sortHashMap(Map<GraphicalObject, Integer> unsorted) {
+    public LinkedHashMap<GraphicalObject, Integer> sortHashMap(Map<GraphicalObject, Integer> unsorted) {
 
         Object[] objects = unsorted.entrySet().toArray();
         Arrays.sort(objects, new Comparator() {
@@ -181,7 +181,7 @@ public class DrawingPanel extends Panel implements KeyListener, MouseListener, M
             }
         });
 
-        Map<GraphicalObject, Integer> map = new HashMap<>();
+        LinkedHashMap<GraphicalObject, Integer> map = new LinkedHashMap<>();
         for (Object e : objects) {
 
             map.put(((Map.Entry<GraphicalObject, Integer>) e).getKey(), ((Map.Entry<GraphicalObject, Integer>) e).getValue());

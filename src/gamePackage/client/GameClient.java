@@ -38,9 +38,6 @@ import java.util.Map;
             connectedPlayers = new HashMap<>();
             connectedSpectators = new HashMap<>();
 
-            chat = new Chat();
-            display.getActivePanel().drawObjectOnPanel(chat);
-
             data = new ClientData(username, spectator, host);
             registerClient(gameType);
         }
@@ -67,12 +64,15 @@ import java.util.Map;
                 if(!started) {
 
                     lobby = new Lobby(display, this);
-                    display.getActivePanel().drawObjectOnPanel(lobby);
+                    display.getActivePanel().drawObjectOnPanel(lobby, 1);
                 } else {
 
                     userInterface = new Userinterface(display, this);
                     display.getActivePanel().drawObjectOnPanel(userInterface);
                 }
+
+                chat = new Chat(display, this);
+                display.getActivePanel().drawObjectOnPanel(chat, 3);
 
                 send(rsa.getPublicKey());
                 send("GetPublicKey: ");
@@ -83,7 +83,7 @@ import java.util.Map;
             if(pMessage.startsWith("Chat: ")) {
 
                 String[] messages = pMessage.split(": ");
-                rsa.decryptMessage(messages[2], rsa.getPrivateKey());
+                chat.processNewMessage(messages[1], rsa.decryptMessage(messages[2], rsa.getPrivateKey()));
             }
 
                 //Format - GetPublicKey:
@@ -95,8 +95,6 @@ import java.util.Map;
             if(pMessage.startsWith("PublicKey: ")) {
 
                 publicServerKey = pMessage;
-
-                sendChatMessage("Dave Stinkt");
             }
 
                 //Format - AvailableSpectatorID: <specID>
