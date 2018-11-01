@@ -21,8 +21,8 @@ import java.math.BigInteger;
 
         public RSA() {
 
-            p = Math.generatePrime((int) (java.lang.Math.random() * 1000));
-            q = Math.generatePrime((int) (java.lang.Math.random() * 1000));
+            p = Math.generatePrime((int) (java.lang.Math.random() * 1000) + 2000);
+            q = Math.generatePrime((int) (java.lang.Math.random() * 1000) + 1000);
 
             generateKeys();
         }
