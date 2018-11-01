@@ -1,5 +1,7 @@
 package main;
 
+import cryptography.KeyExchange;
+import cryptography.RSA;
 import gamePackage.client.menu.MenuController;
 
 import graphics.Display;
@@ -29,6 +31,10 @@ public class MainProgram {
                 public void run() {
 
                     new MainProgram();
+
+                    new KeyExchange();
+
+                    new RSA();
                 }
             });
         }
