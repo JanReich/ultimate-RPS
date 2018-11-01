@@ -13,13 +13,13 @@ public class KeyExchange {
 
     public KeyExchange(){
 
-        P =(int)(Math.random()*100000000);
+        P =(int)(Math.random()*10000000);
 
-        G =(int)(Math.random()*100000000);
+        G =(int)(Math.random()*10000000);
 
-        a =(int)(Math.random()*100000000);
+        a =(int)(Math.random()*10000000);
 
-        b =(int)(Math.random()*100000000);
+        b =(int)(Math.random()*10000000);
 
         System.out.println("P ist "+ P);
 
