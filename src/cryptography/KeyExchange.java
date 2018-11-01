@@ -21,9 +21,9 @@ public class KeyExchange {
 
         b =(int)(Math.random()*10000000);
 
-        System.out.println("P ist "+ P);
+        System.out.println("Der erste PublicKey ist "+ P);
 
-        System.out.println("G ist "+ G);
+        System.out.println("Der zweite PublicKey ist "+ G);
 
         System.out.println("Der erste PrivateKey ist "+ a);
 
