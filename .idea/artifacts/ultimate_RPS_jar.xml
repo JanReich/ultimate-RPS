@@ -1,8 +1,9 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="ultimate-RPS:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/ultimate_RPS_jar</output-path>
-    <root id="archive" name="ultimate-RPS.jar">
-      <element id="module-output" name="ultimate-RPS" />
+  <artifact type="jar" name="ultimate-rps:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ultimate_rps_jar</output-path>
+    <root id="archive" name="ultimate-rps_jar.jar">
+      <element id="module-output" name="ultimate-rps" />
+      <element id="archive" name="archive.jar" />
     </root>
   </artifact>
 </component>

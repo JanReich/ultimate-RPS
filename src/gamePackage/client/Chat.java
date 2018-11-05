@@ -49,24 +49,25 @@ import java.util.ArrayList;
 
             draw.setColour(new Color(0, 0, 0, 160));
             draw.fillRec(50, 725, 550, 120);
-            draw.setColour(Color.BLACK);
+            draw.setColour(new Color(200, 200, 200, 255));
+
+            draw.setFont(new Font("Impact", Font.PLAIN, 18));
 
 
-            if(messages.size() >= 3) {
+            if(messages.size() >= 5) {
 
-                draw.drawString("<" + messages.get(messages.size() - 3).getUsername() + ">: " + messages.get(messages.size() - 3).getMessage(), 75,760);
-                draw.drawString("<" + messages.get(messages.size() - 2).getUsername() + ">: " + messages.get(messages.size() - 2).getMessage(), 75,800);
-                draw.drawString("<" + messages.get(messages.size() - 1).getUsername() + ">: " + messages.get(messages.size() - 1).getMessage(), 75,840);
+                draw.drawString("<" + messages.get(messages.size() - 5).getUsername() + ">: " + messages.get(messages.size() - 5).getMessage(), 75,750);
+                draw.drawString("<" + messages.get(messages.size() - 4).getUsername() + ">: " + messages.get(messages.size() - 4).getMessage(), 75,770);
+                draw.drawString("<" + messages.get(messages.size() - 3).getUsername() + ">: " + messages.get(messages.size() - 3).getMessage(), 75,790);
+                draw.drawString("<" + messages.get(messages.size() - 2).getUsername() + ">: " + messages.get(messages.size() - 2).getMessage(), 75,810);
+                draw.drawString("<" + messages.get(messages.size() - 1).getUsername() + ">: " + messages.get(messages.size() - 1).getMessage(), 75,830);
             } else {
 
-                if(messages.size() == 2) {
+                for (int i = 0; i < messages.size(); i++) {
+                    draw.drawString("<" + messages.get(i).getUsername() + ">: " + messages.get(i).getMessage(), 75,750+20*i);
 
-                    draw.drawString("<" + messages.get(0).getUsername() + ">: " + messages.get(0).getMessage(), 75,760);
-                    draw.drawString("<" + messages.get(1).getUsername() + ">: " + messages.get(1).getMessage(), 75,800);
-                } else if(messages.size() == 1) {
-
-                    draw.drawString("<" + messages.get(0).getUsername() + ">: " + messages.get(0).getMessage(), 75,760);
                 }
+
             }
         }
 

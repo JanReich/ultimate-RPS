@@ -52,6 +52,7 @@ import java.util.Map;
             super(display);
             this.gameClient = gameClient;
 
+
             //DisconnectButton
             if(gameClient.getData().isHost())
                 disconnect = new Button(683, 810, 240, 60, "res/images/menu/buttons/close-server-button", true);
@@ -105,6 +106,7 @@ import java.util.Map;
 
         @Override
         public void draw(DrawHelper draw) {
+
 
                 //draw background
             draw.drawImage(background, 0, 0, display.getWidth(), display.getHeight());
